@@ -1,0 +1,24 @@
+{
+  "expo": {
+    "name": "Kidsuu",
+    "slug": "kidsuu",
+    "version": "0.1.0",
+    "orientation": "default",
+    "userInterfaceStyle": "light",
+    "icon": "./src/shared/assets/brand/app-icon.png",
+    "ios": {
+      "supportsTablet": true
+    },
+    "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#FFFAF2",
+          "image": "./src/shared/assets/brand/app-icon.png",
+          "imageWidth": 220
+        }
+      ],
+      "expo-status-bar"
+    ]
+  }
+}

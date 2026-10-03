@@ -1,0 +1,7 @@
+package-lock.json
+src/**/rig.json
+src/**/choreography.json
+node_modules/
+.expo/
+dist/
+coverage/

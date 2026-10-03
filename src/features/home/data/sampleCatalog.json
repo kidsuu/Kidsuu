@@ -1,0 +1,91 @@
+{
+  "categories": [
+    {
+      "id": "learning",
+      "name": "Learning",
+      "hint": "Little discoveries",
+      "color": "#DFEBF5",
+      "ink": "#497AA4"
+    },
+    {
+      "id": "games",
+      "name": "Games",
+      "hint": "Play & solve",
+      "color": "#E0EEE4",
+      "ink": "#51826C"
+    },
+    {
+      "id": "rhymes",
+      "name": "Rhymes",
+      "hint": "Sing & wiggle",
+      "color": "#F8E4D9",
+      "ink": "#AF795F"
+    },
+    {
+      "id": "stories",
+      "name": "Stories",
+      "hint": "Wonder awaits",
+      "color": "#ECE3F5",
+      "ink": "#8A68AC"
+    }
+  ],
+  "ages": ["2–3", "4–5", "6–7", "8–9"],
+  "activities": [
+    {
+      "id": "colours",
+      "category": "learning",
+      "titles": ["Hello, colours!", "Colour explorers", "Word builders", "Word explorers"],
+      "minutes": [3, 4, 5, 7],
+      "description": "A little discovery, a playful question, and something new to try."
+    },
+    {
+      "id": "count",
+      "category": "learning",
+      "titles": ["One, two, three", "Count with me", "Number adventures", "Math missions"],
+      "minutes": [3, 4, 6, 8],
+      "description": "Make friends with numbers through small, hands-on discoveries."
+    },
+    {
+      "id": "shapes",
+      "category": "games",
+      "titles": ["Find the same", "Shape safari", "Pattern detectives", "Logic island"],
+      "minutes": [3, 5, 6, 8],
+      "description": "Look closely, try an idea, and find a playful little solution."
+    },
+    {
+      "id": "pairs",
+      "category": "games",
+      "titles": ["Big and small", "Match the pairs", "Memory meadow", "Puzzle quest"],
+      "minutes": [3, 4, 5, 7],
+      "description": "A gentle matching adventure for curious minds."
+    },
+    {
+      "id": "clap",
+      "category": "rhymes",
+      "titles": ["Clap, clap, hooray!", "Clap & count", "Rhythm makers", "Rhyme lab"],
+      "minutes": [2, 3, 4, 5],
+      "description": "Clap along, move a little, and explore the joy of rhythm."
+    },
+    {
+      "id": "rainbow",
+      "category": "rhymes",
+      "titles": ["Animal sounds", "Rainbow rhythm", "Counting beats", "Make a rhythm"],
+      "minutes": [2, 3, 4, 5],
+      "description": "A cheerful musical moment to enjoy together."
+    },
+    {
+      "id": "moon",
+      "category": "stories",
+      "titles": ["Little moon", "The sleepy moon", "The moon garden", "The starlight map"],
+      "minutes": [3, 5, 6, 8],
+      "description": "Follow a little moon on a gentle adventure under the stars."
+    },
+    {
+      "id": "bear",
+      "category": "stories",
+      "titles": ["Bear says hello", "A very kind bear", "Brave little bear", "The kindness club"],
+      "minutes": [3, 4, 6, 7],
+      "description": "A warm little story about kindness, friendship, and trying something new."
+    }
+  ]
+}

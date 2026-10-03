@@ -1,0 +1,582 @@
+{
+  "width": 1000,
+  "height": 970,
+  "duration": 4800,
+  "boy": {
+    "sourceWidth": 848,
+    "sourceHeight": 1264,
+    "x": 90,
+    "y": 0,
+    "width": 455,
+    "height": 678.21,
+    "rig": {
+      "id": "boy-root",
+      "pivot": [
+        424,
+        813
+      ],
+      "motion": {
+        "y": [
+          0,
+          -5,
+          -11,
+          -5,
+          0,
+          -4,
+          -8,
+          -4,
+          0
+        ],
+        "rotate": [
+          0,
+          -0.7,
+          0,
+          0.7,
+          0,
+          -0.7,
+          0,
+          0.7,
+          0
+        ]
+      },
+      "children": [
+        {
+          "id": "left-leg",
+          "pivot": [
+            349,
+            843
+          ],
+          "asset": "boy-leg-left",
+          "motion": {
+            "rotate": [
+              0,
+              1.5,
+              2,
+              1,
+              0,
+              -1,
+              -1.5,
+              -1,
+              0
+            ]
+          },
+          "children": [
+            {
+              "id": "left-shoe",
+              "pivot": [
+                337,
+                1084
+              ],
+              "asset": "boy-shoe-left",
+              "motion": {
+                "rotate": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  -4,
+                  -7,
+                  -3,
+                  0
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "right-leg",
+          "pivot": [
+            496,
+            843
+          ],
+          "asset": "boy-leg-right",
+          "motion": {
+            "rotate": [
+              0,
+              -1,
+              -1.5,
+              -1,
+              0,
+              1.5,
+              2,
+              1,
+              0
+            ]
+          },
+          "children": [
+            {
+              "id": "right-shoe",
+              "pivot": [
+                516,
+                1084
+              ],
+              "asset": "boy-shoe-right",
+              "motion": {
+                "rotate": [
+                  0,
+                  3,
+                  6,
+                  3,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "down-arm",
+          "pivot": [
+            309,
+            577
+          ],
+          "asset": "boy-down-arm",
+          "motion": {
+            "rotate": [
+              0,
+              3,
+              5,
+              3,
+              0,
+              -3,
+              -4,
+              -2,
+              0
+            ]
+          }
+        },
+        {
+          "id": "wave-arm",
+          "pivot": [
+            538,
+            556
+          ],
+          "asset": "boy-wave-arm",
+          "motion": {
+            "rotate": [
+              0,
+              -4,
+              2,
+              -4,
+              2,
+              -2,
+              0,
+              0,
+              0
+            ]
+          },
+          "children": [
+            {
+              "id": "waving-hand",
+              "pivot": [
+                678,
+                473
+              ],
+              "asset": "boy-hand",
+              "motion": {
+                "rotate": [
+                  0,
+                  -13,
+                  12,
+                  -13,
+                  12,
+                  -7,
+                  0,
+                  0,
+                  0
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "head",
+          "pivot": [
+            429,
+            516
+          ],
+          "asset": "boy-head",
+          "motion": {
+            "rotate": [
+              0,
+              -1.5,
+              -2,
+              -1,
+              0,
+              1.5,
+              2,
+              1,
+              0
+            ]
+          }
+        },
+        {
+          "id": "torso",
+          "pivot": [
+            424,
+            814
+          ],
+          "asset": "boy-torso",
+          "motion": {
+            "scaleX": [
+              1,
+              1.005,
+              1.012,
+              1.005,
+              1,
+              1.005,
+              1.01,
+              1.005,
+              1
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "dog": {
+    "sourceWidth": 1024,
+    "sourceHeight": 1024,
+    "x": 480,
+    "y": 174,
+    "width": 510,
+    "height": 510,
+    "rig": {
+      "id": "dog-root",
+      "pivot": [
+        540,
+        817
+      ],
+      "motion": {
+        "y": [
+          0,
+          -5,
+          -10,
+          -5,
+          0,
+          -5,
+          -10,
+          -5,
+          0
+        ],
+        "rotate": [
+          0,
+          0.6,
+          0,
+          -0.6,
+          0,
+          0.6,
+          0,
+          -0.6,
+          0
+        ]
+      },
+      "children": [
+        {
+          "id": "back-left",
+          "pivot": [
+            664,
+            707
+          ],
+          "asset": "dog-leg-back-left",
+          "motion": {
+            "rotate": [
+              0,
+              -2,
+              0,
+              2,
+              0,
+              -2,
+              0,
+              2,
+              0
+            ]
+          }
+        },
+        {
+          "id": "back-right",
+          "pivot": [
+            782,
+            704
+          ],
+          "asset": "dog-leg-back-right",
+          "motion": {
+            "rotate": [
+              0,
+              2,
+              0,
+              -2,
+              0,
+              2,
+              0,
+              -2,
+              0
+            ]
+          }
+        },
+        {
+          "id": "tail",
+          "pivot": [
+            800,
+            467
+          ],
+          "asset": "dog-tail",
+          "motion": {
+            "rotate": [
+              0,
+              15,
+              0,
+              -15,
+              0,
+              15,
+              0,
+              -15,
+              0
+            ]
+          }
+        },
+        {
+          "id": "body",
+          "pivot": [
+            560,
+            740
+          ],
+          "asset": "dog-body",
+          "motion": {
+            "scaleY": [
+              1,
+              1.005,
+              1.01,
+              1.005,
+              1,
+              1.005,
+              1.01,
+              1.005,
+              1
+            ]
+          }
+        },
+        {
+          "id": "front-left",
+          "pivot": [
+            326,
+            700
+          ],
+          "asset": "dog-leg-front-left",
+          "motion": {
+            "rotate": [
+              0,
+              -3,
+              -4,
+              -2,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              -3,
+              -7,
+              -3,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "id": "front-right",
+          "pivot": [
+            512,
+            661
+          ],
+          "asset": "dog-leg-front-right",
+          "motion": {
+            "rotate": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              3,
+              5,
+              2,
+              0
+            ],
+            "y": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              -4,
+              -9,
+              -4,
+              0
+            ]
+          }
+        },
+        {
+          "id": "head",
+          "pivot": [
+            371,
+            527
+          ],
+          "motion": {
+            "rotate": [
+              0,
+              -1.5,
+              -2,
+              -1,
+              0,
+              1.5,
+              2,
+              1,
+              0
+            ]
+          },
+          "children": [
+            {
+              "id": "ear-left",
+              "pivot": [
+                252,
+                213
+              ],
+              "asset": "dog-ear-left",
+              "motion": {
+                "rotate": [
+                  0,
+                  5,
+                  7,
+                  3,
+                  0,
+                  -4,
+                  -6,
+                  -3,
+                  0
+                ]
+              }
+            },
+            {
+              "id": "face",
+              "pivot": [
+                371,
+                527
+              ],
+              "asset": "dog-face"
+            },
+            {
+              "id": "ear-right",
+              "pivot": [
+                497,
+                226
+              ],
+              "asset": "dog-ear-right",
+              "motion": {
+                "rotate": [
+                  0,
+                  -5,
+                  -8,
+                  -3,
+                  0,
+                  4,
+                  6,
+                  3,
+                  0
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "wordmark": {
+    "x": 0,
+    "y": 648,
+    "width": 1000,
+    "height": 322.73262661955243
+  },
+  "decorations": [
+    {
+      "asset": "star",
+      "x": 266,
+      "y": 630,
+      "width": 72,
+      "height": 72,
+      "rotate": [
+        0,
+        -7,
+        0,
+        7,
+        0,
+        -7,
+        0,
+        7,
+        0
+      ]
+    },
+    {
+      "asset": "confetti-green",
+      "x": 950,
+      "y": 530,
+      "width": 24,
+      "height": 36,
+      "rotate": [
+        0,
+        5,
+        0,
+        -5,
+        0,
+        5,
+        0,
+        -5,
+        0
+      ]
+    },
+    {
+      "asset": "confetti-blue",
+      "x": 966,
+      "y": 568,
+      "width": 32,
+      "height": 23,
+      "rotate": [
+        0,
+        -5,
+        0,
+        5,
+        0,
+        -5,
+        0,
+        5,
+        0
+      ]
+    },
+    {
+      "asset": "confetti-coral",
+      "x": 962,
+      "y": 607,
+      "width": 28,
+      "height": 17,
+      "rotate": [
+        0,
+        5,
+        0,
+        -5,
+        0,
+        5,
+        0,
+        -5,
+        0
+      ]
+    }
+  ]
+}
