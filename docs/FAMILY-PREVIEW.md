@@ -6,7 +6,7 @@ Native profile picker, parent profile editor (nickname/age band/avatar, maximum 
 
 Four original text-based sample activities cover colours/words, counting/arithmetic, shapes/patterns and matching. Each activity has five checkpoints across age bands so the backend's fixed-total rule remains consistent. Completed answers advance progress only after the repository accepts the write. Replaying does not reduce progress. No fabricated time tracking, scores or educational mastery claims.
 
-These are **samples**, not a full ages 2–9 curriculum. Some prompts require a grown-up to read. Rhymes/stories still display an honest unavailable-content screen. No licensed media or generated singing is included.
+These are **samples**, not a full ages 2–9 curriculum. Some prompts require a grown-up to read. Rhymes/stories now open 16 age-wise original editorial drafts (80 pages/verses), with optional OS-device read-aloud and explicit explored-page checkpoints. No recorded songs or generated singing is included. See READERS.md.
 
 ## Run and try
 
@@ -25,11 +25,11 @@ These are **samples**, not a full ages 2–9 curriculum. Some prompts require a 
 - API errors never switch the user into demo mode. Server ownership/JWT/reauth checks remain unchanged.
 - UI parent confirmation is deliberately labelled as demo, **not a PIN, identity check, adult verification or legal consent**. Background/exit/five-minute relock is a preview UX precaution, not a replacement for server authorization.
 - Store serializes mutations, suppresses duplicate taps, handles version conflicts, clears old profile progress before selection and rejects late async responses. No offline write queue, silent retries or saved-success claim on network failure.
-- Settings persist in the demo session. Sound preference awaits an audio player; daily goal is not an enforced limit.
+- Settings persist in the demo session. Sound preference controls optional reader narration; daily goal is not an enforced limit.
 
 ## Still needed before calling “everything except auth” complete
 
-- Reviewed full activity content; native rhyme/story/audio players and pause/resume/background lifecycle.
+- Full reviewed curriculum and any recorded music/media. Text readers and device narration lifecycle are implemented, but not yet verified on physical hardware.
 - Product decision on durable offline storage, encryption, retention, sync/conflict policy and bookmarks backend support.
 - Actual tablet rotation/font-scale/TalkBack/VoiceOver/touch/performance testing; see TABLET-QA.md.
 - Android package ID and build/signing ownership confirmed by owner; native SDK/build access.

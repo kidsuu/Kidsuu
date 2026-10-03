@@ -23,7 +23,7 @@ This repository is a tested app foundation, **not release-ready**. `npm run chec
 ## Already verified locally
 
 - Strict TypeScript, zero-warning ESLint, Prettier and static asset references.
-- 54 app unit tests, including release auth refusal, demo-only flows, 805 pane geometries, sample catalog consistency and 241-pose loop seam integrity.
+- 72 app unit tests, including release auth refusal, demo-only flows, 805 pane geometries, sample catalog consistency and 241-pose loop seam integrity.
 - Android and iOS Metro production JavaScript exports on Expo SDK 57.
 - Release bundles exclude the demo account/engine and include fail-closed authentication.
 
@@ -39,4 +39,8 @@ Protected family-data endpoints, D1 schema/migrations, ownership checks, recent-
 - Four original text-only practice samples with five checkpoints each; no learning-score or elapsed-time claims.
 - API-compatible repository seam, explicit loading/error/empty states, no automatic mutation retries, conflict handling and stale-read suppression.
 - Eight moderate dependency findings removed by a scoped/tested override; sixteen high findings remain.
-- Parent gate, durable/cloud sync, actual media players, complete curriculum review, APK and real tablet QA **remain open**. See FAMILY-PREVIEW.md and TABLET-QA.md.
+- Parent gate, durable/cloud sync, recorded media/music, complete curriculum review, APK and real tablet QA **remain open**. See FAMILY-PREVIEW.md and TABLET-QA.md.
+
+## Reader follow-up
+
+Story/rhyme text readers now include 16 original age-wise drafts, 80 pages/verses, explicit explored-page progress and optional device TTS with stop/background/exit handling. This is not recorded music or singing. Pure tests and JS exports are not audible-device verification; privacy/educator review and native audio/a11y testing remain required. See READERS.md.

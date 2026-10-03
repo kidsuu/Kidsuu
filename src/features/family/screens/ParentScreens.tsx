@@ -129,7 +129,7 @@ export function ParentSettings({
           />
         </View>
         <Text style={s.body}>
-          Saved for future audio players. Current practice cards are silent.
+          Controls optional device read-aloud in Stories and Rhymes. Practice cards stay silent.
         </Text>
         <Text style={s.label}>Daily goal in minutes (5–60)</Text>
         <TextInput

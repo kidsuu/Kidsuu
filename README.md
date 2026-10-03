@@ -2,7 +2,7 @@
 
 Tablet-first React Native app with the approved clay UI, animated boy/puppy characters, and age-based Home experience.
 
-**Status: development foundation, not a production release.** Live authentication, secure parent verification and durable device/cloud persistence are not connected. Family screens and four original practice samples work with development-only session data. Release authentication fails closed instead of admitting users through the preview shortcut.
+**Status: development foundation, not a production release.** Live authentication, secure parent verification and durable device/cloud persistence are not connected. Family screens and four original practice samples plus story/rhyme readers work with development-only session data. Release authentication fails closed instead of admitting users through the preview shortcut.
 
 ## Run locally
 
@@ -46,7 +46,7 @@ src/
       screens/                 # Home / Explore / Saved / age selection
       assets/
     family/                    # profiles/settings/progress, store + isolated demo repository
-    activities/                # four original text-only practice samples
+    activities/                # practice + age-wise readers + optional device narration
     onboarding/                # animated launch + static splash
   shared/
     assets/brand/              # runtime icon/background/repaired splash logo
@@ -76,7 +76,7 @@ npm run audit:dependencies
 npm run check:release     # intentionally fails until production work is complete
 ```
 
-Current local checks: **54 app unit tests**, including **805** responsive geometry cases; TypeScript, lint and formatting; static-asset integrity; Android/iOS Metro exports. These exports are **not APK/IPA builds or device tests**. The bundle check confirms that seeded demo accounts/engine are absent and the unavailable auth adapter is present.
+Current local checks: **72 app unit tests**, including **805** responsive geometry cases; TypeScript, lint and formatting; static-asset integrity; Android/iOS Metro exports. These exports are **not APK/IPA builds or device tests**. The bundle check confirms that seeded demo accounts/engine are absent and the unavailable auth adapter is present.
 
 Dependency audit still reports upstream transitive advisories. See [security notes](docs/SECURITY.md); audit is not claimed clean. CI reports the audit separately and does not silently fix dependencies with `--force`.
 
@@ -99,8 +99,8 @@ In development demo mode, Sign in opens a session-scoped family experience:
 - Choose a child profile; Grown-ups → Open demo parent controls → add/edit/delete up to five profiles.
 - Set a sound preference and daily goal (not a timer or enforced screen-time limit).
 - Try a Learning or Games card: five original text-only practice steps, age-sensitive prompts, progress/continue cards, per-profile saved activities.
-- Rhyme/story cards explain that their media player/content is pending; they do not record false progress.
+- Story/rhyme cards open 16 age-wise original drafts (80 pages/verses), with deliberate progress checkpoints and optional device read-aloud. Rhymes are spoken, not sung. Audio availability depends on the device.
 - Parent controls relock on background, exit and after five minutes. **The demo gate is not secure parent verification.** Release auth still refuses entry.
 - Session data is memory-only, clears on sign-out/restart, never synced to Cloudflare. No offline mutation queue or claim of durable saving.
 
-See [family preview and remaining work](docs/FAMILY-PREVIEW.md) and [tablet test checklist](docs/TABLET-QA.md). Current implementation is on a review branch; it is not automatically deployed or a built APK.
+See [family preview and remaining work](docs/FAMILY-PREVIEW.md) and [tablet test checklist](docs/TABLET-QA.md). Current implementation is on a review branch; it is not automatically deployed or a built APK. See [reader behavior and audio limits](docs/READERS.md).

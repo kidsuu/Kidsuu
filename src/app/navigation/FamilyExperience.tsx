@@ -12,6 +12,8 @@ import {
 import type { ChildProfile } from '../../features/family/domain/FamilyRepository';
 import type { FamilyStore } from '../../features/family/domain/FamilyStore';
 import { PracticeScreen } from '../../features/activities/screens/PracticeScreen';
+import { ReadingScreen } from '../../features/activities/screens/ReadingScreen';
+import { isReading } from '../../features/activities/data/readings';
 
 type Screen = 'home' | 'profiles' | 'gate' | 'parents' | 'progress' | 'activity';
 export function FamilyExperience({
@@ -263,6 +265,19 @@ export function FamilyExperience({
           })
         )}
       </Panel>
+    );
+  if (screen === 'activity' && activity && selected && isReading(activity.id))
+    return (
+      <ReadingScreen
+        key={`${selected.id}-${activity.id}`}
+        id={activity.id}
+        ageGroup={activity.ageGroup}
+        store={store}
+        state={state}
+        foreground={foreground}
+        isDemo={isDemo}
+        onBack={back}
+      />
     );
   if (screen === 'activity' && activity && selected)
     return (

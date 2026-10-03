@@ -32,7 +32,7 @@ Home receives its catalog through props. The current sample fixture contains ill
 
 Responsive layout uses measured app-pane dimensions—not model names or a fixed phone width. The entire 600×550 motion stage must fit inside the hero. Pure layout calculations are independently tested. Animation data and cutout art remain intact; native renderer compatibility was updated for the current SDK.
 
-Before loading external catalogs, add runtime schema validation, authorized content delivery, loading/empty/error states, per-child profile scoping and storage/migration tests. Complete the rhyme/story media players and validate the sample practice curriculum before release. No unvalidated remote data is loaded today.
+Before loading external catalogs, add runtime schema validation, authorized content delivery, loading/empty/error states, per-child profile scoping and storage/migration tests. Story/rhyme readers now load bundled age-wise editorial drafts with optional device narration. Validate the curriculum and any future recorded-media player before release. No unvalidated remote data is loaded today.
 
 ## Assets and styling
 
@@ -45,3 +45,7 @@ The app uses Expo-managed native generation. `android/` and `ios/` are ignored u
 The Cloudflare staging service has its own dependencies and lockfile under `backend/`; Expo does not bundle backend code. `packages/contracts` contains dependency-free transport types/constants used by both sides. The auth provider remains a separate required integration. The mobile Family API client receives a token getter; it never reads demo fixtures or stores tokens itself. The Worker derives account ownership from verified JWT claims and every family-data query is scoped to that owner.
 
 The approved animated login/Home scene is preserved. FamilyExperience now connects profile/settings/progress screens to FamilyStore and its repository interface. createFamilySession conditionally imports the memory-only demo repository in development; live composition requires an injected token getter and reauthentication callback. There is no API-error fallback to demo. Backend auth verification is implemented; client identity sign-in is not. See the staging guide for deployment and migration boundaries.
+
+## Reader/audio boundary
+
+`activities/data/readings` provides versioned original text drafts; `readerProgress` defines explicit exploration checkpoints. `NarrationController` has an injected native port and no access to family state. A single device coordinator serializes stop/start across reader mounts; lifecycle changes cancel queued work. Audio callbacks never write learning progress. Only static page text reaches the OS voice engine. Voice/network availability is OS-controlled, not a guaranteed offline audio service.

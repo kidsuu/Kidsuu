@@ -41,3 +41,7 @@ The registry currently reports `braces@3.0.3` and `node-forge@1.4.0` as latest r
 ## Family preview boundary
 
 Family fixtures have no disk or network I/O and are conditionally excluded from release bundles. The demo parent gate is a visibly labelled preview confirmation, not adult/identity verification. The store refuses parent changes before authorization, clears its gate on background/exit/timeout, and ignores stale profile reads. The live composition seam requires an external reauthentication adapter; the server remains authoritative. No unlock flags, tokens or personal records are persisted. Sign-out clears the session; offline writes are not queued or automatically replayed.
+
+## Optional narration
+
+expo-speech receives only fixed original editorial text, not child/account data or tokens. This app does not request microphone access or record voices. OS TTS engines may use network-backed voices; do not claim fully local processing or guaranteed offline audio. Narration is user-initiated, cancels on background/exit and remains disabled when a screen reader is active or cannot be detected. No new server endpoint or auth bypass was added.

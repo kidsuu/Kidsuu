@@ -23,11 +23,10 @@ export function PracticeScreen({
   const [done, setDone] = useState(false);
   if (!isPractice(activity.id))
     return (
-      <Panel title={activity.title} onBack={onBack} subtitle="Content player not connected">
+      <Panel title={activity.title} onBack={onBack} subtitle="Activity unavailable">
         <View style={s.card}>
           <Text style={s.body}>
-            This rhyme or story still needs its reviewed content and media player. Opening this card
-            does not create progress.
+            This activity is not in the current practice catalog. No progress was recorded.
           </Text>
           <Button label="Back to exploring" onPress={onBack} />
         </View>
