@@ -3,8 +3,14 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const account = process.env.CLOUDFLARE_ACCOUNT_ID,
-  db = process.env.D1_DATABASE_ID;
+const parseErrors = [];
+const config = parse(readFileSync(resolve(root, 'wrangler.jsonc'), 'utf8'), parseErrors, {
+  allowTrailingComma: true,
+});
+if (parseErrors.length) throw new Error('Invalid Wrangler JSONC configuration.');
+// Public staging identifiers are versioned; empty GitHub variables must not erase them.
+const account = process.env.CLOUDFLARE_ACCOUNT_ID?.trim() || config.account_id,
+  db = process.env.D1_DATABASE_ID?.trim() || config.d1_databases?.[0]?.database_id;
 if (!account || !/^[a-f0-9]{32}$/i.test(account))
   throw new Error('Set CLOUDFLARE_ACCOUNT_ID to your Cloudflare account ID.');
 if (
@@ -32,13 +38,9 @@ for (const origin of origins) {
   if (u.protocol !== 'https:' || u.origin !== origin)
     throw new Error('ALLOWED_ORIGINS must be exact HTTPS origins, comma separated.');
 }
-const parseErrors = [];
-const config = parse(readFileSync(resolve(root, 'wrangler.jsonc'), 'utf8'), parseErrors, {
-  allowTrailingComma: true,
-});
-if (parseErrors.length) throw new Error('Invalid Wrangler JSONC configuration.');
 config.account_id = account;
 config.main = resolve(root, 'src/index.ts');
+config.tsconfig = resolve(root, 'tsconfig.json');
 config.d1_databases[0].database_id = db;
 config.d1_databases[0].migrations_dir = resolve(root, 'migrations');
 Object.assign(config.vars, {

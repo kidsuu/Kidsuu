@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { mkdtempSync, mkdirSync, readFileSync, writeFileSync, copyFileSync, rmSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
+import { parse } from 'jsonc-parser';
 const roots: string[] = [];
 function run(extra: Record<string, string> = {}) {
   const root = mkdtempSync(join(resolve('node_modules'), 'kidsuu-deploy-test-'));
@@ -31,6 +32,21 @@ afterEach(() => {
   for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true });
 });
 describe('staging deployment configuration', () => {
+  it('uses committed staging identifiers when GitHub variables are empty', () => {
+    const expected = parse(readFileSync('wrangler.jsonc', 'utf8'));
+    const { result, root } = run({ CLOUDFLARE_ACCOUNT_ID: '', D1_DATABASE_ID: '' });
+    expect(result.status).toBe(0);
+    const config = JSON.parse(readFileSync(join(root, '.wrangler/staging.json'), 'utf8'));
+    expect(config.account_id).toBe(expected.account_id);
+    expect(config.d1_databases[0].database_id).toBe(expected.d1_databases[0].database_id);
+    expect(config.vars.AUTH_ISSUER).toBe('');
+    expect(config.vars.ENVIRONMENT).toBe('staging');
+    expect(config.tsconfig).toBe(join(root, 'tsconfig.json'));
+  });
+  it('rejects an invalid explicit account override instead of ignoring it', () => {
+    expect(run({ CLOUDFLARE_ACCOUNT_ID: 'not-an-account-id' }).result.status).not.toBe(0);
+  });
+
   it('rejects a placeholder database, rather than accidentally deploying against it', () => {
     expect(run({ D1_DATABASE_ID: '00000000-0000-0000-0000-000000000000' }).result.status).not.toBe(
       0,

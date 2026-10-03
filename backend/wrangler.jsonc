@@ -1,7 +1,9 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "kidsuu-api-staging",
+  "account_id": "094a6f6e25a127dfb82c7f9168c4d241",
   "main": "src/index.ts",
+  "tsconfig": "tsconfig.json",
   "compatibility_date": "2026-10-01",
   "workers_dev": true,
   "observability": { "enabled": false },
@@ -16,7 +18,7 @@
     {
       "binding": "DB",
       "database_name": "kidsuu-staging",
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "a75ed321-9e8f-4f77-8974-cd53addedff5",
       "migrations_dir": "migrations",
     },
   ],

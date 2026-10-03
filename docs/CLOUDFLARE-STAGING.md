@@ -6,10 +6,21 @@ The backend is implemented and locally tested. A live deployment is **not** impl
 
 The initial target is **Cloudflare Workers Free + D1**, using `workers.dev` without a purchased domain. Keep real child data out of staging. Provider SMS, paid storage/media and future plan upgrades are not included or assumed free. No Cloudflare resources or paid plans are created by installing dependencies or running tests.
 
+## Configured staging target
+
+The account owner supplied these non-secret identifiers:
+
+- Account ID: `094a6f6e25a127dfb82c7f9168c4d241`
+- D1 database ID: `a75ed321-9e8f-4f77-8974-cd53addedff5`
+- Worker: `kidsuu-api-staging`
+- Database binding: `DB` (configuration name `kidsuu-staging`)
+
+These defaults are stored in `backend/wrangler.jsonc`. Cloudflare account authorization and remote database access have **not** been verified just by adding these identifiers. No migration or deployment has been performed by this configuration change.
+
 ## One-time account setup (by the account owner)
 
 1. Open Cloudflare Workers & Pages and activate the account's `workers.dev` subdomain if needed.
-2. Create a **D1 database named `kidsuu-staging`**. Copy its database UUID and your Cloudflare account ID. These IDs are identifiers, not credentials.
+2. The owner has supplied the D1 database UUID and account ID above; database creation does not need to be repeated for this target. These IDs are identifiers, not credentials.
 3. Decide the parent identity provider. Until that is chosen, leave all three `AUTH_*` settings empty; only health is public and private endpoints fail closed. Real mobile/password sign-in and SMS recovery are not implemented by this API.
 4. Authorize deployment securely on your own machine with `npx wrangler login`, or configure a narrowly scoped Cloudflare API token as a GitHub Actions secret. Do **not** paste that token into a chat, `.env.example`, screenshots or Git history.
 
@@ -22,7 +33,7 @@ npm ci
 npx wrangler login
 ```
 
-Set `CLOUDFLARE_ACCOUNT_ID` and `D1_DATABASE_ID` in your shell. Optionally set all of `AUTH_ISSUER`, `AUTH_AUDIENCE`, and `AUTH_JWKS_URL` to the actual provider's public settings. Set `ALLOWED_ORIGINS` only for exact HTTPS browser/admin origins; leave it empty for a native-only test.
+The staging account/database IDs are already configured. Set `CLOUDFLARE_ACCOUNT_ID` and `D1_DATABASE_ID` only if deliberately overriding the target with another staging account/database; do not point this workflow at production. Optionally set all of `AUTH_ISSUER`, `AUTH_AUDIENCE`, and `AUTH_JWKS_URL` to the actual provider's public settings. Set `ALLOWED_ORIGINS` only for exact HTTPS browser/admin origins; leave it empty for a native-only test.
 
 ```sh
 npm run check
@@ -45,8 +56,8 @@ Repository secret:
 
 Repository variables:
 
-- `CLOUDFLARE_ACCOUNT_ID`
-- `D1_DATABASE_ID`
+- `CLOUDFLARE_ACCOUNT_ID` (optional; defaults to the committed staging account)
+- `D1_DATABASE_ID` (optional; defaults to the committed staging database)
 - `AUTH_ISSUER`, `AUTH_AUDIENCE`, `AUTH_JWKS_URL` (all configured, or all blank)
 - `ALLOWED_ORIGINS` (optional comma-separated exact HTTPS origins)
 

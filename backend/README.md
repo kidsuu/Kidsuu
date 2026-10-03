@@ -70,6 +70,6 @@ The rate binding allows 120 requests/minute per IP bucket and per parent bucket.
 
 ## Deploy
 
-See [`docs/CLOUDFLARE-STAGING.md`](../docs/CLOUDFLARE-STAGING.md). The zero database UUID in `wrangler.jsonc` is deliberately a placeholder. It is suitable for local tests/dry-run, not deployment. `prepare:staging` refuses missing/placeholder account/database IDs and incomplete auth configuration.
+See [`docs/CLOUDFLARE-STAGING.md`](../docs/CLOUDFLARE-STAGING.md). The owner-provided staging account and database identifiers are configured in `wrangler.jsonc`. They are not credentials, and their presence does not verify account authorization or database access. `prepare:staging` uses those defaults when environment overrides are absent/empty and still refuses missing/placeholder identifiers, invalid explicit overrides and incomplete auth configuration.
 
-`deploy:staging` and `db:migrate:staging` generate an ignored `.wrangler/staging.json` from explicitly supplied settings. The Cloudflare API token stays in the shell/CI secret store, never in generated JSON or app code. Remote migrations are a separate deliberate operation: inspect/back up data before applying later migrations.
+`deploy:staging` and `db:migrate:staging` generate an ignored `.wrangler/staging.json` from the committed staging target plus optional environment overrides. The Cloudflare API token stays in the shell/CI secret store, never in generated JSON or app code. Remote migrations are a separate deliberate operation: inspect/back up data before applying later migrations.
