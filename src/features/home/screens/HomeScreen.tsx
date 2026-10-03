@@ -59,6 +59,8 @@ function Icon({
 /** Place inside your app's existing safe-area container. No navigation package required. */
 export default function KidsuuHomeScreen({
   catalog,
+  profileName,
+  onOpenProfiles,
   onOpenActivity,
   onOpenParents,
   initialAgeGroup = '4–5',
@@ -209,8 +211,12 @@ export default function KidsuuHomeScreen({
           />
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel={`Change age group. Current age ${ages[age]}`}
-            onPress={() => setAgeModal(true)}
+            accessibilityLabel={
+              onOpenProfiles
+                ? `Choose profile. Current age ${ages[age]}`
+                : `Change age group. Current age ${ages[age]}`
+            }
+            onPress={() => (onOpenProfiles ? onOpenProfiles() : setAgeModal(true))}
             style={[styles.agePill, tablet && t.agePill]}
           >
             <Text style={[styles.agePillText, tablet && t.agePillText]}>Age {ages[age]}</Text>
@@ -231,7 +237,7 @@ export default function KidsuuHomeScreen({
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={[styles.greetingTitle, tablet && t.greetingTitle]}>
-                  Hey, little explorer!
+                  {profileName ? `Hey, ${profileName}!` : 'Hey, little explorer!'}
                 </Text>
                 <Text style={[styles.greetingSub, tablet && t.greetingSub]}>
                   A little learning. A whole lot of fun.

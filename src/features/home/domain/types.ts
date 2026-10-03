@@ -13,6 +13,8 @@ export type ActivitySelection = Activity & {
 };
 export type KidsuuHomeScreenProps = {
   catalog: HomeCatalog;
+  profileName?: string;
+  onOpenProfiles?: () => void;
   /** Route to your real learning/game/audio/story player. */
   onOpenActivity: (activity: ActivitySelection) => void;
   /** Your app should enforce secure parent access in this callback. */

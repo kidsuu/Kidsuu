@@ -5,14 +5,14 @@
 - Production authentication is intentionally unavailable; it fails closed. The development shortcut is gated with the Metro `__DEV__` constant and an explicit non-secret environment opt-in.
 - No real SMS, password database, backend keys, analytics SDK, session persistence or provider integration is shipped.
 - Demo passwords and OTPs are fictitious in-memory fixtures. Never enter real personal information into demo mode.
-- `.env`, signing material, private keys, generated builds and dependency folders are ignored. `.env.example` contains only a public development-mode selector.
+- `.env`, signing material, private keys, generated builds and dependency folders are ignored. `.env.example` contains only a public development-mode selector and public staging API origin.
 - The error boundary does not print exceptions or personal information into UI/logs. A real observability integration needs its own redaction/consent review.
 
 ## Dependency baseline — 2026-10-03
 
 The previous Expo 54 baseline was upgraded to Expo **57.0.26**, with SDK-compatible React Native **0.86.3**, React **19.2.3** and TypeScript **6**. Node **22.13+** is required. `expo install --check` passes; compatible `npm audit fix` was attempted without forcing major downgrades.
 
-`npm audit --omit=dev` still reports **24 transitive advisories: 16 high, 8 moderate, 0 critical** at this snapshot. The report includes inherited vulnerability chains in the Expo/Metro/native build ecosystem, including `braces`, `node-forge`, and `uuid`. Counts and advisory data can change independently of this commit. Re-run `npm run audit:dependencies` for the current details.
+`npm audit --omit=dev` now reports **16 high, 0 moderate, 0 critical** findings at this snapshot (previously 24: 16 high / 8 moderate). The report includes inherited vulnerability chains in the Expo/Metro/native build ecosystem, rooted in `braces` and `node-forge`. Counts and advisory data can change independently of this commit. Re-run `npm run audit:dependencies` for the current details.
 
 No claim is made that those findings are harmless or fixed. Do not blindly use `npm audit fix --force`: the observed suggestion included downgrading Expo to 44, which is not a safe resolution. Upstream patches/SDK updates or reviewed compatible overrides need testing, including native builds. Avoid untrusted build inputs while this is unresolved. This baseline is blocked from production release pending review/remediation.
 
@@ -26,8 +26,18 @@ Report vulnerabilities privately to the repository owner. Do not include live to
 
 ## Cloudflare staging backend
 
-The isolated `backend/` runtime dependency audit currently reports **zero known advisories** (`npm audit --omit=dev`, 2026-10-03). That does not resolve the existing Expo/native dependency findings above; the app audit remains 16 high / 8 moderate at this checkpoint.
+The isolated `backend/` runtime dependency audit currently reports **zero known advisories** (`npm audit --omit=dev`, 2026-10-03). That does not resolve the existing Expo/native dependency findings above; the app audit remains 16 high / 0 moderate at this checkpoint.
 
 The backend is not an identity provider. It accepts only configured issuer/audience/asymmetric-JWKS tokens, scopes database access to the verified identity, requires recent signed authentication for sensitive parent operations, and fails closed when configuration is missing. Password hashing/SMS are not improvised inside a Free-tier Worker. Browser origin allowlisting is not a replacement for authorization. Rate limiting is per-edge-location and is not a hard global abuse/billing cap.
 
 Staging uses minimal, fictitious child data. Profiles share the parent account's authorization scope; separate child-session capabilities and verified legal guardianship/consent are still production design work. Revocation, account deletion at the identity provider, log retention, backups and provider/mobile integration need review before real users.
+
+## Scoped build dependency remediation
+
+`xcode@3.0.1` uses only CommonJS `uuid.v4()` to generate 24-character PBX identifiers. Its scoped override to `uuid@11.1.1` removes the vulnerable UUID range without changing Expo/React Native versions. A regression test verifies CommonJS loading, 100 unique identifier shapes and PBX parse/write round trips. Android/iOS JS exports remain separate checks, **not** native Xcode/Gradle validation.
+
+The registry currently reports `braces@3.0.3` and `node-forge@1.4.0` as latest releases; both are still in their reported affected ranges. Do not invent a patched version or suppress the audit. Avoid untrusted build inputs; native builds and production release remain blocked pending mitigation/upstream fixes and review.
+
+## Family preview boundary
+
+Family fixtures have no disk or network I/O and are conditionally excluded from release bundles. The demo parent gate is a visibly labelled preview confirmation, not adult/identity verification. The store refuses parent changes before authorization, clears its gate on background/exit/timeout, and ignores stale profile reads. The live composition seam requires an external reauthentication adapter; the server remains authoritative. No unlock flags, tokens or personal records are persisted. Sign-out clears the session; offline writes are not queued or automatically replayed.

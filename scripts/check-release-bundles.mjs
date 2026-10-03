@@ -16,6 +16,8 @@ for (const platform of ['android', 'ios']) {
     'Preview parent',
     'This demo code expired',
     'DemoAuthEngine',
+    'demo-family-session',
+    'createDemoFamilyRepository',
   ]) {
     if (code.includes(sentinel))
       throw new Error(`${platform}: development auth leaked into release bundle (${sentinel})`);

@@ -2,7 +2,7 @@
 
 Tablet-first React Native app with the approved clay UI, animated boy/puppy characters, and age-based Home experience.
 
-**Status: development foundation, not a production release.** Live authentication, real activity players, secure parent verification and persistence are not connected. Release authentication fails closed instead of admitting users through the preview shortcut.
+**Status: development foundation, not a production release.** Live authentication, secure parent verification and durable device/cloud persistence are not connected. Family screens and four original practice samples work with development-only session data. Release authentication fails closed instead of admitting users through the preview shortcut.
 
 ## Run locally
 
@@ -45,6 +45,8 @@ src/
       components/PlayScene/    # 12-second rig, native renderer, required layers
       screens/                 # Home / Explore / Saved / age selection
       assets/
+    family/                    # profiles/settings/progress, store + isolated demo repository
+    activities/                # four original text-only practice samples
     onboarding/                # animated launch + static splash
   shared/
     assets/brand/              # runtime icon/background/repaired splash logo
@@ -74,7 +76,7 @@ npm run audit:dependencies
 npm run check:release     # intentionally fails until production work is complete
 ```
 
-Current local checks: **33 app unit tests**, including **805** responsive geometry cases; TypeScript, lint and formatting; static-asset integrity; Android/iOS Metro exports. These exports are **not APK/IPA builds or device tests**. The bundle check confirms that seeded demo accounts/engine are absent and the unavailable auth adapter is present.
+Current local checks: **54 app unit tests**, including **805** responsive geometry cases; TypeScript, lint and formatting; static-asset integrity; Android/iOS Metro exports. These exports are **not APK/IPA builds or device tests**. The bundle check confirms that seeded demo accounts/engine are absent and the unavailable auth adapter is present.
 
 Dependency audit still reports upstream transitive advisories. See [security notes](docs/SECURITY.md); audit is not claimed clean. CI reports the audit separately and does not silently fix dependencies with `--force`.
 
@@ -86,6 +88,19 @@ See [architecture](docs/ARCHITECTURE.md), [release checklist](docs/PRODUCTION-RE
 
 `backend/` now contains an independently packaged Workers + D1 API. Shared transport types live in `packages/contracts/`; the tablet HTTP client is `src/shared/api/FamilyApiClient.ts`.
 
-The API supports parent settings, owner-scoped child profiles and client-reported progress, with external-provider JWT validation and recent reauthentication for sensitive operations. It does **not** implement identity signup/login/SMS, verified parental consent or real activity players. Private endpoints fail closed until provider configuration exists. The client is not yet wired into the app screens.
+The API supports parent settings, owner-scoped child profiles and client-reported progress, with external-provider JWT validation and recent reauthentication for sensitive operations. It does **not** implement identity signup/login/SMS, verified parental consent or real activity players. Private endpoints fail closed until provider configuration exists. The family screens use a repository contract matching the API client. Live composition requires a token getter and real parent reauthentication; neither is supplied yet. Demo mode never calls the live API.
 
 Use npm 11.21.0 for the backend lockfile; install backend dependencies separately with `cd backend && npm ci`. Backend CI pins that npm version. See [backend routes/tests](backend/README.md) and the [Cloudflare setup guide](docs/CLOUDFLARE-STAGING.md). The staging deployment workflow is manual and only runs from `main` after review/merge and owner-provided account configuration. No Cloudflare deployment or Android APK is implied by this source change.
+
+## Family preview (auth deliberately deferred)
+
+In development demo mode, Sign in opens a session-scoped family experience:
+
+- Choose a child profile; Grown-ups → Open demo parent controls → add/edit/delete up to five profiles.
+- Set a sound preference and daily goal (not a timer or enforced screen-time limit).
+- Try a Learning or Games card: five original text-only practice steps, age-sensitive prompts, progress/continue cards, per-profile saved activities.
+- Rhyme/story cards explain that their media player/content is pending; they do not record false progress.
+- Parent controls relock on background, exit and after five minutes. **The demo gate is not secure parent verification.** Release auth still refuses entry.
+- Session data is memory-only, clears on sign-out/restart, never synced to Cloudflare. No offline mutation queue or claim of durable saving.
+
+See [family preview and remaining work](docs/FAMILY-PREVIEW.md) and [tablet test checklist](docs/TABLET-QA.md). Current implementation is on a review branch; it is not automatically deployed or a built APK.

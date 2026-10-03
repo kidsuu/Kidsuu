@@ -7,7 +7,7 @@ This repository is a tested app foundation, **not release-ready**. `npm run chec
 - [ ] Choose and integrate a real auth/backend provider; confirm mobile/password and account recovery requirements.
 - [ ] Verify credentials, OTP expiry/attempts/resend limits and authorization on the server. Never trust client timers or route guards.
 - [ ] Remove reliance on demo signup/recovery data; implement secure token storage, refresh/revoke behavior, sign-out cleanup and account deletion.
-- [ ] Implement secure parent reauthentication/verification. The current Grown-ups alert is not a protected parent gate.
+- [ ] Implement secure parent reauthentication/verification. Family preview controls are now implemented, but their explicitly labelled development gate is not secure verification.
 - [ ] Review age-appropriate privacy/consent obligations for the actual launch markets. A checkbox is not verified parental consent.
 - [ ] Build the actual activity players; replace sample content with licensed, reviewed media/content and tested progress semantics.
 - [ ] Define per-child profiles, offline/storage rules, saved activity persistence, migrations and data deletion.
@@ -23,7 +23,7 @@ This repository is a tested app foundation, **not release-ready**. `npm run chec
 ## Already verified locally
 
 - Strict TypeScript, zero-warning ESLint, Prettier and static asset references.
-- 23 unit tests, including release auth refusal, demo-only flows, 805 pane geometries, sample catalog consistency and 241-pose loop seam integrity.
+- 54 app unit tests, including release auth refusal, demo-only flows, 805 pane geometries, sample catalog consistency and 241-pose loop seam integrity.
 - Android and iOS Metro production JavaScript exports on Expo SDK 57.
 - Release bundles exclude the demo account/engine and include fail-closed authentication.
 
@@ -31,4 +31,12 @@ Not verified: physical devices/emulators, native binaries, actual SMS/backend/pr
 
 ## Cloudflare staging progress
 
-Protected family-data endpoints, D1 schema/migrations, ownership checks, recent-account-reauthentication checks, and a typed tablet client are implemented and integration-tested locally. These do not complete the outstanding real identity/SMS, legal-guardian verification, native UI wiring, APK/device testing or dependency security review items above. No live Cloudflare resource has been verified solely by these tests.
+Protected family-data endpoints, D1 schema/migrations, ownership checks, recent-account-reauthentication checks, and a typed tablet client are implemented and integration-tested locally. These do not complete the outstanding real identity/SMS, legal-guardian verification, live authenticated UI integration, APK/device testing or dependency security review items above. A later owner-run workflow deployed staging successfully; `/health` and the fail-closed private response were independently fetched. Health is not proof of authenticated D1 CRUD. Auth/SMS are deferred by the owner.
+
+## Family preview delivered, not production completion
+
+- Session-scoped profile CRUD, selection, preferences, progress list and continue cards.
+- Four original text-only practice samples with five checkpoints each; no learning-score or elapsed-time claims.
+- API-compatible repository seam, explicit loading/error/empty states, no automatic mutation retries, conflict handling and stale-read suppression.
+- Eight moderate dependency findings removed by a scoped/tested override; sixteen high findings remain.
+- Parent gate, durable/cloud sync, actual media players, complete curriculum review, APK and real tablet QA **remain open**. See FAMILY-PREVIEW.md and TABLET-QA.md.

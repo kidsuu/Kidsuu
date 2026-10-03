@@ -2,7 +2,7 @@
 
 ## Status and scope
 
-The backend is implemented and locally tested. A live deployment is **not** implied by a commit or a passing `/health` test. The mobile UI still uses the existing development fixture adapter unless live auth and the Family API client are deliberately integrated.
+The backend is implemented and locally tested. A live deployment is **not** implied by a commit or a passing `/health` test. The mobile family preview uses a development-only in-memory repository; its live API composition seam is deliberately inactive until real auth is supplied.
 
 The initial target is **Cloudflare Workers Free + D1**, using `workers.dev` without a purchased domain. Keep real child data out of staging. Provider SMS, paid storage/media and future plan upgrades are not included or assumed free. No Cloudflare resources or paid plans are created by installing dependencies or running tests.
 
@@ -15,7 +15,7 @@ The account owner supplied these non-secret identifiers:
 - Worker: `kidsuu-api-staging`
 - Database binding: `DB` (configuration name `kidsuu-staging`)
 
-These defaults are stored in `backend/wrangler.jsonc`. Cloudflare account authorization and remote database access have **not** been verified just by adding these identifiers. No migration or deployment has been performed by this configuration change.
+These defaults are stored in `backend/wrangler.jsonc`. The owner subsequently ran the main-only deployment workflow successfully (commit `634669d`, run #3). Live origin: `https://kidsuu-api-staging.kidsuuofficial.workers.dev`. `/health` returned staging `ok`; `/v1/children` returned `AUTH_NOT_CONFIGURED`. D1 migration checks completed in the supplied logs. Authenticated CRUD/device integration is not yet verified.
 
 ## One-time account setup (by the account owner)
 
@@ -69,7 +69,7 @@ The manual workflow tests, applies reviewed D1 migrations to staging, then deplo
 
 1. Implement the selected real auth provider in `AuthGateway`, including secure token storage/refresh and genuine parent reauthentication.
 2. Supply its current token to `createFamilyApiClient({baseUrl, getAccessToken})`. Read the API origin from a central non-secret configuration such as `EXPO_PUBLIC_API_BASE_URL`; never hardcode it into screens.
-3. Connect profile/settings/progress UI to those APIs, with loading/empty/error states. Handle `PARENT_REAUTH_REQUIRED`, `VERSION_CONFLICT`, `401`, `429`, timeout and offline failure explicitly. Do not silently retry destructive changes.
+3. Activate the family UI’s existing API-compatible repository seam after provider integration; validate its loading/empty/error states against real staging. Handle `PARENT_REAUTH_REQUIRED`, `VERSION_CONFLICT`, `401`, `429`, timeout and offline failure explicitly. Do not silently retry destructive changes.
 4. Then generate the Android test build and test real tablets. No APK/native-device testing is included in this backend phase.
 
 ## Later custom domain

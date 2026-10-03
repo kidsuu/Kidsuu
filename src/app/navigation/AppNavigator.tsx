@@ -1,10 +1,10 @@
-import React from 'react';
-import { Alert } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
 import AuthScreen from '../../features/auth/screens/AuthScreen';
 import IntroScreen from '../../features/onboarding/screens/IntroScreen';
-import HomeScreen from '../../features/home/screens/HomeScreen';
-import sampleCatalog from '../../features/home/data/sampleCatalog.json';
-import type { HomeCatalog } from '../../features/home/domain/types';
+import { createFamilySession } from '../composition/createFamilySession';
+import { FamilyExperience } from './FamilyExperience';
+import { Button } from '../../features/family/components/FamilyControls';
 import { useAppFlow } from './useAppFlow';
 import { TITLE, SUB } from './routes';
 export default function AppNavigator({ onReady }: { onReady?: () => void }) {
@@ -21,30 +21,33 @@ export default function AppNavigator({ onReady }: { onReady?: () => void }) {
     );
   if (flow.route === 'home' && flow.hasSession)
     return (
-      <HomeScreen
-        catalog={sampleCatalog as HomeCatalog}
-        isFocused={flow.foreground}
-        initialAgeGroup="4–5"
-        continueProgress={
-          flow.isDemo ? { activityId: 'colours', completed: 2, total: 5 } : undefined
-        }
-        onOpenActivity={(a) =>
-          Alert.alert(a.title, 'Activity player integration is not available yet.')
-        }
-        onOpenParents={() =>
-          Alert.alert(
-            'Grown-ups',
-            'Preview account options. Secure parent verification is not connected.',
-            [
-              { text: 'Close', style: 'cancel' },
-              { text: 'Sign out', onPress: flow.signOut },
-            ],
-          )
-        }
-      />
+      <FamilySession isDemo={flow.isDemo} foreground={flow.foreground} onSignOut={flow.signOut} />
     );
   const authRoute = flow.route === 'home' ? 'login' : flow.route;
   return (
     <AuthScreen {...flow} route={authRoute} title={TITLE[authRoute]} subtitle={SUB[authRoute]} />
+  );
+}
+
+function FamilySession({
+  isDemo,
+  foreground,
+  onSignOut,
+}: {
+  isDemo: boolean;
+  foreground: boolean;
+  onSignOut: () => void;
+}) {
+  const [store] = useState(() => createFamilySession(isDemo));
+  useEffect(() => () => store?.dispose(), [store]);
+  if (!store)
+    return (
+      <View style={{ padding: 24, gap: 16 }}>
+        <Text>Live family access is locked until real authentication is connected.</Text>
+        <Button label="Sign out" onPress={onSignOut} />
+      </View>
+    );
+  return (
+    <FamilyExperience store={store} isDemo={isDemo} foreground={foreground} onSignOut={onSignOut} />
   );
 }
