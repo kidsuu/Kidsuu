@@ -28,3 +28,7 @@ This repository is a tested app foundation, **not release-ready**. `npm run chec
 - Release bundles exclude the demo account/engine and include fail-closed authentication.
 
 Not verified: physical devices/emulators, native binaries, actual SMS/backend/provider behavior, store submissions, runtime performance or child privacy compliance. The earlier HTML preview's browser tests are not a substitute for native regression testing after the SDK upgrade.
+
+## Cloudflare staging progress
+
+Protected family-data endpoints, D1 schema/migrations, ownership checks, recent-account-reauthentication checks, and a typed tablet client are implemented and integration-tested locally. These do not complete the outstanding real identity/SMS, legal-guardian verification, native UI wiring, APK/device testing or dependency security review items above. No live Cloudflare resource has been verified solely by these tests.

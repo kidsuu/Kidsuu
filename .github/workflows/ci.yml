@@ -1,7 +1,7 @@
 name: App quality
 on:
   push:
-    branches: [main]
+    branches: [main, 'feature/**']
   pull_request:
 permissions:
   contents: read
@@ -26,3 +26,21 @@ jobs:
       - name: Dependency audit — known upstream advisories, see docs/SECURITY.md
         continue-on-error: true
         run: npm run audit:dependencies
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+      - run: npm install --global npm@11.21.0
+      - run: npm ci
+      - run: npm run check
+      - run: npm run dry-run
+      - name: Backend runtime dependency audit
+        run: npm audit --omit=dev --audit-level=high

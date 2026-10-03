@@ -23,3 +23,11 @@ CI reports the audit in a clearly labelled advisory step without masking its com
 Repository deployment keys are not part of the app and must never be committed. Remove the temporary write-enabled deploy key after this initial delivery. Use least-privilege service accounts and branch protection for ongoing development.
 
 Report vulnerabilities privately to the repository owner. Do not include live tokens, passwords, private keys or child data in public issues or screenshots.
+
+## Cloudflare staging backend
+
+The isolated `backend/` runtime dependency audit currently reports **zero known advisories** (`npm audit --omit=dev`, 2026-10-03). That does not resolve the existing Expo/native dependency findings above; the app audit remains 16 high / 8 moderate at this checkpoint.
+
+The backend is not an identity provider. It accepts only configured issuer/audience/asymmetric-JWKS tokens, scopes database access to the verified identity, requires recent signed authentication for sensitive parent operations, and fails closed when configuration is missing. Password hashing/SMS are not improvised inside a Free-tier Worker. Browser origin allowlisting is not a replacement for authorization. Rate limiting is per-edge-location and is not a hard global abuse/billing cap.
+
+Staging uses minimal, fictitious child data. Profiles share the parent account's authorization scope; separate child-session capabilities and verified legal guardianship/consent are still production design work. Revocation, account deletion at the identity provider, log retention, backups and provider/mobile integration need review before real users.

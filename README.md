@@ -74,10 +74,18 @@ npm run audit:dependencies
 npm run check:release     # intentionally fails until production work is complete
 ```
 
-Current local checks: **23 unit tests**, including **805** responsive geometry cases; TypeScript, lint and formatting; static-asset integrity; Android/iOS Metro exports. These exports are **not APK/IPA builds or device tests**. The bundle check confirms that seeded demo accounts/engine are absent and the unavailable auth adapter is present.
+Current local checks: **33 app unit tests**, including **805** responsive geometry cases; TypeScript, lint and formatting; static-asset integrity; Android/iOS Metro exports. These exports are **not APK/IPA builds or device tests**. The bundle check confirms that seeded demo accounts/engine are absent and the unavailable auth adapter is present.
 
 Dependency audit still reports upstream transitive advisories. See [security notes](docs/SECURITY.md); audit is not claimed clean. CI reports the audit separately and does not silently fix dependencies with `--force`.
 
 ## Before production
 
 See [architecture](docs/ARCHITECTURE.md), [release checklist](docs/PRODUCTION-READINESS.md), and [security](docs/SECURITY.md). Backend/provider selection, verified parent access, private session storage, licensed content, activity players and real-device QA are deliberate next steps—not placeholder implementations presented as complete.
+
+## Cloudflare backend (staging phase)
+
+`backend/` now contains an independently packaged Workers + D1 API. Shared transport types live in `packages/contracts/`; the tablet HTTP client is `src/shared/api/FamilyApiClient.ts`.
+
+The API supports parent settings, owner-scoped child profiles and client-reported progress, with external-provider JWT validation and recent reauthentication for sensitive operations. It does **not** implement identity signup/login/SMS, verified parental consent or real activity players. Private endpoints fail closed until provider configuration exists. The client is not yet wired into the app screens.
+
+Use npm 11.21.0 for the backend lockfile; install backend dependencies separately with `cd backend && npm ci`. Backend CI pins that npm version. See [backend routes/tests](backend/README.md) and the [Cloudflare setup guide](docs/CLOUDFLARE-STAGING.md). The staging deployment workflow is manual and only runs from `main` after review/merge and owner-provided account configuration. No Cloudflare deployment or Android APK is implied by this source change.

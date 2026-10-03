@@ -17,7 +17,9 @@
     "check:assets": "node scripts/check-assets.mjs",
     "check:release": "node scripts/check-release.mjs",
     "verify:bundles": "expo export --platform android --output-dir .expo/verify-android --no-bytecode --max-workers 2 && expo export --platform ios --output-dir .expo/verify-ios --no-bytecode --max-workers 2 && node scripts/check-release-bundles.mjs",
-    "audit:dependencies": "npm audit --omit=dev --audit-level=high"
+    "audit:dependencies": "npm audit --omit=dev --audit-level=high",
+    "backend:check": "npm --prefix backend run check",
+    "backend:dev": "npm --prefix backend run dev"
   },
   "dependencies": {
     "expo": "~57.0.26",

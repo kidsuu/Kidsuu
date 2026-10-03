@@ -1,0 +1,30 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "kidsuu-api-staging",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "observability": { "enabled": false },
+  "vars": {
+    "ENVIRONMENT": "staging",
+    "AUTH_ISSUER": "",
+    "AUTH_AUDIENCE": "",
+    "AUTH_JWKS_URL": "",
+    "ALLOWED_ORIGINS": "",
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "kidsuu-staging",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations",
+    },
+  ],
+  "ratelimits": [
+    {
+      "name": "API_RATE_LIMITER",
+      "namespace_id": "1001",
+      "simple": { "limit": 120, "period": 60 },
+    },
+  ],
+}

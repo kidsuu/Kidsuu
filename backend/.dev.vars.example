@@ -1,0 +1,7 @@
+# Public auth-provider settings. Leave empty until the provider is configured.
+# Private APIs fail closed when these values are empty.
+AUTH_ISSUER=""
+AUTH_AUDIENCE=""
+AUTH_JWKS_URL=""
+# Browser origins only; native clients use Bearer tokens and do not need an Origin.
+ALLOWED_ORIGINS=""

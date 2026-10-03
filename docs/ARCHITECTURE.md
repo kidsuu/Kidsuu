@@ -39,3 +39,9 @@ Before loading external catalogs, add runtime schema validation, authorized cont
 Runtime art is owned by its feature; branding used across features lives in shared. Static `require()` paths keep Metro asset resolution deterministic. `check-assets` rejects missing/unused PNGs. StyleSheets preserve the approved cream/peach/clay appearance and tablet adjustments without a new styling runtime.
 
 The app uses Expo-managed native generation. `android/` and `ios/` are ignored until there is an intentional native-code requirement; commit app config/plugins and dependency lockfile instead of generated native output.
+
+## Backend boundary
+
+The Cloudflare staging service has its own dependencies and lockfile under `backend/`; Expo does not bundle backend code. `packages/contracts` contains dependency-free transport types/constants used by both sides. The auth provider remains a separate required integration. The mobile Family API client receives a token getter; it never reads demo fixtures or stores tokens itself. The Worker derives account ownership from verified JWT claims and every family-data query is scoped to that owner.
+
+The original app/demo flow remains unchanged until the real provider and profile UI are integrated. Backend auth verification is implemented; client identity sign-in is not. See the staging guide for deployment and migration boundaries.

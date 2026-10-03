@@ -1,0 +1,44 @@
+{
+  "name": "@kidsuu/backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0 <25",
+    "npm": ">=11.21.0 <12"
+  },
+  "scripts": {
+    "dev": "wrangler dev --ip 0.0.0.0",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src tests --max-warnings=0",
+    "format": "prettier --write src tests scripts *.json* *.mts *.mjs README.md",
+    "format:check": "prettier --check src tests scripts *.json* *.mts *.mjs README.md",
+    "build": "esbuild src/index.ts --bundle --format=esm --platform=browser --target=es2022 --outfile=dist/worker.js",
+    "test": "npm run build && vitest run",
+    "check": "npm run typecheck && npm run lint && npm run format:check && npm test",
+    "db:migrate:local": "wrangler d1 migrations apply kidsuu-staging --local",
+    "prepare:staging": "node scripts/prepare-staging.mjs",
+    "db:migrate:staging": "npm run prepare:staging && wrangler d1 migrations apply kidsuu-staging --remote --config .wrangler/staging.json",
+    "deploy:staging": "npm run prepare:staging && wrangler deploy --config .wrangler/staging.json",
+    "dry-run": "wrangler deploy --dry-run --outdir dist/dry-run"
+  },
+  "dependencies": {
+    "hono": "^4.13.12",
+    "jose": "^6.2.12",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261003.1",
+    "@types/node": "^22.0.0",
+    "esbuild": "^0.25.0",
+    "eslint": "^9.25.0",
+    "jsonc-parser": "^3.3.1",
+    "miniflare": "5.20261001.0-alpha",
+    "prettier": "^3.5.0",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.0.0",
+    "vitest": "^4.0.0",
+    "wrangler": "4.147.0"
+  },
+  "packageManager": "npm@11.21.0"
+}

@@ -25,3 +25,10 @@ ios/
 id_rsa*
 id_ed25519*
 .kidsuu-push-auth/
+
+# Cloudflare local state and secrets
+.wrangler/
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+wrangler.local.json*
