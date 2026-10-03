@@ -18,9 +18,9 @@
     "check": "npm run typecheck && npm run lint && npm run format:check && npm test",
     "db:migrate:local": "wrangler d1 migrations apply kidsuu-staging --local",
     "prepare:staging": "node scripts/prepare-staging.mjs",
-    "db:migrate:staging": "npm run prepare:staging && wrangler d1 migrations apply kidsuu-staging --remote --config .wrangler/staging.json",
-    "deploy:staging": "npm run prepare:staging && wrangler deploy --config .wrangler/staging.json",
-    "dry-run": "wrangler deploy --dry-run --outdir dist/dry-run"
+    "db:migrate:staging": "npm run prepare:staging && wrangler d1 migrations apply kidsuu-staging --remote --cwd .wrangler --config staging.json",
+    "deploy:staging": "npm run prepare:staging && wrangler deploy --cwd .wrangler --config staging.json",
+    "dry-run": "npm run prepare:staging && wrangler deploy --dry-run --cwd .wrangler --config staging.json --outdir ../dist/dry-run"
   },
   "dependencies": {
     "hono": "^4.13.12",

@@ -32,6 +32,14 @@ afterEach(() => {
   for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true });
 });
 describe('staging deployment configuration', () => {
+  it('uses the same generated config and working directory for dry-run and deployment', () => {
+    const { scripts } = JSON.parse(readFileSync('package.json', 'utf8'));
+    for (const name of ['dry-run', 'deploy:staging', 'db:migrate:staging']) {
+      expect(scripts[name]).toContain('npm run prepare:staging && wrangler');
+      expect(scripts[name]).toContain('--cwd .wrangler --config staging.json');
+    }
+    expect(scripts['dry-run']).toContain('--dry-run');
+  });
   it('uses committed staging identifiers when GitHub variables are empty', () => {
     const expected = parse(readFileSync('wrangler.jsonc', 'utf8'));
     const { result, root } = run({ CLOUDFLARE_ACCOUNT_ID: '', D1_DATABASE_ID: '' });
@@ -41,7 +49,8 @@ describe('staging deployment configuration', () => {
     expect(config.d1_databases[0].database_id).toBe(expected.d1_databases[0].database_id);
     expect(config.vars.AUTH_ISSUER).toBe('');
     expect(config.vars.ENVIRONMENT).toBe('staging');
-    expect(config.tsconfig).toBe(join(root, 'tsconfig.json'));
+    expect(config.tsconfig).toBe('../tsconfig.json');
+    expect(resolve(root, '.wrangler', config.tsconfig)).toBe(join(root, 'tsconfig.json'));
   });
   it('rejects an invalid explicit account override instead of ignoring it', () => {
     expect(run({ CLOUDFLARE_ACCOUNT_ID: 'not-an-account-id' }).result.status).not.toBe(0);

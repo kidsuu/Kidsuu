@@ -33,5 +33,6 @@ jobs:
           AUTH_JWKS_URL: ${{ vars.AUTH_JWKS_URL }}
           ALLOWED_ORIGINS: ${{ vars.ALLOWED_ORIGINS }}
         run: |
+          npm run dry-run
           npm run db:migrate:staging
           npm run deploy:staging

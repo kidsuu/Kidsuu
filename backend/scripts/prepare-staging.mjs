@@ -40,7 +40,9 @@ for (const origin of origins) {
 }
 config.account_id = account;
 config.main = resolve(root, 'src/index.ts');
-config.tsconfig = resolve(root, 'tsconfig.json');
+// Wrangler joins tsconfig to the generated config directory, even for absolute paths.
+// Keep this relative to .wrangler/staging.json so its bundler finds the backend config.
+config.tsconfig = '../tsconfig.json';
 config.d1_databases[0].database_id = db;
 config.d1_databases[0].migrations_dir = resolve(root, 'migrations');
 Object.assign(config.vars, {

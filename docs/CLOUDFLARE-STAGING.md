@@ -44,6 +44,8 @@ npm run deploy:staging
 
 Wrangler prints the actual HTTPS Worker URL. This document does not invent an account-specific URL. Visit `<printed-url>/health`; without auth configuration, `/v1/children` must return `503 AUTH_NOT_CONFIGURED`.
 
+`npm run dry-run` prepares and bundles the same `.wrangler/staging.json` used for deployment, not just the source `wrangler.jsonc`. Its `tsconfig` path is relative to the generated configuration directory (`../tsconfig.json`). All generated-config commands use `--cwd .wrangler --config staging.json` so Wrangler's path normalization and bundler agree on the working directory. CI checks this generated-config build, and the deployment workflow repeats it before remote migrations.
+
 Dry-run does not deploy, create a database, send SMS or validate account permissions. A real deploy and remote migration require your explicit account authorization.
 
 ## Optional GitHub Actions deployment
