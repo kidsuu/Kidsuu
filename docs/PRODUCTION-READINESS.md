@@ -12,7 +12,7 @@ This repository is a tested app foundation, **not release-ready**. `npm run chec
 - [ ] Build the actual activity players; replace sample content with licensed, reviewed media/content and tested progress semantics.
 - [ ] Define per-child profiles, offline/storage rules, saved activity persistence, migrations and data deletion.
 - [ ] Resolve or formally risk-assess upstream dependency advisories; require a release-specific security review.
-- [ ] Choose Android package/iOS bundle identifiers, signing ownership, store account ownership and the release/build pipeline. None are invented or configured here.
+- [ ] Android ID `com.kidsuu.app` is owner-approved and an internal debug build profile is prepared. Owner Expo linking, signing/store ownership, iOS identity and the production build pipeline remain incomplete.
 - [ ] Introduce native stack/deep-link/session-expiry handling when real player and account routes are implemented.
 - [ ] Add provider integration tests, native UI/end-to-end tests and failure-path coverage.
 - [ ] Test on intended Android tablets and iPads: portrait/landscape, split view, safe areas, keyboards, font scaling, VoiceOver/TalkBack, Reduce Motion and slow/absent connectivity.
@@ -23,7 +23,7 @@ This repository is a tested app foundation, **not release-ready**. `npm run chec
 ## Already verified locally
 
 - Strict TypeScript, zero-warning ESLint, Prettier and static asset references.
-- 100 app tests, including release auth refusal, demo-only flows, 805 pane geometries, sample catalog consistency and 241-pose loop seam integrity.
+- 105 app tests, including release auth refusal, demo-only flows, 805 pane geometries, sample catalog consistency and 241-pose loop seam integrity.
 - Android and iOS Metro production JavaScript exports on Expo SDK 57.
 - Release bundles exclude the demo account/engine and include fail-closed authentication.
 
@@ -48,3 +48,7 @@ Story/rhyme text readers now include 16 original age-wise drafts, 80 pages/verse
 ## Offline demo follow-up
 
 Device-local SQLite restore is implemented for dummy family data, including bookmarks/selection, with schema validation/migration, atomic commits and durable sign-out/delete. Credentials and parent unlock are excluded. Real SQLite file restart tests run under Node; physical Android/iOS force-close/restart, low-storage and backup behavior remain unverified. Local demo persistence is not encrypted production storage or authenticated cloud sync. See OFFLINE-STORAGE.md.
+
+## Android device-QA setup
+
+Owner has an Android tablet and computer; no Expo account/build is linked yet. SDK-compatible expo-dev-client/system-ui and the approved package ID are configured. Native Android configuration generation was smoke-checked (not compiled). Development builds require Metro, so true offline cold launch and release performance cannot be passed using that setup alone. EAS post-install checks reject other profiles/platforms; check:release still intentionally fails. See ANDROID-DEVICE-QA.md.

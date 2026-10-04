@@ -19,14 +19,18 @@
     "verify:bundles": "expo export --platform android --output-dir .expo/verify-android --no-bytecode --max-workers 2 && expo export --platform ios --output-dir .expo/verify-ios --no-bytecode --max-workers 2 && node scripts/check-release-bundles.mjs",
     "audit:dependencies": "npm audit --omit=dev --audit-level=high",
     "backend:check": "npm --prefix backend run check",
-    "backend:dev": "npm --prefix backend run dev"
+    "backend:dev": "npm --prefix backend run dev",
+    "qa:start": "node scripts/start-device-qa.mjs",
+    "eas-build-post-install": "node scripts/check-eas-build.mjs"
   },
   "dependencies": {
     "expo": "~57.0.26",
+    "expo-dev-client": "~57.0.19",
     "expo-speech": "~57.0.3",
     "expo-splash-screen": "~57.0.9",
     "expo-sqlite": "~57.0.3",
     "expo-status-bar": "~57.0.1",
+    "expo-system-ui": "~57.0.4",
     "react": "19.2.3",
     "react-native": "0.86.3",
     "react-native-safe-area-context": "~5.7.0"

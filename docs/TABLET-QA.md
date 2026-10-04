@@ -4,7 +4,7 @@
 
 ## Build prerequisites (owner decisions)
 
-- Confirm Android application ID (for example `com.kidsuu.app`, only if owner approves), signing owner and whether to use local builds or the owner's Expo/EAS project.
+- Owner approved Android application ID `com.kidsuu.app` and has a computer, but no Expo account/build yet. Development-client/EAS setup is prepared; owner project linking and cloud build are pending. Follow ANDROID-DEVICE-QA.md.
 - This workspace has Java, but no configured Android SDK/adb or attached tablet. No APK/AAB is built.
 - For immediate SDK-compatible testing, use Expo Go in development with `.env.example` demo opt-in. Otherwise an owner-linked development build is required. Never enable demo authentication in a release APK just to bypass this requirement.
 - EAS linking/signing/remote builds require owner authorization; do not paste signing keys or Expo tokens into chat. Release build stays blocked until release requirements are completed.

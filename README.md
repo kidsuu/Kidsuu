@@ -76,7 +76,7 @@ npm run audit:dependencies
 npm run check:release     # intentionally fails until production work is complete
 ```
 
-Current local checks: **100 app tests**, including **805** responsive geometry cases; TypeScript, lint and formatting; static-asset integrity; Android/iOS Metro exports. These exports are **not APK/IPA builds or device tests**. The bundle check confirms that seeded demo accounts/engine are absent and the unavailable auth adapter is present.
+Current local checks: **105 app tests**, including **805** responsive geometry cases; TypeScript, lint and formatting; static-asset integrity; Android/iOS Metro exports. These exports are **not APK/IPA builds or device tests**. The bundle check confirms that seeded demo accounts/engine are absent and the unavailable auth adapter is present.
 
 Dependency audit still reports upstream transitive advisories. See [security notes](docs/SECURITY.md); audit is not claimed clean. CI reports the audit separately and does not silently fix dependencies with `--force`.
 
@@ -104,3 +104,7 @@ In development demo mode, Sign in opens a device-local family experience:
 - Demo family data now saves to device-local SQLite and restores after restart; sign-out/delete erases it. Credentials and parent unlock are never saved. No cloud sync. See [offline storage](docs/OFFLINE-STORAGE.md).
 
 See [family preview and remaining work](docs/FAMILY-PREVIEW.md) and [tablet test checklist](docs/TABLET-QA.md). Current implementation is on a review branch; it is not automatically deployed or a built APK. See [reader behavior and audio limits](docs/READERS.md).
+
+## First Android tablet development build
+
+Application ID `com.kidsuu.app` is owner-approved. `eas.json` has only an internal debug development-client profile; no release or iOS build profile is enabled. `npm run qa:start` starts the development server with the explicit demo opt-in on Windows/macOS/Linux. Owner Expo account creation/project linking and APK compilation/install are still required; see [Android device QA setup](docs/ANDROID-DEVICE-QA.md). No physical-device case is marked passed. A Metro-connected development client is not proof of standalone airplane-mode cold launch or production performance.
