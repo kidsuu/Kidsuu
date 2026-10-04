@@ -23,7 +23,7 @@ This repository is a tested app foundation, **not release-ready**. `npm run chec
 ## Already verified locally
 
 - Strict TypeScript, zero-warning ESLint, Prettier and static asset references.
-- 105 app tests, including release auth refusal, demo-only flows, 805 pane geometries, sample catalog consistency and 241-pose loop seam integrity.
+- 108 app tests, including release auth refusal, demo-only flows, 805 pane geometries, sample catalog consistency and 241-pose loop seam integrity.
 - Android and iOS Metro production JavaScript exports on Expo SDK 57.
 - Release bundles exclude the demo account/engine and include fail-closed authentication.
 

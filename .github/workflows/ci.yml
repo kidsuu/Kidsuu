@@ -26,6 +26,17 @@ jobs:
       - name: Dependency audit — known upstream advisories, see docs/SECURITY.md
         continue-on-error: true
         run: npm run audit:dependencies
+  windows-checks:
+    name: Windows source checks
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run check
   backend:
     runs-on: ubuntu-latest
     defaults:

@@ -1,0 +1,15 @@
+# Keep source/config/docs identical on Windows, macOS and Linux.
+# Applies on future checkouts even when Git for Windows uses core.autocrlf=true.
+* text=auto eol=lf
+
+# Never normalize binary artwork or fonts.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.ico binary
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary

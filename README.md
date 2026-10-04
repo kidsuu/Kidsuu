@@ -76,7 +76,7 @@ npm run audit:dependencies
 npm run check:release     # intentionally fails until production work is complete
 ```
 
-Current local checks: **105 app tests**, including **805** responsive geometry cases; TypeScript, lint and formatting; static-asset integrity; Android/iOS Metro exports. These exports are **not APK/IPA builds or device tests**. The bundle check confirms that seeded demo accounts/engine are absent and the unavailable auth adapter is present.
+Current local checks: **108 app tests**, including **805** responsive geometry cases; TypeScript, lint and formatting; static-asset integrity; Android/iOS Metro exports. These exports are **not APK/IPA builds or device tests**. The bundle check confirms that seeded demo accounts/engine are absent and the unavailable auth adapter is present.
 
 Dependency audit still reports upstream transitive advisories. See [security notes](docs/SECURITY.md); audit is not claimed clean. CI reports the audit separately and does not silently fix dependencies with `--force`.
 

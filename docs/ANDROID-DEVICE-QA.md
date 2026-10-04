@@ -2,7 +2,7 @@
 
 ## Status
 
-Owner selected an Android tablet, confirmed a computer is available, and approved application ID **`com.kidsuu.app`**. No Expo account/build is available yet. Tablet model/Android version are still to be recorded. This repository now contains a development-only EAS build profile and launcher command. **No EAS build has been submitted, APK installed or physical-device test run by the agent.**
+Owner selected an Android tablet, confirmed a computer is available, and approved application ID **`com.kidsuu.app`**. The owner has now linked `@kidsuu/kidsuu` from the correct Windows checkout (reported EAS project ID `b70e5a6d-8b23-4955-b4a3-bf2e0623c6e4`). No APK build result is available yet. Tablet model/Android version are still to be recorded. This repository now contains a development-only EAS build profile and launcher command. **No EAS build has been submitted, APK installed or physical-device test run by the agent.**
 
 Local checks: app tests, Expo dependency compatibility, Android native configuration generation and Metro exports. Native configuration generation is not Gradle compilation, an APK, device performance measurement or store approval.
 
@@ -20,6 +20,18 @@ npx expo install --check
 ```
 
 No local Android SDK is required for an EAS cloud build. The optional ADB commands later require Android Platform Tools on your computer.
+
+### Windows: widespread Prettier warnings after checkout
+
+If typecheck/lint pass but Prettier reports nearly every file, a CRLF checkout is a likely cause. This repository now enforces LF using `.gitattributes` and an explicit Prettier rule. A Git pull does not necessarily rewrite already checked-out files, so normalize them once with the project formatter:
+
+```powershell
+git pull --ff-only
+npm run format
+npm run check
+```
+
+Run each command separately and stop on errors. `npm run format` changes formatting, not the JSON field values created by `eas init`. Keep the local `app.json` project link; do not use `git reset --hard`, discard that file, reclone over the working copy or reinstall EAS to solve a formatting warning. If Git refuses the pull due to local changes, inspect/report the message rather than forcing it. The source-formatting tests cover CRLF normalization and preservation of EAS metadata. A separate Windows CI check has been added; do not claim it passed before its remote result is observed.
 
 ## 2. Link to YOUR Expo project (once)
 
