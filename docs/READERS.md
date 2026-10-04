@@ -14,7 +14,7 @@ New reader screens reuse the existing story/rhyme category artwork and cream/cla
 - Previous page and replay never erase completed progress. Reopening an unfinished reader resumes at its first unexplored page; a completed reader restarts for replay.
 - Completion is navigation reported by the client, not verified reading, listening, comprehension or elapsed minutes.
 - Progress remains per activity ID, not per age edition. Changing a profile's age does not reset that activity's existing completion ledger. A future edition-aware curriculum requires a reviewed schema/product change.
-- Demo data still disappears on sign-out/app restart; cloud auth and durable persistence remain deferred.
+- Demo progress now restores from device-local SQLite after restart and is erased on sign-out/deletion. Cloud authentication/sync remain deferred; see OFFLINE-STORAGE.md.
 
 ## Device read-aloud, not songs
 
@@ -32,4 +32,4 @@ A custom development client built before adding expo-speech must be rebuilt. Use
 
 Automated tests cover every title/age/page, catalog route coverage, resume bounds, explicit monotonic progress, save failure, native start/stop ordering, rapid replacement, background cancellation, stale callbacks, engine errors, disposal and oversized text. These are pure-domain/mock-native tests, not proof of audible output.
 
-Real-device tests remain required for voices, silent mode, OS interruptions/phone calls, Bluetooth/headphones, TalkBack/VoiceOver, large text, rotations, background/foreground and startup after native-module upgrade. See TABLET-QA.md. Release still blocks on identity, privacy/content review, durable storage policy, remaining dependency findings and device QA.
+Real-device tests remain required for voices, silent mode, OS interruptions/phone calls, Bluetooth/headphones, TalkBack/VoiceOver, large text, rotations, background/foreground and startup after native-module upgrade. See TABLET-QA.md. Release still blocks on identity, privacy/content review, real-account encryption/backup/sync policy, remaining dependency findings and device QA.

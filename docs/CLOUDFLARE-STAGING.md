@@ -2,7 +2,7 @@
 
 ## Status and scope
 
-The backend is implemented and locally tested. A live deployment is **not** implied by a commit or a passing `/health` test. The mobile family preview uses a development-only in-memory repository; its live API composition seam is deliberately inactive until real auth is supplied.
+The backend is implemented and locally tested. A live deployment is **not** implied by a commit or a passing `/health` test. The mobile family preview uses a development-only device-local demo repository; its live API composition seam is deliberately inactive until real auth is supplied.
 
 The initial target is **Cloudflare Workers Free + D1**, using `workers.dev` without a purchased domain. Keep real child data out of staging. Provider SMS, paid storage/media and future plan upgrades are not included or assumed free. No Cloudflare resources or paid plans are created by installing dependencies or running tests.
 

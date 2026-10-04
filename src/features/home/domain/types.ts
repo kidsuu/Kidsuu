@@ -22,6 +22,8 @@ export type KidsuuHomeScreenProps = {
   initialAgeGroup?: AgeGroup;
   onAgeGroupChange?: (age: AgeGroup) => void;
   initialSavedIds?: string[];
+  savedIds?: string[];
+  saving?: boolean;
   onSavedChange?: (ids: string[]) => void;
   /** Supply real progress; omit to hide the continue card. */
   continueProgress?: { activityId: string; completed: number; total: number };

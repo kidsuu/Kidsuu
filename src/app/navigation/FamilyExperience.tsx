@@ -38,8 +38,9 @@ export function FamilyExperience({
     setScreen('home');
   };
   const signOut = () => {
-    store.dispose();
-    onSignOut();
+    void store.prepareSignOut().then((ok) => {
+      if (ok) onSignOut();
+    });
   };
   useEffect(() => {
     void store.load();
@@ -74,10 +75,26 @@ export function FamilyExperience({
         setScreen('home');
         return true;
       }
-      return false;
+      Alert.alert(
+        'Sign out and clear local demo data?',
+        'Saved profiles, settings, progress and bookmarks on this device will be erased.',
+        [
+          { text: 'Stay', style: 'cancel' },
+          {
+            text: 'Sign out',
+            style: 'destructive',
+            onPress: () => {
+              void store.prepareSignOut().then((ok) => {
+                if (ok) onSignOut();
+              });
+            },
+          },
+        ],
+      );
+      return true;
     });
     return () => sub.remove();
-  }, [screen, store]);
+  }, [screen, store, onSignOut]);
   const notice = (
     <Notice error={state.error} loading={state.loading} onReload={() => void store.load()} />
   );
@@ -85,6 +102,43 @@ export function FamilyExperience({
     store.clearError();
     exitParents();
   };
+  if (!state.ready)
+    return (
+      <Panel
+        title={state.loading ? 'Opening your little world…' : 'Saved data needs attention'}
+        onBack={() => {
+          if (!state.loading && !state.busy)
+            Alert.alert(
+              'Erase local demo data?',
+              'This clears saved profiles, settings, progress and bookmarks and returns to sign-in. It cannot be undone.',
+              [
+                { text: 'Cancel', style: 'cancel' },
+                { text: 'Erase & sign out', style: 'destructive', onPress: signOut },
+              ],
+            );
+        }}
+        subtitle="Demo data stays on this device. No automatic reset or cloud sync."
+      >
+        {notice}
+        {!state.loading && store.isPersistent && (
+          <Button
+            label="Erase local demo data & sign out"
+            disabled={state.busy}
+            danger
+            onPress={() =>
+              Alert.alert(
+                'Erase local demo data?',
+                'This cannot be undone. Nothing is sent to Cloudflare.',
+                [
+                  { text: 'Cancel', style: 'cancel' },
+                  { text: 'Erase & sign out', style: 'destructive', onPress: signOut },
+                ],
+              )
+            }
+          />
+        )}
+      </Panel>
+    );
   if (screen === 'gate' || (screen === 'parents' && !state.parentUnlocked))
     return (
       <Panel
@@ -100,7 +154,7 @@ export function FamilyExperience({
         <View style={s.card}>
           <Text style={s.body}>
             {isDemo
-              ? 'These controls only change fictitious, in-memory demo data. This button is not an identity or age check. Live family controls will require real parent reauthentication.'
+              ? 'These controls only change fictitious demo data saved on this device. This button is not an identity or age check. Live family controls will require real parent reauthentication.'
               : 'Verify your parent session before changing family details.'}
           </Text>
           <Button
@@ -296,7 +350,9 @@ export function FamilyExperience({
     <View style={{ flex: 1, backgroundColor: '#FFFAF2' }}>
       <View style={s.badge}>
         {isDemo && (
-          <Text style={[s.body, { fontSize: 13 }]}>Demo family · session only · no cloud sync</Text>
+          <Text style={[s.body, { fontSize: 13 }]}>
+            Demo family · saved on this device · no cloud sync
+          </Text>
         )}
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={s.row}>
           <Button
@@ -327,8 +383,11 @@ export function FamilyExperience({
           profileName={selected.nickname}
           onOpenProfiles={() => setScreen('profiles')}
           initialAgeGroup={selected.ageGroup}
-          initialSavedIds={state.saved[selected.id] ?? []}
-          onSavedChange={(ids) => store.setSaved(ids)}
+          savedIds={state.saved[selected.id] ?? []}
+          saving={state.busy}
+          onSavedChange={(ids) => {
+            void store.setSaved(ids);
+          }}
           continueProgress={
             continuing
               ? {
@@ -350,7 +409,16 @@ export function FamilyExperience({
         !state.loading && (
           <Panel
             title="A little world of their own"
-            onBack={signOut}
+            onBack={() =>
+              Alert.alert(
+                'Sign out and erase local demo data?',
+                'All saved profiles, settings, progress and bookmarks on this device will be removed.',
+                [
+                  { text: 'Stay', style: 'cancel' },
+                  { text: 'Sign out', style: 'destructive', onPress: signOut },
+                ],
+              )
+            }
             subtitle="Choose or create a profile to start exploring."
           >
             <Button label="Choose a profile" onPress={() => setScreen('profiles')} />

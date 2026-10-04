@@ -18,7 +18,11 @@
           "imageWidth": 220
         }
       ],
-      "expo-status-bar"
-    ]
+      "expo-status-bar",
+      "expo-sqlite"
+    ],
+    "android": {
+      "allowBackup": false
+    }
   }
 }

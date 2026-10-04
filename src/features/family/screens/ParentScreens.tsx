@@ -111,7 +111,7 @@ export function ParentSettings({
       return;
     }
     if (await store.saveSettings({ soundEnabled: sound, dailyGoalMinutes }, parent.version))
-      setMessage('Settings saved for this session.');
+      setMessage('Settings saved.');
   };
   return (
     <>
@@ -155,7 +155,7 @@ export function ParentSettings({
         <Text style={s.heading}>Family data</Text>
         <Text style={s.body}>
           Delete all profiles and progress. This does not delete an external login account. Demo
-          data is only held in memory and also clears on sign-out or app restart.
+          data is saved on this device, survives app restart, and is erased on sign-out or deletion.
         </Text>
         <TextInput
           accessibilityLabel="Type DELETE to confirm family data deletion"
@@ -188,7 +188,7 @@ export function ParentSettings({
         />
       </View>
       <Button
-        label="Sign out & clear demo session"
+        label="Sign out & erase local demo data"
         disabled={disabled}
         onPress={() =>
           Alert.alert(

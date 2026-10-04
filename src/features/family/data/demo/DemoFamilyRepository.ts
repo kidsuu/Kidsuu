@@ -1,3 +1,4 @@
+import type { DemoFamilyData } from '../offline/snapshot';
 import type { FamilyRepository } from '../../domain/FamilyRepository';
 import { validateProfile } from '../../domain/validation';
 import { FamilyApiError } from '../../../../shared/api/FamilyApiClient';
@@ -7,8 +8,10 @@ import {
   type ChildProfile,
   type Parent,
 } from '../../../../../packages/contracts/src';
-/** Fictitious data only. Memory-only: no disk, network, credentials or real child records. */
-export function createDemoFamilyRepository(): FamilyRepository {
+/** Pure in-memory demo engine. The offline wrapper commits a cloned candidate before publishing changes. */
+export function createDemoFamilyRepository(
+  restored?: DemoFamilyData,
+): FamilyRepository & { exportData(): DemoFamilyData } {
   const stamp = () => new Date().toISOString();
   let parent: Parent = {
     id: 'demo-family-session',
@@ -31,6 +34,13 @@ export function createDemoFamilyRepository(): FamilyRepository {
     },
   ];
   const progress = new Map<string, ActivityProgress[]>();
+  if (restored) {
+    const data: DemoFamilyData = JSON.parse(JSON.stringify(restored));
+    parent = data.parent;
+    children = data.children;
+    sequence = data.nextId;
+    for (const [id, rows] of Object.entries(data.progress)) progress.set(id, rows);
+  }
   let deleted = false;
   const copy = <T>(v: T): T => JSON.parse(JSON.stringify(v)) as T;
   const fail = (code: string, message: string, status = 409): never => {
@@ -48,6 +58,10 @@ export function createDemoFamilyRepository(): FamilyRepository {
       fail('VERSION_CONFLICT', 'Details changed. Reload before trying again.');
   };
   return {
+    exportData: () => {
+      active();
+      return copy({ parent, children, progress: Object.fromEntries(progress), nextId: sequence });
+    },
     initializeParent: async () => {
       active();
       return copy(parent);

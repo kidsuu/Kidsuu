@@ -66,6 +66,8 @@ export default function KidsuuHomeScreen({
   initialAgeGroup = '4–5',
   onAgeGroupChange,
   initialSavedIds = [],
+  savedIds,
+  saving = false,
   onSavedChange,
   continueProgress,
   bottomInset = 0,
@@ -80,7 +82,8 @@ export default function KidsuuHomeScreen({
   const [tab, setTab] = useState<Tab>('home');
   const [filter, setFilter] = useState('all');
   const [query, setQuery] = useState('');
-  const [saved, setSaved] = useState<string[]>(initialSavedIds);
+  const [localSaved, setSaved] = useState<string[]>(initialSavedIds);
+  const saved = savedIds ?? localSaved;
   const [ageModal, setAgeModal] = useState(false);
   const scroll = useRef<ScrollView>(null);
   const heroBottom = useRef(400);
@@ -92,7 +95,8 @@ export default function KidsuuHomeScreen({
     onOpenActivity({ ...a, title: title(a), durationMinutes: a.minutes[age], ageGroup: ages[age] });
   const toggleSaved = (id: string) => {
     const next = saved.includes(id) ? saved.filter((x) => x !== id) : [...saved, id];
-    setSaved(next);
+    if (saving) return;
+    if (savedIds === undefined) setSaved(next);
     onSavedChange?.(next);
   };
   const navigate = (next: Tab) => {
@@ -145,7 +149,8 @@ export default function KidsuuHomeScreen({
         <Pressable
           accessibilityRole="button"
           accessibilityLabel={`${selected ? 'Unsave' : 'Save'} ${title(a)}`}
-          accessibilityState={{ selected }}
+          disabled={saving}
+          accessibilityState={{ selected, disabled: saving }}
           hitSlop={6}
           onPress={(e) => {
             e.stopPropagation();

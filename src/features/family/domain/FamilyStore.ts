@@ -15,6 +15,7 @@ export interface FamilyState {
   progress: ActivityProgress[];
   saved: Record<string, string[]>;
   loading: boolean;
+  ready: boolean;
   busy: boolean;
   error: string;
   parentUnlocked: boolean;
@@ -52,6 +53,7 @@ export class FamilyStore {
     progress: [],
     saved: {},
     loading: true,
+    ready: false,
     busy: false,
     error: '',
     parentUnlocked: false,
@@ -64,6 +66,9 @@ export class FamilyStore {
     private repository: FamilyRepository,
     private authorizeParent: () => Promise<void>,
   ) {}
+  get isPersistent() {
+    return !!this.repository.local;
+  }
   getSnapshot = () => this.state;
   subscribe = (listener: () => void) => {
     this.listeners.add(listener);
@@ -82,31 +87,60 @@ export class FamilyStore {
     const epoch = ++this.epoch;
     this.set({ loading: true, error: '', progress: [] });
     try {
-      const [parent, children] = await Promise.all([
+      const [parent, children, preferences] = await Promise.all([
         this.repository.getParent(),
         this.repository.listChildren(),
+        this.repository.local?.getPreferences(),
       ]);
-      const selectedId = children.some((c) => c.id === this.state.selectedId)
-        ? this.state.selectedId
-        : (children[0]?.id ?? null);
+      const selectedId = preferences
+        ? preferences.selectedId
+        : children.some((c) => c.id === this.state.selectedId)
+          ? this.state.selectedId
+          : (children[0]?.id ?? null);
       const progress = selectedId ? await this.repository.getProgress(selectedId) : [];
-      if (epoch === this.epoch) this.set({ parent, children, selectedId, progress });
+      if (epoch === this.epoch)
+        this.set({
+          parent,
+          children,
+          selectedId,
+          progress,
+          ready: true,
+          ...(preferences ? { saved: preferences.saved } : {}),
+        });
     } catch (e) {
-      if (epoch === this.epoch) this.set({ error: familyError(e) });
+      if (epoch === this.epoch)
+        this.set({
+          error: familyError(e),
+          ready: false,
+          parent: null,
+          children: [],
+          selectedId: null,
+          progress: [],
+          saved: {},
+        });
     } finally {
       if (epoch === this.epoch) this.set({ loading: false });
     }
   }
   async select(id: string) {
-    if (this.state.busy || this.disposed || !this.state.children.some((c) => c.id === id)) return;
+    if (
+      this.state.busy ||
+      !this.state.ready ||
+      this.disposed ||
+      !this.state.children.some((c) => c.id === id)
+    )
+      return;
+    const previousId = this.state.selectedId;
     const epoch = ++this.epoch;
     this.lock();
     this.set({ selectedId: id, progress: [], loading: true, error: '' });
     try {
+      if (this.repository.local) await this.repository.local.setSelected(id);
       const progress = await this.repository.getProgress(id);
       if (epoch === this.epoch) this.set({ progress });
     } catch (e) {
-      if (epoch === this.epoch) this.set({ error: familyError(e) });
+      if (epoch === this.epoch)
+        this.set({ error: familyError(e), selectedId: previousId, progress: [] });
     } finally {
       if (epoch === this.epoch) this.set({ loading: false });
     }
@@ -128,11 +162,30 @@ export class FamilyStore {
     this.set({ parentUnlocked: false });
   };
   setSaved(ids: string[]) {
-    if (this.state.selectedId)
-      this.set({ saved: { ...this.state.saved, [this.state.selectedId]: [...new Set(ids)] } });
+    const id = this.state.selectedId;
+    if (!id) return Promise.resolve(false);
+    return this.mutate(async () => {
+      const values = [...new Set(ids)];
+      await this.repository.local?.setSaved(id, values);
+      this.set({ saved: { ...this.state.saved, [id]: values } });
+    });
+  }
+  /** Disk erase must succeed before the auth session/navigation is discarded. */
+  async prepareSignOut(): Promise<boolean> {
+    if (this.disposed || this.state.busy || this.state.loading) return false;
+    this.lock();
+    this.set({ busy: true, error: '' });
+    try {
+      await this.repository.local?.clear();
+      this.dispose();
+      return true;
+    } catch (e) {
+      this.set({ busy: false, error: familyError(e) });
+      return false;
+    }
   }
   private async mutate(task: () => Promise<void>, parentOnly = false): Promise<boolean> {
-    if (this.disposed || this.state.busy || this.state.loading) return false;
+    if (this.disposed || this.state.busy || this.state.loading || !this.state.ready) return false;
     if (parentOnly && !this.state.parentUnlocked) {
       this.set({ error: 'Open the parent gate before changing family details.' });
       return false;

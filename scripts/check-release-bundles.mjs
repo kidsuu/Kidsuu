@@ -18,6 +18,8 @@ for (const platform of ['android', 'ios']) {
     'DemoAuthEngine',
     'demo-family-session',
     'createDemoFamilyRepository',
+    'kidsuu-demo-offline.db',
+    'kidsuu-demo-family',
   ]) {
     if (code.includes(sentinel))
       throw new Error(`${platform}: development auth leaked into release bundle (${sentinel})`);

@@ -52,7 +52,7 @@ export function PracticeScreen({
     <Panel
       title={activity.title}
       onBack={onBack}
-      subtitle="Original practice sample • progress stays in this demo session"
+      subtitle="Original practice sample • demo progress saved on this device"
     >
       <Notice error={state.error} loading={state.loading} onReload={() => void store.load()} />
       {done ? (

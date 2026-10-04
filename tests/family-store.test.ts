@@ -60,7 +60,7 @@ describe('family session and protection', () => {
     await store.unlock();
     await store.saveProfile(profile);
     await store.record('count', { completedSteps: 2, totalSteps: 5 });
-    store.setSaved(['count']);
+    await store.setSaved(['count']);
     const second = store.getSnapshot().children[1].id;
     await store.select(second);
     expect(store.getSnapshot().progress).toEqual([]);
@@ -141,7 +141,7 @@ describe('family session and protection', () => {
     const { store } = await setup();
     await store.unlock();
     const child = store.getSnapshot().children[0];
-    store.setSaved(['count']);
+    await store.setSaved(['count']);
     await store.record('count', { completedSteps: 1, totalSteps: 5 });
     expect(await store.deleteProfile(child)).toBe(true);
     expect(store.getSnapshot().selectedId).toBeNull();

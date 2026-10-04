@@ -9,10 +9,10 @@ export interface LiveFamilyAccess {
 export function createFamilySession(isDemo: boolean, live?: LiveFamilyAccess): FamilyStore | null {
   if (__DEV__ && isDemo && resolveAuthMode(__DEV__, process.env.EXPO_PUBLIC_AUTH_MODE) === 'demo') {
     /* eslint-disable @typescript-eslint/no-require-imports */
-    const { createDemoFamilyRepository } =
-      require('../../features/family/data/demo/DemoFamilyRepository') as typeof import('../../features/family/data/demo/DemoFamilyRepository');
+    const { createDeviceOfflineRepository } =
+      require('../../features/family/data/offline/deviceOfflineRepository') as typeof import('../../features/family/data/offline/deviceOfflineRepository');
     /* eslint-enable @typescript-eslint/no-require-imports */
-    return new FamilyStore(createDemoFamilyRepository(), async () => {});
+    return new FamilyStore(createDeviceOfflineRepository(), async () => {});
   }
   if (!live || isDemo) return null;
   const baseUrl = process.env.EXPO_PUBLIC_API_BASE_URL;

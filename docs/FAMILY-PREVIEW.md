@@ -15,22 +15,22 @@ These are **samples**, not a full ages 2–9 curriculum. Some prompts require a 
 3. Grown-ups → Open demo parent controls. Add profiles, edit ages, change settings, confirm deletes.
 4. Exit parent controls. Switch profiles, answer sample practice questions, inspect My progress and the continue card; save activities per child.
 5. Background/foreground the app: parent controls close/relock. Reopen after five minutes: gate required again.
-6. Sign out/restart: demo family data is erased. Never enter real child information.
+6. Force-close/restart without signing out, then enter the demo again: profiles/settings/progress/bookmarks restore, parent access stays locked. Sign-out/delete erases local demo data. Never enter real child information.
 
 ## Honest storage and auth boundaries
 
-- **Memory only**, not AsyncStorage, D1 sync or durable offline persistence. Reloaded/restarted app and signed-out sessions start fresh. Bookmark IDs are also session-only.
-- Demo repository never calls `fetch` or stores credentials. Release bundle sentinels ensure it is excluded.
+- **Device-local SQLite** now persists demo family data and bookmarks across app restart. Successful sign-out/deletion clears it. No D1 sync or credentials/unlock persistence. It is not app-level encrypted; dummy data only. See OFFLINE-STORAGE.md.
+- The pure demo engine has no disk/network I/O; its local-only wrapper commits validated snapshots to SQLite. Neither calls `fetch` or stores credentials. Release bundle sentinels ensure both are excluded.
 - `FamilyRepository` matches the existing typed HTTP API client. `createFamilySession` accepts future `getAccessToken` and `reauthenticateParent` functions. No live adapter is supplied today.
 - API errors never switch the user into demo mode. Server ownership/JWT/reauth checks remain unchanged.
 - UI parent confirmation is deliberately labelled as demo, **not a PIN, identity check, adult verification or legal consent**. Background/exit/five-minute relock is a preview UX precaution, not a replacement for server authorization.
 - Store serializes mutations, suppresses duplicate taps, handles version conflicts, clears old profile progress before selection and rejects late async responses. No offline write queue, silent retries or saved-success claim on network failure.
-- Settings persist in the demo session. Sound preference controls optional reader narration; daily goal is not an enforced limit.
+- Settings persist on the device. Sound preference controls optional reader narration; daily goal is not an enforced limit.
 
 ## Still needed before calling “everything except auth” complete
 
 - Full reviewed curriculum and any recorded music/media. Text readers and device narration lifecycle are implemented, but not yet verified on physical hardware.
-- Product decision on durable offline storage, encryption, retention, sync/conflict policy and bookmarks backend support.
+- Real-account encryption, OS backup/retention policy, cloud sync/conflicts and bookmarks backend support. Local demo restart persistence is implemented.
 - Actual tablet rotation/font-scale/TalkBack/VoiceOver/touch/performance testing; see TABLET-QA.md.
 - Android package ID and build/signing ownership confirmed by owner; native SDK/build access.
 - Remaining 16 high dependency findings mitigated or formally reviewed; native-build validation of scoped UUID override.

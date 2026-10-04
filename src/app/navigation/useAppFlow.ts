@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   AccessibilityInfo,
-  Alert,
   Animated,
   AppState,
   BackHandler,
@@ -103,13 +102,8 @@ export function useAppFlow(onReady?: () => void) {
     const sub = BackHandler.addEventListener('hardwareBackPress', () => {
       if (busyRef.current) return true;
       if (route === 'login' || route === 'launch' || route === 'splash') return false;
-      if (route === 'home') {
-        Alert.alert('Sign out?', 'You will return to the sign-in screen.', [
-          { text: 'Stay', style: 'cancel' },
-          { text: 'Sign out', onPress: signOut },
-        ]);
-        return true;
-      }
+      // FamilyExperience owns Home Back/sign-out so local erase cannot be bypassed.
+      if (route === 'home') return false;
       back();
       return true;
     });

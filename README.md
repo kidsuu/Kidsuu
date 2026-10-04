@@ -2,7 +2,7 @@
 
 Tablet-first React Native app with the approved clay UI, animated boy/puppy characters, and age-based Home experience.
 
-**Status: development foundation, not a production release.** Live authentication, secure parent verification and durable device/cloud persistence are not connected. Family screens and four original practice samples plus story/rhyme readers work with development-only session data. Release authentication fails closed instead of admitting users through the preview shortcut.
+**Status: development foundation, not a production release.** Live authentication, secure parent verification and live cloud persistence are not connected. Development demo data now persists locally in SQLite. Family screens and four original practice samples plus story/rhyme readers work with development-only dummy data. Release authentication fails closed instead of admitting users through the preview shortcut.
 
 ## Run locally
 
@@ -76,13 +76,13 @@ npm run audit:dependencies
 npm run check:release     # intentionally fails until production work is complete
 ```
 
-Current local checks: **72 app unit tests**, including **805** responsive geometry cases; TypeScript, lint and formatting; static-asset integrity; Android/iOS Metro exports. These exports are **not APK/IPA builds or device tests**. The bundle check confirms that seeded demo accounts/engine are absent and the unavailable auth adapter is present.
+Current local checks: **100 app tests**, including **805** responsive geometry cases; TypeScript, lint and formatting; static-asset integrity; Android/iOS Metro exports. These exports are **not APK/IPA builds or device tests**. The bundle check confirms that seeded demo accounts/engine are absent and the unavailable auth adapter is present.
 
 Dependency audit still reports upstream transitive advisories. See [security notes](docs/SECURITY.md); audit is not claimed clean. CI reports the audit separately and does not silently fix dependencies with `--force`.
 
 ## Before production
 
-See [architecture](docs/ARCHITECTURE.md), [release checklist](docs/PRODUCTION-READINESS.md), and [security](docs/SECURITY.md). Backend/provider selection, verified parent access, private session storage, licensed content, activity players and real-device QA are deliberate next steps—not placeholder implementations presented as complete.
+See [architecture](docs/ARCHITECTURE.md), [release checklist](docs/PRODUCTION-READINESS.md), and [security](docs/SECURITY.md). Backend/provider selection, verified parent access, secure identity storage, reviewed content and real-device QA are deliberate next steps—not placeholder implementations presented as complete.
 
 ## Cloudflare backend (staging phase)
 
@@ -94,13 +94,13 @@ Use npm 11.21.0 for the backend lockfile; install backend dependencies separatel
 
 ## Family preview (auth deliberately deferred)
 
-In development demo mode, Sign in opens a session-scoped family experience:
+In development demo mode, Sign in opens a device-local family experience:
 
 - Choose a child profile; Grown-ups → Open demo parent controls → add/edit/delete up to five profiles.
 - Set a sound preference and daily goal (not a timer or enforced screen-time limit).
 - Try a Learning or Games card: five original text-only practice steps, age-sensitive prompts, progress/continue cards, per-profile saved activities.
 - Story/rhyme cards open 16 age-wise original drafts (80 pages/verses), with deliberate progress checkpoints and optional device read-aloud. Rhymes are spoken, not sung. Audio availability depends on the device.
 - Parent controls relock on background, exit and after five minutes. **The demo gate is not secure parent verification.** Release auth still refuses entry.
-- Session data is memory-only, clears on sign-out/restart, never synced to Cloudflare. No offline mutation queue or claim of durable saving.
+- Demo family data now saves to device-local SQLite and restores after restart; sign-out/delete erases it. Credentials and parent unlock are never saved. No cloud sync. See [offline storage](docs/OFFLINE-STORAGE.md).
 
 See [family preview and remaining work](docs/FAMILY-PREVIEW.md) and [tablet test checklist](docs/TABLET-QA.md). Current implementation is on a review branch; it is not automatically deployed or a built APK. See [reader behavior and audio limits](docs/READERS.md).

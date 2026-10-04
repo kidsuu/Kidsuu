@@ -3,7 +3,7 @@
 ## Current behavior
 
 - Production authentication is intentionally unavailable; it fails closed. The development shortcut is gated with the Metro `__DEV__` constant and an explicit non-secret environment opt-in.
-- No real SMS, password database, backend keys, analytics SDK, session persistence or provider integration is shipped.
+- No real SMS, password database, backend keys, analytics SDK, auth-session persistence or provider integration is shipped.
 - Demo passwords and OTPs are fictitious in-memory fixtures. Never enter real personal information into demo mode.
 - `.env`, signing material, private keys, generated builds and dependency folders are ignored. `.env.example` contains only a public development-mode selector and public staging API origin.
 - The error boundary does not print exceptions or personal information into UI/logs. A real observability integration needs its own redaction/consent review.
@@ -40,8 +40,12 @@ The registry currently reports `braces@3.0.3` and `node-forge@1.4.0` as latest r
 
 ## Family preview boundary
 
-Family fixtures have no disk or network I/O and are conditionally excluded from release bundles. The demo parent gate is a visibly labelled preview confirmation, not adult/identity verification. The store refuses parent changes before authorization, clears its gate on background/exit/timeout, and ignores stale profile reads. The live composition seam requires an external reauthentication adapter; the server remains authoritative. No unlock flags, tokens or personal records are persisted. Sign-out clears the session; offline writes are not queued or automatically replayed.
+The pure family engine has no disk/network I/O; a development-only offline wrapper now persists validated dummy data in app-private SQLite. Both are conditionally excluded from release bundles. The demo parent gate is a visibly labelled preview confirmation, not adult/identity verification. The store refuses parent changes before authorization, clears its gate on background/exit/timeout, and ignores stale profile reads. The live composition seam requires an external reauthentication adapter; the server remains authoritative. No unlock flags or tokens are persisted. Demo nicknames/settings/progress/bookmarks are now saved locally; only fictitious data is permitted. Sign-out waits for local erase; offline writes are not queued or automatically replayed.
 
 ## Optional narration
 
 expo-speech receives only fixed original editorial text, not child/account data or tokens. This app does not request microphone access or record voices. OS TTS engines may use network-backed voices; do not claim fully local processing or guaranteed offline audio. Narration is user-initiated, cancels on background/exit and remains disabled when a screen reader is active or cannot be detected. No new server endpoint or auth bypass was added.
+
+## Local demo SQLite policy
+
+SQLite storage is not app-level encrypted and represents a single fictitious household per installation. Production auth still denies access; no development bypass is enabled in release. Snapshot schemas explicitly reject unexpected credential/unlock fields; read/corruption failures preserve existing data instead of reseeding. Save acknowledgement follows atomic disk commit, and all family sign-out paths wait for erase. Data is erased from the current database, not from historical backups or flash remnants. Android `allowBackup: false` applies only to generated standalone apps, not Expo Go or all OS/OEM behaviors. iOS backup exclusion, secure real-account storage, retention, key management and multi-account authorization remain production blockers. See OFFLINE-STORAGE.md.

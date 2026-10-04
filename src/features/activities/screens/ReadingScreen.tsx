@@ -106,7 +106,7 @@ export function ReadingScreen({
       </Text>
       <Text style={s.body}>
         Ages {ageGroup} · Original {reading.kind === 'story' ? 'story' : 'spoken rhyme'} draft
-        {isDemo ? ' · session-only progress' : ''}
+        {isDemo ? ' · progress saved on this device' : ''}
       </Text>
       <Notice
         error={state.error}
