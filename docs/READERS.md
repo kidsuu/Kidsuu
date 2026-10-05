@@ -33,3 +33,7 @@ A custom development client built before adding expo-speech must be rebuilt. Use
 Automated tests cover every title/age/page, catalog route coverage, resume bounds, explicit monotonic progress, save failure, native start/stop ordering, rapid replacement, background cancellation, stale callbacks, engine errors, disposal and oversized text. These are pure-domain/mock-native tests, not proof of audible output.
 
 Real-device tests remain required for voices, silent mode, OS interruptions/phone calls, Bluetooth/headphones, TalkBack/VoiceOver, large text, rotations, background/foreground and startup after native-module upgrade. See TABLET-QA.md. Release still blocks on identity, privacy/content review, real-account encryption/backup/sync policy, remaining dependency findings and device QA.
+
+## Content-platform follow-up
+
+The fixed-five/legacy-progress description above applies to the existing child Home catalog. The separate development-only adult Content Lab now supports four/six-part bilingual editions and independent hashed edition ledgers; see CONTENT-PLATFORM.md. Legacy reader content has not been silently rewritten or relabelled. The shared TTS adapter now prefers a matching `en-IN` or `hi-IN` voice, falls back only within the same language, and reports unavailability instead of speaking Hindi through an English default. Native voice quality remains untested.

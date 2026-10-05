@@ -1,0 +1,26 @@
+{
+  "reportRevision": "0.2-audit-corrections",
+  "date": "2026-10-05",
+  "changedResearchFiles": [
+    "01-kidsuu-learning-strategy.md",
+    "04-kidsuu-engineering-review-and-sources.md",
+    "03-kidsuu-four-pilot-packs.md",
+    "02-kidsuu-sixteen-blueprints.md",
+    "06-kidsuu-prompt-library-and-roadmap.md"
+  ],
+  "projectFilesChanged": false,
+  "assetsGenerated": false,
+  "childFacingScriptsRewritten": false,
+  "pilotStructuredExamplesStatus": "still illustrative draft 0.1.0; optional-step semantics and full serialization require reviewed future revision",
+  "archive": "archive/pre-detailed-audit/",
+  "additionalResearchFilesChanged": ["START-HERE.md"],
+  "derivedFilesRebuilt": ["Kidsuu-Research-and-AI-Production-Guide.md", "DELIVERABLE-CHECKS.md"],
+  "newDeliverables": [
+    "RESEARCH-AUDIT.md",
+    "SOURCE-INSPECTION-RECHECK.json",
+    "AUDIT-CHANGE-RECORD.json",
+    "AUDIT-PACKAGE-CHECKS.json",
+    "Kidsuu-Research-and-Audit-Bundle.zip"
+  ],
+  "additionalCitationUpdate": "E03 publisher full article relevant methods/results now accessible; access notes updated."
+}

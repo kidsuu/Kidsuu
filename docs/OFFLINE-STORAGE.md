@@ -12,6 +12,7 @@ The database is in the app's private SQLite directory, named `kidsuu-demo-offlin
 - Parent sound preference and daily goal.
 - Every child's activity progress, including unfinished story/practice checkpoints.
 - Per-child saved activity IDs and the last selected profile.
+- Content Lab edition ledgers, including locale/version/hash and separate explored/optional-skipped unit IDs.
 
 Auth credentials/OTP, login session, tokens, parent-unlock flags, in-flight operations, temporary errors and navigation state are **not** saved. After restarting, the approved intro/sign-in flow still appears. Enter the development demo again to restore the family; no automatic login was added. Existing pre-upgrade memory-only sessions cannot be recovered once lost.
 
@@ -27,16 +28,16 @@ Startup loads and validates data before enabling family screens. Read/open error
 
 ## Schema / limits
 
-Current payload: `kind`, `schemaVersion: 2`, `data` and `preferences`. Strict validation checks exact keys, five-profile limit, known age/avatar/activity enums, unique IDs, versions, valid timestamps, nickname restrictions, progress bounds, monotonic ID allocation and profile-scoped references. Credentials/unlock or other unexpected fields are rejected. Payload limit is 65,536 characters, with tighter domain cardinality bounds.
+Current payload: `kind`, `schemaVersion: 3`, `data` and `preferences`. Strict validation checks exact keys, five-profile limit, known age/avatar/activity enums, unique IDs, versions, valid timestamps, nickname restrictions, progress bounds, monotonic ID allocation and profile-scoped references. Credentials/unlock or other unexpected fields are rejected. Payload limit is 65,536 characters, with tighter domain cardinality bounds.
 
-A defined version-1 format (`kind`, `schemaVersion`, `data`) migrates to version 2 by adding default selection and empty bookmarks. Migration is committed atomically before publication. This is compatibility coverage for that defined format, not a claim that previous memory-only app versions stored a database. Future schema versions are never downgraded or discarded automatically.
+Defined version-1 and version-2 formats migrate to version 3. Version 1 adds default selection/bookmarks; both receive an empty edition ledger. Existing activity progress is preserved, never assigned to an inferred age/language edition. Migration is committed atomically before publication. This is compatibility coverage for that defined format, not a claim that previous memory-only app versions stored a database. Future schema versions are never downgraded or discarded automatically. Older v2 clients refuse upgraded v3 snapshots; update forward rather than erasing data. Edition ledgers are bounded to 32 per child and 24 units per edition within the same document size limit.
 
 ## Sign-out and deletion
 
 - Every family UI sign-out path, including Android hardware Back confirmation, awaits local erase before auth/navigation is discarded.
 - Erase failure keeps the user in the current session, relocks parent access and shows a retryable error. It does not claim successful sign-out.
 - Sign-out during a mutation/loading operation is blocked; completed writes cannot resurrect data after the successful clear. Stale operations on a cleared repository are rejected.
-- Profile deletion atomically removes that profile's progress/bookmarks/selection. Creating a new profile uses a non-reused local ID.
+- Profile deletion atomically removes that profile's progress/bookmarks/edition ledgers/selection. Creating a new profile uses a non-reused local ID.
 - Family-data deletion checks the current version, erases the local snapshot and closes the session. It does not delete an external identity account.
 - Route cleanup/disposal only clears memory and listeners. It is intentionally different from sign-out.
 

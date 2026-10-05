@@ -23,9 +23,9 @@ This repository is a tested app foundation, **not release-ready**. `npm run chec
 ## Already verified locally
 
 - Strict TypeScript, zero-warning ESLint, Prettier and static asset references.
-- 108 app tests, including release auth refusal, demo-only flows, 805 pane geometries, sample catalog consistency and 241-pose loop seam integrity.
+- 135 app tests, including release auth refusal, demo-only flows, 805 pane geometries, sample catalog consistency and 241-pose loop seam integrity.
 - Android and iOS Metro production JavaScript exports on Expo SDK 57.
-- Release bundles exclude the demo account/engine and include fail-closed authentication.
+- Release bundles exclude the demo account/engine and new Content Lab draft fixtures and include fail-closed authentication.
 
 Not verified: physical devices/emulators, native binaries, actual SMS/backend/provider behavior, store submissions, runtime performance or child privacy compliance. The earlier HTML preview's browser tests are not a substitute for native regression testing after the SDK upgrade.
 
@@ -51,4 +51,8 @@ Device-local SQLite restore is implemented for dummy family data, including book
 
 ## Android device-QA setup
 
-Owner has an Android tablet and computer; no Expo account/build is linked yet. SDK-compatible expo-dev-client/system-ui and the approved package ID are configured. Native Android configuration generation was smoke-checked (not compiled). Development builds require Metro, so true offline cold launch and release performance cannot be passed using that setup alone. EAS post-install checks reject other profiles/platforms; check:release still intentionally fails. See ANDROID-DEVICE-QA.md.
+Owner has an Android tablet/computer, linked @kidsuu/kidsuu locally and reported development-client launch/basic use. Detailed device QA is still pending; the agent has not received a build link or tablet model/Android version. SDK-compatible expo-dev-client/system-ui and the approved package ID are configured. Native Android configuration generation was smoke-checked (not compiled). Development builds require Metro, so true offline cold launch and release performance cannot be passed using that setup alone. EAS post-install checks reject other profiles/platforms; check:release still intentionally fails. See ANDROID-DEVICE-QA.md.
+
+## Research-driven content batch 1
+
+Development-only adult Content Lab: four serialized draft editions, strict package validation/hash manifests, optional-unit-aware variable reader, new per-child/age/locale/version/hash ledger, atomic v1/v2 → v3 migration and language-aware TTS. Android/iOS release bundles exclude drafts. No human content approval, generated assets, live edition API, graphical game players or physical-device acceptance is claimed. Existing legacy activity history is unchanged and retains its old edition limitation. See CONTENT-PLATFORM.md for the exact scope, rollback warning, known editorial issues and remaining sequence.

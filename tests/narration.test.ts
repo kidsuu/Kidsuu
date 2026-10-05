@@ -116,3 +116,47 @@ describe('device narration lifecycle', () => {
     expect(speak).not.toHaveBeenCalled();
   });
 });
+
+describe('locale preparation and cancellation', () => {
+  it('passes Hindi explicitly and refuses missing voices instead of silently falling back', async () => {
+    const speak = vi.fn<NarrationPort['speak']>(),
+      prepare = vi.fn(async () => false);
+    const c = new NarrationController({ stop: async () => {}, speak, prepare });
+    c.setAllowed(true);
+    await c.play('ऊपर और नीचे।', 'hi-IN');
+    expect(prepare).toHaveBeenCalledWith('hi-IN');
+    expect(speak).not.toHaveBeenCalled();
+    expect(c.getSnapshot().error).toContain('unavailable');
+    prepare.mockResolvedValue(true);
+    await c.play('ऊपर और नीचे।', 'hi-IN');
+    expect(speak.mock.calls[0][2]).toBe('hi-IN');
+  });
+  it('cancels after a slow voice lookup when backgrounded', async () => {
+    let finish!: (v: boolean) => void;
+    const speak = vi.fn<NarrationPort['speak']>(),
+      prepare = vi.fn(
+        () =>
+          new Promise<boolean>((resolve) => {
+            finish = resolve;
+          }),
+      );
+    const c = new NarrationController({ stop: async () => {}, speak, prepare });
+    c.setAllowed(true);
+    const pending = c.play('Hindi draft', 'hi-IN');
+    await vi.waitFor(() => expect(finish).toBeTypeOf('function'));
+    c.setAllowed(false);
+    finish(true);
+    await pending;
+    expect(speak).not.toHaveBeenCalled();
+  });
+  it('recovers from lookup failure and keeps default English for legacy readers', async () => {
+    const speak = vi.fn<NarrationPort['speak']>(),
+      prepare = vi.fn(async () => true).mockRejectedValueOnce(new Error('Unavailable'));
+    const c = new NarrationController({ stop: async () => {}, speak, prepare });
+    c.setAllowed(true);
+    await c.play('Old reader');
+    expect(speak).not.toHaveBeenCalled();
+    await c.play('Old reader');
+    expect(speak.mock.calls[0][2]).toBe('en-IN');
+  });
+});

@@ -4,6 +4,10 @@ Tablet-first React Native app with the approved clay UI, animated boy/puppy char
 
 **Status: development foundation, not a production release.** Live authentication, secure parent verification and live cloud persistence are not connected. Development demo data now persists locally in SQLite. Family screens and four original practice samples plus story/rhyme readers work with development-only dummy data. Release authentication fails closed instead of admitting users through the preview shortcut.
 
+## Research-to-content implementation
+
+The development-only **Grown-ups → Content Lab** now contains four serialized Hindi/English draft reader editions (a four-part spoken rhyme and six-page story). Variable-length navigation, optional-repeat skipping, edition-specific local progress, v1/v2 → v3 snapshot migration, content hashes and language-aware TTS are implemented. Drafts remain excluded from release bundles and are not educationally approved. See [implementation, tablet checks and remaining work](docs/CONTENT-PLATFORM.md) and [the attributed research inputs](docs/research/README.md).
+
 ## Run locally
 
 Use **Node 22.13+** (the project pins Node 22 via `.nvmrc`).
@@ -76,7 +80,7 @@ npm run audit:dependencies
 npm run check:release     # intentionally fails until production work is complete
 ```
 
-Current local checks: **108 app tests**, including **805** responsive geometry cases; TypeScript, lint and formatting; static-asset integrity; Android/iOS Metro exports. These exports are **not APK/IPA builds or device tests**. The bundle check confirms that seeded demo accounts/engine are absent and the unavailable auth adapter is present.
+Current local checks: **135 app tests**, including **805** responsive geometry cases; TypeScript, lint and formatting; static-asset integrity; Android/iOS Metro exports. These exports are **not APK/IPA builds or device tests**. The bundle check confirms that seeded demo accounts/engine are absent and the unavailable auth adapter is present.
 
 Dependency audit still reports upstream transitive advisories. See [security notes](docs/SECURITY.md); audit is not claimed clean. CI reports the audit separately and does not silently fix dependencies with `--force`.
 

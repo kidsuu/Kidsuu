@@ -29,9 +29,9 @@ function fixture(): OfflineSnapshot {
   const data = createDemoFamilyRepository().exportData();
   return {
     kind: 'kidsuu-demo-family',
-    schemaVersion: 2,
+    schemaVersion: 3,
     data,
-    preferences: { selectedId: data.children[0].id, saved: {} },
+    preferences: { selectedId: data.children[0].id, saved: {}, editions: {} },
   };
 }
 async function session(storage: SnapshotStorage) {
@@ -72,7 +72,7 @@ describe('offline save / restore', () => {
     await store.setSaved(['count']);
     const snapshot = JSON.parse(device.value()!);
     expect(Object.keys(snapshot).sort()).toEqual(['data', 'kind', 'preferences', 'schemaVersion']);
-    expect(Object.keys(snapshot.preferences).sort()).toEqual(['saved', 'selectedId']);
+    expect(Object.keys(snapshot.preferences).sort()).toEqual(['editions', 'saved', 'selectedId']);
     for (const key of [
       'parentUnlocked',
       'password',
@@ -217,13 +217,13 @@ describe('disk commit failure semantics', () => {
   });
 });
 describe('schema validation and explicit recovery', () => {
-  it('migrates supported v1 documents to v2 and retains family data', async () => {
+  it('migrates supported v1 documents to v3 and retains family data', async () => {
     const data = fixture().data,
       device = disk(JSON.stringify({ kind: 'kidsuu-demo-family', schemaVersion: 1, data }));
     const { store } = await session(device.storage);
     expect(store.getSnapshot().ready).toBe(true);
     const restored = JSON.parse(device.value()!);
-    expect(restored.schemaVersion).toBe(2);
+    expect(restored.schemaVersion).toBe(3);
     expect(restored.data).toEqual(data);
     expect(restored.preferences.saved).toEqual({});
   });

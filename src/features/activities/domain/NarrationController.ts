@@ -1,8 +1,11 @@
+import type { ContentLocale } from '../../content/domain/contentPackage';
 export interface NarrationPort {
   stop(): Promise<void>;
+  prepare?(locale: ContentLocale): Promise<boolean>;
   speak(
     text: string,
     callbacks: { onDone: () => void; onStopped: () => void; onError: () => void },
+    locale?: ContentLocale,
   ): void;
 }
 export interface NarrationState {
@@ -41,8 +44,14 @@ export class NarrationController {
     this.allowed = value;
     if (!value) this.stop();
   }
-  play(text: string): Promise<void> {
-    if (!this.allowed || this.disposed || !text.trim() || text.length > 1500)
+  play(text: string, locale: ContentLocale = 'en-IN'): Promise<void> {
+    if (
+      !this.allowed ||
+      this.disposed ||
+      !text.trim() ||
+      text.length > 1500 ||
+      !['en-IN', 'hi-IN'].includes(locale)
+    )
       return Promise.resolve();
     const ticket = ++this.ticket;
     this.set({ status: 'starting', error: '' });
@@ -52,17 +61,27 @@ export class NarrationController {
         try {
           await this.port.stop();
           if (this.disposed || !this.allowed || ticket !== this.ticket) return;
+          const available = this.port.prepare ? await this.port.prepare(locale) : true;
+          if (this.disposed || !this.allowed || ticket !== this.ticket) return;
+          if (!available) {
+            this.failure();
+            return;
+          }
           const done = () => {
             if (ticket === this.ticket) this.set({ status: 'idle', error: '' });
           };
           this.set({ status: 'speaking', error: '' });
-          this.port.speak(text, {
-            onDone: done,
-            onStopped: done,
-            onError: () => {
-              if (ticket === this.ticket) this.failure();
+          this.port.speak(
+            text,
+            {
+              onDone: done,
+              onStopped: done,
+              onError: () => {
+                if (ticket === this.ticket) this.failure();
+              },
             },
-          });
+            locale,
+          );
         } catch {
           if (ticket === this.ticket) this.failure();
         }

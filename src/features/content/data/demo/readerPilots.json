@@ -1,0 +1,182 @@
+[
+  {
+    "schemaVersion": 1,
+    "contentId": "up-down-rest",
+    "contentVersion": 1,
+    "ageGroup": "2–3",
+    "locale": "en-IN",
+    "kind": "rhyme",
+    "title": "Up, Down, Rest",
+    "objectiveId": "ORAL.UP_DOWN_SHARED",
+    "useMode": "caregiver-shared",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Owner-supplied research, 2026-10-05, Part 3; adapted draft, sources not independently reverified.",
+    "assetStatus": "text-only-preview",
+    "parentNote": "Share with a grown-up. An adult may gently lift and lower a soft cloth, or simply describe up and down. Never cover a face or move the child’s arms for them. Watching or declining is fine. This is spoken rhythm, not a song.",
+    "discussion": "If you like, point up and down with a grown-up. Stopping now is fine too.",
+    "pages": [
+      {
+        "id": "R01",
+        "text": "Let's listen with a grown-up. You can watch, point, or move gently if you like.",
+        "optional": false
+      },
+      {
+        "id": "R02",
+        "text": "Up and down,\nSoft and slow.\nNow we rest.\nThere we go.",
+        "optional": false
+      },
+      {
+        "id": "R03",
+        "text": "Up and down,\nSoft and slow.\nNow we rest.\nThere we go.",
+        "optional": true
+      },
+      {
+        "id": "R04",
+        "text": "Our rhyme is finished. We can rest now.",
+        "optional": false
+      }
+    ],
+    "contentHash": "3364785548bee86f859b26feff99b27e1d81d088d28f5f0029ce15e9fdcec6ed"
+  },
+  {
+    "schemaVersion": 1,
+    "contentId": "up-down-rest",
+    "contentVersion": 1,
+    "ageGroup": "2–3",
+    "locale": "hi-IN",
+    "kind": "rhyme",
+    "title": "ऊपर, नीचे, आराम",
+    "objectiveId": "ORAL.UP_DOWN_SHARED",
+    "useMode": "caregiver-shared",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Owner-supplied research, 2026-10-05, Part 3; adapted draft, sources not independently reverified.",
+    "assetStatus": "text-only-preview",
+    "parentNote": "छोटी कविता किसी बड़े के साथ बोलें। चाहें तो बड़ा व्यक्ति मुलायम कपड़ा हल्का ऊपर-नीचे करे। चेहरे पर कपड़ा न रखें, हाथ-पैर न खींचें। बच्चा केवल देख सकता है या मना कर सकता है। यह बोली हुई कविता है, गीत नहीं।",
+    "discussion": "चाहो तो किसी बड़े के साथ ऊपर और नीचे की ओर इशारा करो। अभी रुकना भी ठीक है।",
+    "pages": [
+      {
+        "id": "R01",
+        "text": "किसी बड़े के साथ सुनें। चाहो तो देखो, इशारा करो, या हल्का-सा हिलो।",
+        "optional": false
+      },
+      {
+        "id": "R02",
+        "text": "कपड़ा ऊपर ले जाएँ,\nफिर नीचे ले आएँ।\nअब हम थोड़ा रुक जाएँ,\nचाहें तो मुस्काएँ।",
+        "optional": false
+      },
+      {
+        "id": "R03",
+        "text": "कपड़ा ऊपर ले जाएँ,\nफिर नीचे ले आएँ।\nअब हम थोड़ा रुक जाएँ,\nचाहें तो मुस्काएँ।",
+        "optional": true
+      },
+      {
+        "id": "R04",
+        "text": "हमारी कविता पूरी हुई। अब आराम करें।",
+        "optional": false
+      }
+    ],
+    "contentHash": "819a3669c1cff9b360a90db8ebf56590a54580adab99927d287db9de680a21ef"
+  },
+  {
+    "schemaVersion": 1,
+    "contentId": "dry-bench-story",
+    "contentVersion": 1,
+    "ageGroup": "8–9",
+    "locale": "en-IN",
+    "kind": "story",
+    "title": "The Dry Place on the Bench",
+    "objectiveId": "LIT.INFERENCE_CLUE",
+    "useMode": "supported-reader",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Owner-supplied research, 2026-10-05, Part 3; adapted draft, sources not independently reverified.",
+    "assetStatus": "text-only-preview",
+    "parentNote": "Enjoy the first reading without interruption. Afterwards, optionally talk about a clue. More than one supported explanation is welcome. There is no need to go outside in the rain.",
+    "discussion": "Why might the boy have chosen that place for the picture? What in the story helps your idea?",
+    "pages": [
+      {
+        "id": "S01",
+        "text": "The boy and Puppy were making a paper picture in the shared courtyard. A grown-up sat nearby. The boy drew a long blue line. Puppy watched a leaf land beside it.",
+        "optional": false
+      },
+      {
+        "id": "S02",
+        "text": "A few raindrops fell. One touched the corner of the picture. The paper curled a little. The grown-up called, ‘Let's stay under the roof.’ They were only a few steps away.",
+        "optional": false
+      },
+      {
+        "id": "S03",
+        "text": "Under the roof stood a bench. One end was wet where the rain blew in. Near the wall, the bench was dry. Puppy sniffed the wet end, then stepped closer to the wall.",
+        "optional": false
+      },
+      {
+        "id": "S04",
+        "text": "The boy held the picture over the dry place. Puppy looked up at it. ‘May I put our picture here?’ the boy asked. Puppy stepped aside. The boy set the paper down gently.",
+        "optional": false
+      },
+      {
+        "id": "S05",
+        "text": "They looked at the curled corner. The long blue line was still there. The boy placed the fallen leaf beside it. ‘It looks like a little boat,’ he said. Puppy wagged once.",
+        "optional": false
+      },
+      {
+        "id": "S06",
+        "text": "Rain tapped beyond the roof. The picture rested on the dry bench, and the grown-up stayed beside them. The boy added one small sail. For a little while, their boat picture had a quiet place to wait.",
+        "optional": false
+      }
+    ],
+    "contentHash": "78e747c9bd6f85e32ff0fa0a80017c4a5f05a60a34ded45f734032e464295499"
+  },
+  {
+    "schemaVersion": 1,
+    "contentId": "dry-bench-story",
+    "contentVersion": 1,
+    "ageGroup": "8–9",
+    "locale": "hi-IN",
+    "kind": "story",
+    "title": "बेंच की सूखी जगह",
+    "objectiveId": "LIT.INFERENCE_CLUE",
+    "useMode": "supported-reader",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Owner-supplied research, 2026-10-05, Part 3; adapted draft, sources not independently reverified.",
+    "assetStatus": "text-only-preview",
+    "parentNote": "पहली बार कहानी बिना रोके पढ़ सकते हैं। अंत में चाहें तो सुराग पर बात करें। कई उत्तर संभव हैं। बारिश में बाहर जाना ज़रूरी नहीं।",
+    "discussion": "बच्चे ने चित्र रखने के लिए वह जगह क्यों चुनी होगी? कहानी में किस बात से तुम्हें ऐसा लगा?",
+    "pages": [
+      {
+        "id": "S01",
+        "text": "बच्चा और पपी साझा आँगन में कागज़ पर चित्र बना रहे थे। पास में एक बड़े व्यक्ति बैठे थे। बच्चे ने लंबी नीली रेखा बनाई। पपी ने देखा, उसके पास एक पत्ता आ गिरा।",
+        "optional": false
+      },
+      {
+        "id": "S02",
+        "text": "बारिश की कुछ बूँदें गिरीं। एक बूँद चित्र के कोने पर पड़ी। कागज़ थोड़ा मुड़ गया। बड़े ने कहा, ‘छत के नीचे रहें।’ वे बस कुछ कदम दूर थे।",
+        "optional": false
+      },
+      {
+        "id": "S03",
+        "text": "छत के नीचे एक बेंच थी। हवा के साथ आई बारिश से उसका एक सिरा गीला था। दीवार के पास बेंच सूखी थी। पपी ने गीले सिरे को सूँघा, फिर दीवार के पास चला गया।",
+        "optional": false
+      },
+      {
+        "id": "S04",
+        "text": "बच्चे ने चित्र को सूखी जगह के ऊपर पकड़ा। पपी ने उसकी ओर देखा। ‘हमारा चित्र यहाँ रखूँ?’ बच्चे ने पूछा। पपी एक तरफ हो गया। बच्चे ने कागज़ धीरे से रख दिया।",
+        "optional": false
+      },
+      {
+        "id": "S05",
+        "text": "दोनों ने मुड़े हुए कोने को देखा। लंबी नीली रेखा अभी भी थी। बच्चे ने गिरा हुआ पत्ता उसके पास रखा। ‘यह छोटी नाव जैसी लग रही है,’ उसने कहा। पपी ने एक बार पूँछ हिलाई।",
+        "optional": false
+      },
+      {
+        "id": "S06",
+        "text": "छत के बाहर बारिश टप-टप कर रही थी। चित्र सूखी बेंच पर रखा था। बड़े उनके पास ही थे। बच्चे ने एक छोटा पाल बना दिया। नाव के उनके चित्र को थोड़ी देर ठहरने की जगह मिल गई थी।",
+        "optional": false
+      }
+    ],
+    "contentHash": "e09a304f4d0529c854814626d94806c831be8e082b6360de3f5191af51a0b387"
+  }
+]

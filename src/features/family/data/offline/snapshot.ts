@@ -1,4 +1,8 @@
 import {
+  isEditionProgress,
+  type EditionProgressByChild,
+} from '../../../content/domain/editionProgress';
+import {
   ACTIVITY_IDS,
   AGE_GROUPS,
   AVATARS,
@@ -16,10 +20,11 @@ export interface DemoFamilyData {
 export interface LocalPreferences {
   selectedId: string | null;
   saved: Record<string, string[]>;
+  editions: EditionProgressByChild;
 }
 export interface OfflineSnapshot {
   kind: 'kidsuu-demo-family';
-  schemaVersion: 2;
+  schemaVersion: 3;
   data: DemoFamilyData;
   preferences: LocalPreferences;
 }
@@ -123,8 +128,11 @@ function checkData(value: unknown): DemoFamilyData {
   }
   return data as unknown as DemoFamilyData;
 }
-function checkPreferences(value: unknown, data: DemoFamilyData): LocalPreferences {
-  const prefs = object(value, ['selectedId', 'saved']);
+function checkPreferences(value: unknown, data: DemoFamilyData, legacy = false): LocalPreferences {
+  const prefs = object(
+    value,
+    legacy ? ['selectedId', 'saved'] : ['selectedId', 'saved', 'editions'],
+  );
   const ids = new Set(data.children.map((c) => c.id));
   if (prefs.selectedId !== null && !ids.has(prefs.selectedId as string)) invalid();
   const saved = object(prefs.saved);
@@ -138,7 +146,22 @@ function checkPreferences(value: unknown, data: DemoFamilyData): LocalPreference
     )
       invalid();
   }
-  return prefs as unknown as LocalPreferences;
+  const editions = legacy ? {} : object(prefs.editions);
+  for (const [id, rows] of Object.entries(editions)) {
+    if (
+      !ids.has(id) ||
+      !Array.isArray(rows) ||
+      rows.length > 32 ||
+      rows.some((row) => !isEditionProgress(row)) ||
+      new Set(rows.map((row) => row.editionKey)).size !== rows.length
+    )
+      invalid();
+  }
+  return {
+    selectedId: prefs.selectedId as string | null,
+    saved: saved as Record<string, string[]>,
+    editions: editions as EditionProgressByChild,
+  };
 }
 /** No permissive spreading of unknown data. Credentials/unlock flags/unknown keys are rejected. */
 export function decodeSnapshot(text: string): { snapshot: OfflineSnapshot; migrated: boolean } {
@@ -151,7 +174,7 @@ export function decodeSnapshot(text: string): { snapshot: OfflineSnapshot; migra
   }
   const root = object(parsed);
   if (root.kind !== 'kidsuu-demo-family') return invalid();
-  if (typeof root.schemaVersion === 'number' && root.schemaVersion > 2)
+  if (typeof root.schemaVersion === 'number' && root.schemaVersion > 3)
     return storageError(
       'LOCAL_DATA_NEWER',
       'This demo data was saved by a newer app. Update the app, or explicitly erase local data.',
@@ -162,20 +185,20 @@ export function decodeSnapshot(text: string): { snapshot: OfflineSnapshot; migra
     return {
       snapshot: {
         kind: 'kidsuu-demo-family',
-        schemaVersion: 2,
+        schemaVersion: 3,
         data,
-        preferences: { selectedId: data.children[0]?.id ?? null, saved: {} },
+        preferences: { selectedId: data.children[0]?.id ?? null, saved: {}, editions: {} },
       },
       migrated: true,
     };
   }
-  if (root.schemaVersion !== 2) return invalid();
+  if (root.schemaVersion !== 2 && root.schemaVersion !== 3) return invalid();
   object(root, ['kind', 'schemaVersion', 'data', 'preferences']);
   const data = checkData(root.data),
-    preferences = checkPreferences(root.preferences, data);
+    preferences = checkPreferences(root.preferences, data, root.schemaVersion === 2);
   return {
-    snapshot: { kind: 'kidsuu-demo-family', schemaVersion: 2, data, preferences },
-    migrated: false,
+    snapshot: { kind: 'kidsuu-demo-family', schemaVersion: 3, data, preferences },
+    migrated: root.schemaVersion !== 3,
   };
 }
 export function encodeSnapshot(snapshot: OfflineSnapshot): string {

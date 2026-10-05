@@ -1,3 +1,4 @@
+import { pilotCatalog } from '../src/features/content/data/demo/catalog';
 import { afterEach, describe, expect, it } from 'vitest';
 import { DatabaseSync } from 'node:sqlite';
 import { mkdtempSync, rmSync } from 'node:fs';
@@ -46,6 +47,9 @@ describe('actual SQLite file persistence (Node adapter, not native device QA)', 
     await store.select(id);
     await store.setSaved(['bear']);
     await store.record('bear', { completedSteps: 2, totalSteps: 5 });
+    await store.unlock();
+    await store.recordEdition(pilotCatalog[1], 'R01', 'explore');
+    await store.recordEdition(pilotCatalog[1], 'R03', 'skip');
     store.dispose();
     first.db.close();
     const second = openFile(file),
@@ -58,6 +62,10 @@ describe('actual SQLite file persistence (Node adapter, not native device QA)', 
       saved: { [id]: ['bear'] },
     });
     expect(restored.getSnapshot().progress[0].completedSteps).toBe(2);
+    expect(restored.getSnapshot().editions[id][0]).toMatchObject({
+      exploredUnitIds: ['R01'],
+      skippedUnitIds: ['R03'],
+    });
     expect(await restored.prepareSignOut()).toBe(true);
     second.db.close();
     const third = openFile(file);

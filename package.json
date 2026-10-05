@@ -13,7 +13,7 @@
     "format:check": "prettier --check .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "check": "npm run typecheck && npm run lint && npm run format:check && npm test && npm run check:assets",
+    "check": "npm run typecheck && npm run lint && npm run format:check && npm test && npm run check:assets && npm run check:content",
     "check:assets": "node scripts/check-assets.mjs",
     "check:release": "node scripts/check-release.mjs",
     "verify:bundles": "expo export --platform android --output-dir .expo/verify-android --no-bytecode --max-workers 2 && expo export --platform ios --output-dir .expo/verify-ios --no-bytecode --max-workers 2 && node scripts/check-release-bundles.mjs",
@@ -21,7 +21,9 @@
     "backend:check": "npm --prefix backend run check",
     "backend:dev": "npm --prefix backend run dev",
     "qa:start": "node scripts/start-device-qa.mjs",
-    "eas-build-post-install": "node scripts/check-eas-build.mjs"
+    "eas-build-post-install": "node scripts/check-eas-build.mjs",
+    "check:content": "node scripts/check-content.mjs",
+    "check:content-release": "node scripts/check-content.mjs --release"
   },
   "dependencies": {
     "expo": "~57.0.26",

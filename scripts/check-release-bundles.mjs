@@ -20,13 +20,16 @@ for (const platform of ['android', 'ios']) {
     'createDemoFamilyRepository',
     'kidsuu-demo-offline.db',
     'kidsuu-demo-family',
+    'up-down-rest',
+    'dry-bench-story',
+    'ORAL.UP_DOWN_SHARED',
   ]) {
     if (code.includes(sentinel))
-      throw new Error(`${platform}: development auth leaked into release bundle (${sentinel})`);
+      throw new Error(`${platform}: development fixture leaked into release bundle (${sentinel})`);
   }
   if (!code.includes('Authentication is not connected yet'))
     throw new Error(`${platform}: expected fail-closed auth adapter not found`);
   console.log(
-    `PASS: ${platform} release bundle excludes demo auth fixtures and includes fail-closed adapter.`,
+    `PASS: ${platform} release bundle excludes demo auth and draft content fixtures and includes fail-closed adapter.`,
   );
 }

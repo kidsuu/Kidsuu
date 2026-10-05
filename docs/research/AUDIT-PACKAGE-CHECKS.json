@@ -1,0 +1,227 @@
+{
+  "scope": "Document and local snapshot/package integrity only; AI desk-audit, not independent educational/legal/device verification",
+  "finalPilotUnitRows": 22,
+  "bilingualUnitEntries": 44,
+  "illustrativeJSONExamples": 4,
+  "sourceFilesUnchangedSinceCapture": 25,
+  "sourceChecks": [
+    {
+      "path": "package.json",
+      "unchangedSinceCapture": true
+    },
+    {
+      "path": "app.json",
+      "unchangedSinceCapture": true
+    },
+    {
+      "path": "src/features/home/data/sampleCatalog.json",
+      "unchangedSinceCapture": true
+    },
+    {
+      "path": "src/features/home/domain/types.ts",
+      "unchangedSinceCapture": true
+    },
+    {
+      "path": "src/features/activities/domain/practice.ts",
+      "unchangedSinceCapture": true
+    },
+    {
+      "path": "src/features/activities/data/readings.ts",
+      "unchangedSinceCapture": true
+    },
+    {
+      "path": "src/features/activities/screens/PracticeScreen.tsx",
+      "unchangedSinceCapture": true
+    },
+    {
+      "path": "src/features/activities/screens/ReadingScreen.tsx",
+      "unchangedSinceCapture": true
+    },
+    {
+      "path": "src/features/activities/domain/readerProgress.ts",
+      "unchangedSinceCapture": true
+    },
+    {
+      "path": "src/features/activities/audio/deviceNarration.ts",
+      "unchangedSinceCapture": true
+    },
+    {
+      "path": "packages/contracts/src/index.ts",
+      "unchangedSinceCapture": true
+    },
+    {
+      "path": "backend/src/domain/validation.ts",
+      "unchangedSinceCapture": true
+    },
+    {
+      "path": "backend/src/db/repository.ts",
+      "unchangedSinceCapture": true
+    },
+    {
+      "path": "backend/src/routes/family.ts",
+      "unchangedSinceCapture": true
+    },
+    {
+      "path": "src/features/family/domain/FamilyStore.ts",
+      "unchangedSinceCapture": true
+    },
+    {
+      "path": "src/features/family/domain/FamilyRepository.ts",
+      "unchangedSinceCapture": true
+    },
+    {
+      "path": "src/features/family/data/offline/snapshot.ts",
+      "unchangedSinceCapture": true
+    },
+    {
+      "path": "src/features/family/data/offline/sqliteSnapshotStorage.ts",
+      "unchangedSinceCapture": true
+    },
+    {
+      "path": "src/features/family/data/offline/OfflineFamilyRepository.ts",
+      "unchangedSinceCapture": true
+    },
+    {
+      "path": "src/features/family/data/offline/deviceOfflineRepository.ts",
+      "unchangedSinceCapture": true
+    },
+    {
+      "path": "docs/FAMILY-PREVIEW.md",
+      "unchangedSinceCapture": true
+    },
+    {
+      "path": "docs/READERS.md",
+      "unchangedSinceCapture": true
+    },
+    {
+      "path": "docs/OFFLINE-STORAGE.md",
+      "unchangedSinceCapture": true
+    },
+    {
+      "path": "docs/PRODUCTION-READINESS.md",
+      "unchangedSinceCapture": true
+    },
+    {
+      "path": "docs/ANDROID-DEVICE-QA.md",
+      "unchangedSinceCapture": true
+    }
+  ],
+  "relativeDocumentLinkChecks": [
+    {
+      "from": "01-kidsuu-learning-strategy.md",
+      "target": "RESEARCH-AUDIT.md",
+      "exists": true
+    },
+    {
+      "from": "01-kidsuu-learning-strategy.md",
+      "target": "SOURCE-INSPECTION-RECHECK.json",
+      "exists": true
+    },
+    {
+      "from": "Kidsuu-Research-and-AI-Production-Guide.md",
+      "target": "RESEARCH-AUDIT.md",
+      "exists": true
+    },
+    {
+      "from": "Kidsuu-Research-and-AI-Production-Guide.md",
+      "target": "SOURCE-INSPECTION-RECHECK.json",
+      "exists": true
+    },
+    {
+      "from": "START-HERE.md",
+      "target": "Kidsuu-Research-and-AI-Production-Guide.md",
+      "exists": true
+    },
+    {
+      "from": "START-HERE.md",
+      "target": "RESEARCH-AUDIT.md",
+      "exists": true
+    },
+    {
+      "from": "START-HERE.md",
+      "target": "SOURCE-INSPECTION-RECHECK.json",
+      "exists": true
+    },
+    {
+      "from": "START-HERE.md",
+      "target": "AUDIT-CHANGE-RECORD.json",
+      "exists": true
+    },
+    {
+      "from": "START-HERE.md",
+      "target": "01-kidsuu-learning-strategy.md",
+      "exists": true
+    },
+    {
+      "from": "START-HERE.md",
+      "target": "02-kidsuu-sixteen-blueprints.md",
+      "exists": true
+    },
+    {
+      "from": "START-HERE.md",
+      "target": "03-kidsuu-four-pilot-packs.md",
+      "exists": true
+    },
+    {
+      "from": "START-HERE.md",
+      "target": "04-kidsuu-engineering-review-and-sources.md",
+      "exists": true
+    },
+    {
+      "from": "START-HERE.md",
+      "target": "05-kidsuu-ai-production-sop.md",
+      "exists": true
+    },
+    {
+      "from": "START-HERE.md",
+      "target": "06-kidsuu-prompt-library-and-roadmap.md",
+      "exists": true
+    },
+    {
+      "from": "START-HERE.md",
+      "target": "DELIVERABLE-CHECKS.md",
+      "exists": true
+    },
+    {
+      "from": "DELIVERABLE-CHECKS.md",
+      "target": "RESEARCH-AUDIT.md",
+      "exists": true
+    },
+    {
+      "from": "RESEARCH-AUDIT.md",
+      "target": "SOURCE-INSPECTION-RECHECK.json",
+      "exists": true
+    },
+    {
+      "from": "RESEARCH-AUDIT.md",
+      "target": "AUDIT-CHANGE-RECORD.json",
+      "exists": true
+    }
+  ],
+  "pending": [
+    "qualified educator/native language/safety/access/rights review",
+    "optional-unit data policy",
+    "formal schema/full serialized content/manifests",
+    "generated/accepted assets",
+    "app integration",
+    "physical Android QA",
+    "child consent/assent/ethics and usability study",
+    "learning effectiveness"
+  ],
+  "bundleContents": [
+    "01-kidsuu-learning-strategy.md",
+    "02-kidsuu-sixteen-blueprints.md",
+    "03-kidsuu-four-pilot-packs.md",
+    "04-kidsuu-engineering-review-and-sources.md",
+    "05-kidsuu-ai-production-sop.md",
+    "06-kidsuu-prompt-library-and-roadmap.md",
+    "Kidsuu-Research-and-AI-Production-Guide.md",
+    "START-HERE.md",
+    "DELIVERABLE-CHECKS.md",
+    "RESEARCH-AUDIT.md",
+    "SOURCE-INSPECTION-RECHECK.json",
+    "AUDIT-CHANGE-RECORD.json",
+    "AUDIT-PACKAGE-CHECKS.json"
+  ],
+  "excluded": "archive, app source, credentials, child data, media binaries"
+}

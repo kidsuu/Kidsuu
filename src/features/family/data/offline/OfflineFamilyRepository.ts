@@ -1,3 +1,4 @@
+import { mergeEditionProgress } from '../../../content/domain/editionProgress';
 import type { FamilyRepository } from '../../domain/FamilyRepository';
 import { createDemoFamilyRepository } from '../demo/DemoFamilyRepository';
 import { decodeSnapshot, encodeSnapshot, storageError, type OfflineSnapshot } from './snapshot';
@@ -47,9 +48,9 @@ export function createOfflineFamilyRepository(storage: SnapshotStorage): FamilyR
       const data = createDemoFamilyRepository().exportData();
       await write({
         kind: 'kidsuu-demo-family',
-        schemaVersion: 2,
+        schemaVersion: 3,
         data,
-        preferences: { selectedId: data.children[0]?.id ?? null, saved: {} },
+        preferences: { selectedId: data.children[0]?.id ?? null, saved: {}, editions: {} },
       });
     } else {
       const decoded = decodeSnapshot(raw);
@@ -87,6 +88,8 @@ export function createOfflineFamilyRepository(storage: SnapshotStorage): FamilyR
         next.preferences.selectedId = null;
       for (const id of Object.keys(next.preferences.saved))
         if (!ids.has(id)) delete next.preferences.saved[id];
+      for (const id of Object.keys(next.preferences.editions))
+        if (!ids.has(id)) delete next.preferences.editions[id];
       await write(next);
       return result;
     });
@@ -131,6 +134,23 @@ export function createOfflineFamilyRepository(storage: SnapshotStorage): FamilyR
             storageError('NOT_FOUND', 'Profile not found.');
           next.preferences.saved[id] = [...new Set(activities)];
           await write(next);
+        }),
+      putEditionProgress: (id, row) =>
+        enqueue(async () => {
+          const next = clone(await hydrate());
+          if (!next.data.children.some((c) => c.id === id))
+            storageError('NOT_FOUND', 'Profile not found.');
+          const rows = next.preferences.editions[id] ?? [];
+          const merged = mergeEditionProgress(
+            rows.find((r) => r.editionKey === row.editionKey),
+            row,
+          );
+          next.preferences.editions[id] = [
+            ...rows.filter((r) => r.editionKey !== row.editionKey),
+            merged,
+          ];
+          await write(next);
+          return clone(merged);
         }),
       // Bypasses hydration so corruption/newer-schema/open failures can be explicitly reset.
       // Queued work before deletion completes first; work after deletion sees closed=true.

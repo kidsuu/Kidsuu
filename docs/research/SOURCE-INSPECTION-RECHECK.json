@@ -1,0 +1,162 @@
+{
+  "capturedAtUTC": "2026-10-05T17:46:10.149273+00:00",
+  "projectPath": "C:\\Users\\Umesh\\Kidsuu",
+  "branch": "feature/family-app",
+  "head": "ec57148149f5738b52f924e6d4d3722a0b145d14",
+  "trackedChangedFilesCount": 97,
+  "remoteParity": "not-verified",
+  "historicalWorkingTreeHashes": "not-recorded in first report; this snapshot cannot retroactively establish byte identity",
+  "scope": "Explicit allowlist only. No credentials, .env, signing material or child records. File hashes prove captured bytes only to someone possessing source; not proof of pedagogy or app operation. AI-generated tool record, not owner/third-party attestation. No app tests run.",
+  "files": [
+    {
+      "relativePath": "package.json",
+      "bytes": 1888,
+      "sha256": "ae6b5d5cf3219d9f26bcaad369969ea89ce375ff1199b5558f2418293ff926f8",
+      "modifiedRelativeToHEAD": true
+    },
+    {
+      "relativePath": "app.json",
+      "bytes": 1081,
+      "sha256": "1a83c4139c9ff7765bf40b4a4c4872980857f01f68c240950bc82daa782db50b",
+      "modifiedRelativeToHEAD": true
+    },
+    {
+      "relativePath": "src/features/home/data/sampleCatalog.json",
+      "bytes": 2795,
+      "sha256": "673f1d1803f175caa9c526f9b06e281fe002c6d58f70b71ad8fe39c83b1c64d1",
+      "modifiedRelativeToHEAD": true
+    },
+    {
+      "relativePath": "src/features/home/domain/types.ts",
+      "bytes": 1329,
+      "sha256": "922c2e744b0a47a9551a37ac16acda46a7ce3ced2591ee8796fca17fe19d6162",
+      "modifiedRelativeToHEAD": true
+    },
+    {
+      "relativePath": "src/features/activities/domain/practice.ts",
+      "bytes": 4128,
+      "sha256": "ce093efbf94008903126e1b42a462954cafe96bff4c2e397d2141f238539ee09",
+      "modifiedRelativeToHEAD": true
+    },
+    {
+      "relativePath": "src/features/activities/data/readings.ts",
+      "bytes": 13199,
+      "sha256": "70b67d569d9cb1f7d57a7693cddfb0b242fb24883cd420e382f626a522220c64",
+      "modifiedRelativeToHEAD": true
+    },
+    {
+      "relativePath": "src/features/activities/screens/PracticeScreen.tsx",
+      "bytes": 3620,
+      "sha256": "05d0886cf65006d6a8db4d426a7834d07a2d5c589905461b992a3581e1d9e4e9",
+      "modifiedRelativeToHEAD": true
+    },
+    {
+      "relativePath": "src/features/activities/screens/ReadingScreen.tsx",
+      "bytes": 9233,
+      "sha256": "368ab8b903c53e7e2a489c3b7040c9e233456544959eaea38363d149062f056f",
+      "modifiedRelativeToHEAD": true
+    },
+    {
+      "relativePath": "src/features/activities/domain/readerProgress.ts",
+      "bytes": 758,
+      "sha256": "0de536803a6e1af9f070466b8f21001c02db3c1323519f2b0573917fc89d2e84",
+      "modifiedRelativeToHEAD": true
+    },
+    {
+      "relativePath": "src/features/activities/audio/deviceNarration.ts",
+      "bytes": 884,
+      "sha256": "e44758d5e27dcd1daa0feb56cca89a2451db4cb19f82b9ce5d9f873583b4758a",
+      "modifiedRelativeToHEAD": true
+    },
+    {
+      "relativePath": "packages/contracts/src/index.ts",
+      "bytes": 1600,
+      "sha256": "d3065dfe1a64e9e4ae0fa1dbc6cc13e1861698a92034f9a3b734031700c338ff",
+      "modifiedRelativeToHEAD": true
+    },
+    {
+      "relativePath": "backend/src/domain/validation.ts",
+      "bytes": 955,
+      "sha256": "0fc1bcdaf47c63d1aef940bda53e84067d042c9d640fe899dea4cb863a1b26ad",
+      "modifiedRelativeToHEAD": true
+    },
+    {
+      "relativePath": "backend/src/db/repository.ts",
+      "bytes": 7001,
+      "sha256": "34dce50e1a4e45264d5ae493f41a80baddc602df884d085ab67b84af51178db1",
+      "modifiedRelativeToHEAD": true
+    },
+    {
+      "relativePath": "backend/src/routes/family.ts",
+      "bytes": 3780,
+      "sha256": "2ea9fd19f0c00d2079b1eb5aa22acc4f4add5eb13ba63d0ee02181e61a97f248",
+      "modifiedRelativeToHEAD": true
+    },
+    {
+      "relativePath": "src/features/family/domain/FamilyStore.ts",
+      "bytes": 9081,
+      "sha256": "2b6c0cf503a365998ba35f70975893ab37c42bc80f9e61a8fc8aed6c1e3af279",
+      "modifiedRelativeToHEAD": true
+    },
+    {
+      "relativePath": "src/features/family/domain/FamilyRepository.ts",
+      "bytes": 766,
+      "sha256": "7ac788b876cb11ac4441d461d03709adfe34f9902de8b366a4fad209faa43fb6",
+      "modifiedRelativeToHEAD": true
+    },
+    {
+      "relativePath": "src/features/family/data/offline/snapshot.ts",
+      "bytes": 6438,
+      "sha256": "c3fff3a37430201acda3c687a749c8ec84cea3be8abf627c9918bdf7009f84db",
+      "modifiedRelativeToHEAD": true
+    },
+    {
+      "relativePath": "src/features/family/data/offline/sqliteSnapshotStorage.ts",
+      "bytes": 1665,
+      "sha256": "11f9d498072f9163a7cb8a8dfebac7e288ad71a4fa21a03471b2dcc7cd851941",
+      "modifiedRelativeToHEAD": true
+    },
+    {
+      "relativePath": "src/features/family/data/offline/OfflineFamilyRepository.ts",
+      "bytes": 5693,
+      "sha256": "2ccd64a2b3b4657c1a728856b07845cef2b680f9edf7dfe00b690c21e5364f7f",
+      "modifiedRelativeToHEAD": true
+    },
+    {
+      "relativePath": "src/features/family/data/offline/deviceOfflineRepository.ts",
+      "bytes": 542,
+      "sha256": "6c6d20f8426cee3aa24e93650fde498a0e697df908163c13e2d074de3968235d",
+      "modifiedRelativeToHEAD": true
+    },
+    {
+      "relativePath": "docs/FAMILY-PREVIEW.md",
+      "bytes": 4156,
+      "sha256": "3ef66d2cbcdb76418c9341953223fc71acb5d0da8d56fee7b08f3196c0c5c7e4",
+      "modifiedRelativeToHEAD": true
+    },
+    {
+      "relativePath": "docs/READERS.md",
+      "bytes": 4421,
+      "sha256": "48ddc916ae31ba5cedaf95a78f4f537e8fd80216d38cbdea21be003bcc18fb76",
+      "modifiedRelativeToHEAD": true
+    },
+    {
+      "relativePath": "docs/OFFLINE-STORAGE.md",
+      "bytes": 7117,
+      "sha256": "9cffc534002faccca0e9ce535e59706dc903d97857ec2cbdcc81975c0eb24751",
+      "modifiedRelativeToHEAD": true
+    },
+    {
+      "relativePath": "docs/PRODUCTION-READINESS.md",
+      "bytes": 5770,
+      "sha256": "0b58c864b01e8feb8368b5b1fb4d96cfa6b70c2ab68a0564fb3d289550ff8b16",
+      "modifiedRelativeToHEAD": false
+    },
+    {
+      "relativePath": "docs/ANDROID-DEVICE-QA.md",
+      "bytes": 11982,
+      "sha256": "bb5dbfc0cf2ed8234ad03bdafca7fc7dd582483feb6815a72959435d8e21d4f9",
+      "modifiedRelativeToHEAD": false
+    }
+  ]
+}

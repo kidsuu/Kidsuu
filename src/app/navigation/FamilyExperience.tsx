@@ -15,7 +15,7 @@ import { PracticeScreen } from '../../features/activities/screens/PracticeScreen
 import { ReadingScreen } from '../../features/activities/screens/ReadingScreen';
 import { isReading } from '../../features/activities/data/readings';
 
-type Screen = 'home' | 'profiles' | 'gate' | 'parents' | 'progress' | 'activity';
+type Screen = 'home' | 'profiles' | 'gate' | 'parents' | 'progress' | 'activity' | 'content-lab';
 export function FamilyExperience({
   store,
   isDemo,
@@ -50,13 +50,15 @@ export function FamilyExperience({
       if (next !== 'active') {
         store.lock();
         setEditor(null);
-        setScreen((value) => (value === 'parents' || value === 'gate' ? 'home' : value));
+        setScreen((value) =>
+          value === 'parents' || value === 'gate' || value === 'content-lab' ? 'home' : value,
+        );
       }
     });
     return () => sub.remove();
   }, [store]);
   useEffect(() => {
-    if (screen !== 'parents') return;
+    if (screen !== 'parents' && screen !== 'content-lab') return;
     const timeout = setTimeout(
       () => {
         store.lock();
@@ -139,7 +141,10 @@ export function FamilyExperience({
         )}
       </Panel>
     );
-  if (screen === 'gate' || (screen === 'parents' && !state.parentUnlocked))
+  if (
+    screen === 'gate' ||
+    ((screen === 'parents' || screen === 'content-lab') && !state.parentUnlocked)
+  )
     return (
       <Panel
         title="Grown-ups"
@@ -169,6 +174,21 @@ export function FamilyExperience({
         </View>
       </Panel>
     );
+  if (__DEV__ && isDemo && screen === 'content-lab' && selected && state.parentUnlocked) {
+    /* eslint-disable @typescript-eslint/no-require-imports */
+    const { ContentLabScreen } =
+      require('../../features/content/screens/ContentLabScreen') as typeof import('../../features/content/screens/ContentLabScreen');
+    /* eslint-enable @typescript-eslint/no-require-imports */
+    return (
+      <ContentLabScreen
+        store={store}
+        state={state}
+        foreground={foreground}
+        isDemo={isDemo}
+        onBack={() => setScreen('parents')}
+      />
+    );
+  }
   if (screen === 'parents')
     return (
       <Panel
@@ -231,6 +251,20 @@ export function FamilyExperience({
                 onPress={() => setEditor('new')}
               />
             </View>
+            {__DEV__ && isDemo && selected && store.isPersistent && (
+              <View style={s.card}>
+                <Text style={s.heading}>Content Lab · adult draft review</Text>
+                <Text style={s.body}>
+                  Hindi / English reader prototypes. Not educator-approved or child-tested. Progress
+                  stays separate from existing activities.
+                </Text>
+                <Button
+                  label="Open Content Lab"
+                  disabled={state.busy || state.loading}
+                  onPress={() => setScreen('content-lab')}
+                />
+              </View>
+            )}
             {state.parent && (
               <ParentSettings
                 key={state.parent.version}

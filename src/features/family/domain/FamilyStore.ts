@@ -1,3 +1,5 @@
+import { editionKey, type ReaderPackage } from '../../content/domain/contentPackage';
+import { exploreUnit, type EditionProgressByChild } from '../../content/domain/editionProgress';
 import { FamilyApiError } from '../../../shared/api/FamilyApiClient';
 import type { ActivityId, ProgressInput } from '../../../../packages/contracts/src';
 import type {
@@ -14,6 +16,7 @@ export interface FamilyState {
   selectedId: string | null;
   progress: ActivityProgress[];
   saved: Record<string, string[]>;
+  editions: EditionProgressByChild;
   loading: boolean;
   ready: boolean;
   busy: boolean;
@@ -52,6 +55,7 @@ export class FamilyStore {
     selectedId: null,
     progress: [],
     saved: {},
+    editions: {},
     loading: true,
     ready: false,
     busy: false,
@@ -105,7 +109,7 @@ export class FamilyStore {
           selectedId,
           progress,
           ready: true,
-          ...(preferences ? { saved: preferences.saved } : {}),
+          ...(preferences ? { saved: preferences.saved, editions: preferences.editions } : {}),
         });
     } catch (e) {
       if (epoch === this.epoch)
@@ -117,6 +121,7 @@ export class FamilyStore {
           selectedId: null,
           progress: [],
           saved: {},
+          editions: {},
         });
     } finally {
       if (epoch === this.epoch) this.set({ loading: false });
@@ -218,12 +223,15 @@ export class FamilyStore {
     return this.mutate(async () => {
       await this.repository.deleteChild(child.id, child.version);
       const children = this.state.children.filter((c) => c.id !== child.id),
-        saved = { ...this.state.saved };
+        saved = { ...this.state.saved },
+        editions = { ...this.state.editions };
       delete saved[child.id];
+      delete editions[child.id];
       // Require an explicit selection rather than briefly exposing another child's progress.
       this.set({
         children,
         saved,
+        editions,
         ...(this.state.selectedId === child.id ? { selectedId: null, progress: [] } : {}),
       });
     }, true);
@@ -244,6 +252,28 @@ export class FamilyStore {
         });
     });
   }
+  /** Internal content-lab drafts only. Never sent through the legacy activity API. */
+  recordEdition(content: ReaderPackage, unitId: string, action: 'explore' | 'skip') {
+    const id = this.state.selectedId;
+    if (!id || !this.repository.local || content.publication !== 'draft')
+      return Promise.resolve(false);
+    return this.mutate(async () => {
+      const previous = this.state.editions[id] ?? [];
+      const input = exploreUnit(
+        content,
+        previous.find((r) => r.editionKey === editionKey(content)),
+        unitId,
+        action,
+      );
+      const row = await this.repository.local!.putEditionProgress(id, input);
+      this.set({
+        editions: {
+          ...this.state.editions,
+          [id]: [...previous.filter((r) => r.editionKey !== row.editionKey), row],
+        },
+      });
+    }, true);
+  }
   deleteFamily() {
     return this.mutate(async () => {
       if (!this.state.parent) throw new Error('No parent');
@@ -255,6 +285,7 @@ export class FamilyStore {
         selectedId: null,
         progress: [],
         saved: {},
+        editions: {},
         parentUnlocked: false,
       });
     }, true);
@@ -271,6 +302,7 @@ export class FamilyStore {
       selectedId: null,
       progress: [],
       saved: {},
+      editions: {},
       error: '',
     };
   }
