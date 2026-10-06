@@ -20,6 +20,13 @@ export interface ReaderPackage {
   discussion: string;
   pages: readonly { id: string; text: string; optional: boolean }[];
 }
+/** Minimal shared navigation identity; interactive packages do not masquerade as stories. */
+export type EditionContent = Pick<
+  ReaderPackage,
+  'contentId' | 'contentVersion' | 'contentHash' | 'ageGroup' | 'locale' | 'publication'
+> & {
+  pages: readonly { id: string; optional: boolean }[];
+};
 /** This first schema intentionally cannot represent publication approval. Real signed
  * reviews and reviewed assets require a later schema, not flipping a draft boolean. */
 const keys = [
@@ -120,7 +127,7 @@ export function parseReaderCatalog(input: unknown): readonly ReaderPackage[] {
 }
 /** Drafts are never admitted to a child-facing production catalog. */
 export function canPreview(
-  content: ReaderPackage,
+  content: Pick<ReaderPackage, 'publication'>,
   development: boolean,
   demo: boolean,
   parentUnlocked: boolean,

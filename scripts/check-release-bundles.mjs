@@ -23,6 +23,9 @@ for (const platform of ['android', 'ios']) {
     'up-down-rest',
     'dry-bench-story',
     'ORAL.UP_DOWN_SHARED',
+    'one-each-bowl',
+    'triangle-workshop',
+    'NUM.ONE_TO_ONE_3',
   ]) {
     if (code.includes(sentinel))
       throw new Error(`${platform}: development fixture leaked into release bundle (${sentinel})`);

@@ -2,6 +2,8 @@
 
 Date: 5 October 2026. Branch: `feature/family-app`. Status: **tested internal authoring/reader foundation, not production approval**. Real auth remains deferred by the owner. Main/staging are not changed by this batch.
 
+**Follow-up:** batch 2 implements the visual Learning/Game pilots; current lab total is eight locale editions. See [INTERACTIVE-PILOTS.md](INTERACTIVE-PILOTS.md). The historical batch-1 scope and verification below remain identified as such.
+
 ## Implemented
 
 - An exact-key, bounded runtime reader-package validator: one objective, age band, locale, use mode, 1–24 parts, optional parts, parent note and optional end discussion. English/Hindi are explicit editions. Toddler drafts require caregiver-shared mode.
@@ -20,7 +22,7 @@ The approved 2D boy/puppy, login animation, splash and Home design are unchanged
 
 The existing eight-activity backend contract and its SQL remain unchanged. Legacy activity progress still has its earlier age-edition limitation; the **new** ledger does not fix or relabel that legacy history. Content Lab progress does not enter legacy Home continue cards or activity totals. No live edition-progress API/sync, media cache, download manager, recorded narration or illustrations implemented here.
 
-The two interactive Learning/Game pilots need actual new graphical players (placing/undo and deterministic triangle geometry), not a relabelled text quiz. Those are the next implementation batch, not silently declared done.
+The two interactive Learning/Game pilots need actual new graphical players (placing/undo and deterministic triangle geometry), not a relabelled text quiz. They were not included in batch 1; the subsequent implementation is documented in INTERACTIVE-PILOTS.md and remains review-gated.
 
 ## Test on the owner's tablet
 
@@ -73,7 +75,7 @@ See [the attributed research audit](research/RESEARCH-AUDIT.md). It is a second-
 
 ## Next engineering batches
 
-1. Deterministic one-to-one placing player and triangle game; explicit model/help/undo/skip/end, accessible response alternatives, exact count/geometry tests. Keep drafts adult-only until review.
+1. Visual player implementation delivered in batch 2 (INTERACTIVE-PILOTS.md); adult/device/educator review still pending. Keep drafts adult-only.
 2. Reviewed script corrections and consistent approved-reference illustrations, scene manifests, native-language voice QA; generate assets only from stable briefs, without assuming commercial rights or human approval.
 3. Approved catalog + production content/review schema; live edition API/migration/history strategy; actual media storage/cache and privacy review.
 4. Native device/end-to-end regression, standalone offline build, accessibility/performance testing, remaining dependency security remediation/risk assessment.

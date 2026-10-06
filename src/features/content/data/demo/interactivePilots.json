@@ -1,0 +1,390 @@
+[
+  {
+    "schemaVersion": 1,
+    "contentId": "one-each-bowl",
+    "contentVersion": 1,
+    "recipeHash": "4d54dfdcd797004f85aca58c3ff130dd5c2d504784de15ee767744d77589f1e4",
+    "ageGroup": "4–5",
+    "locale": "en-IN",
+    "kind": "learning",
+    "title": "One for Each Bowl",
+    "objectiveId": "NUM.ONE_TO_ONE_3",
+    "useMode": "caregiver-shared",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Owner research revision 0.2, Part 3 and RESEARCH-AUDIT F08/F11/F12. Adapted neutral endings/layout wording; native/educator review pending.",
+    "assetStatus": "procedural-preview",
+    "parentNote": "Try three large safe toy objects and bowls with a grown-up. No food or small pieces are needed. Watching, help and stopping are fine.",
+    "discussion": "If you like, tell a grown-up what you noticed. An answer is not required.",
+    "pages": [
+      {
+        "id": "L01",
+        "text": "Let's get our toy picnic ready. We can put one fruit in each bowl. You can ask for help.",
+        "optional": false,
+        "mode": "picnic-intro",
+        "hints": []
+      },
+      {
+        "id": "L02",
+        "text": "Here are two bowls. Watch one fruit go into each bowl, one step at a time.",
+        "optional": false,
+        "mode": "picnic-model",
+        "hints": []
+      },
+      {
+        "id": "L03",
+        "text": "Put one fruit in each bowl. Tap a fruit, then a bowl.",
+        "optional": false,
+        "mode": "picnic-row",
+        "hints": [
+          "Look at the places, one at a time.",
+          "Start with an empty bowl.",
+          "We can show one, then try together or stop."
+        ]
+      },
+      {
+        "id": "L04",
+        "text": "The bowls are in a new place. Put one fruit in each. Take your time.",
+        "optional": false,
+        "mode": "picnic-triangle",
+        "hints": [
+          "Look at the places, one at a time.",
+          "Start with an empty bowl.",
+          "We can show one, then try together or stop."
+        ]
+      },
+      {
+        "id": "L05",
+        "text": "Choose a tray with one fruit for every plate.",
+        "optional": false,
+        "mode": "picnic-quantity",
+        "hints": [
+          "Look at each plate.",
+          "Count one fruit for each plate.",
+          "The example has three fruits for three plates."
+        ]
+      },
+      {
+        "id": "L06",
+        "text": "Our picture has one fruit in each bowl. We can stop here. If you like, try it with a grown-up away from the screen.",
+        "optional": false,
+        "mode": "picnic-end",
+        "hints": []
+      }
+    ],
+    "feedback": {
+      "ready": "Choose a fruit, then an empty bowl.",
+      "selected": "Now choose an empty bowl.",
+      "cancelled": "Selection cleared. Choose another fruit, or stop.",
+      "placed": "One fruit is in that bowl.",
+      "occupied": "This bowl already has one. Let’s find an empty bowl.",
+      "choose-fruit": "Choose a fruit first, then a bowl.",
+      "complete": "One in every bowl. Three altogether.",
+      "undone": "That fruit is back in the tray.",
+      "modelled": "The example places one fruit in an empty bowl. You can try, watch, or stop.",
+      "triangle": "Three straight sides, joined all the way round.",
+      "curved": "This edge curves. Let’s look for straight sides.",
+      "four": "This has four sides. We are looking for three.",
+      "open": "There is a gap. A triangle is closed.",
+      "quantity-two": "One plate would be empty. Let’s give one to each.",
+      "quantity-four": "There is one extra fruit. We need one for each of the three plates.",
+      "quantity-three": "Each of the three plates can have one.",
+      "model-empty": "Two empty bowls. Show one placement at a time.",
+      "model-one": "One fruit in one bowl. One bowl is still empty.",
+      "model-two": "Every bowl has one. Two fruits altogether.",
+      "sides-zero": "The complete outline is here. Explore its sides one at a time.",
+      "sides-one": "One straight side is highlighted. The whole outline stays visible.",
+      "sides-two": "Two straight sides are highlighted. The whole outline stays visible.",
+      "sides-three": "Three straight sides are highlighted. They form a closed outline."
+    },
+    "contentHash": "20d0d4022aa2647bdb3942198fab4f4bc02dd6bf38717d65b543cc6087521f91"
+  },
+  {
+    "schemaVersion": 1,
+    "contentId": "one-each-bowl",
+    "contentVersion": 1,
+    "recipeHash": "4d54dfdcd797004f85aca58c3ff130dd5c2d504784de15ee767744d77589f1e4",
+    "ageGroup": "4–5",
+    "locale": "hi-IN",
+    "kind": "learning",
+    "title": "हर कटोरी में एक",
+    "objectiveId": "NUM.ONE_TO_ONE_3",
+    "useMode": "caregiver-shared",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Owner research revision 0.2, Part 3 and RESEARCH-AUDIT F08/F11/F12. Adapted neutral endings/layout wording; native/educator review pending.",
+    "assetStatus": "procedural-preview",
+    "parentNote": "तीन बड़े, सुरक्षित खिलौनों और कटोरियों से किसी बड़े के साथ खेलें। खाने की चीज़ें या छोटे टुकड़े ज़रूरी नहीं। देखना, मदद लेना या रुकना ठीक है।",
+    "discussion": "चाहो तो किसी बड़े को बताओ कि तुमने क्या देखा। जवाब देना ज़रूरी नहीं।",
+    "pages": [
+      {
+        "id": "L01",
+        "text": "खिलौनों की दावत तैयार करें। हर कटोरी में एक फल रखेंगे। मदद भी ले सकते हो।",
+        "optional": false,
+        "mode": "picnic-intro",
+        "hints": []
+      },
+      {
+        "id": "L02",
+        "text": "देखो, दो कटोरियाँ हैं। एक-एक करके हर कटोरी में एक फल रखते हैं।",
+        "optional": false,
+        "mode": "picnic-model",
+        "hints": []
+      },
+      {
+        "id": "L03",
+        "text": "हर कटोरी में एक फल रखो। पहले फल पर, फिर कटोरी पर टैप करो।",
+        "optional": false,
+        "mode": "picnic-row",
+        "hints": [
+          "एक-एक करके जगहों को देखो।",
+          "एक खाली कटोरी से शुरू करें।",
+          "एक करके दिखा सकते हैं। फिर साथ में आज़माएँ या रुकें।"
+        ]
+      },
+      {
+        "id": "L04",
+        "text": "अब कटोरियाँ अलग तरह से रखी हैं। हर कटोरी में एक फल रखो। आराम से करो।",
+        "optional": false,
+        "mode": "picnic-triangle",
+        "hints": [
+          "एक-एक करके जगहों को देखो।",
+          "एक खाली कटोरी से शुरू करें।",
+          "एक करके दिखा सकते हैं। फिर साथ में आज़माएँ या रुकें।"
+        ]
+      },
+      {
+        "id": "L05",
+        "text": "तीनों प्लेटों में एक-एक फल रखने के लिए कौन-सी ट्रे चुनोगे?",
+        "optional": false,
+        "mode": "picnic-quantity",
+        "hints": [
+          "हर प्लेट को देखो।",
+          "हर प्लेट के लिए एक फल गिनो।",
+          "उदाहरण में तीन प्लेटों के लिए तीन फल हैं।"
+        ]
+      },
+      {
+        "id": "L06",
+        "text": "हमारे चित्र में हर कटोरी में एक फल है। अब रुक सकते हैं। चाहो तो किसी बड़े के साथ स्क्रीन से दूर खेलो।",
+        "optional": false,
+        "mode": "picnic-end",
+        "hints": []
+      }
+    ],
+    "feedback": {
+      "ready": "पहले फल, फिर खाली कटोरी चुनो।",
+      "selected": "अब खाली कटोरी चुनो।",
+      "cancelled": "चयन हट गया। दूसरा फल चुन सकते हो या रुक सकते हो।",
+      "placed": "उस कटोरी में एक फल है।",
+      "occupied": "इस कटोरी में एक फल है। खाली कटोरी देखें।",
+      "choose-fruit": "पहले फल चुनो, फिर कटोरी।",
+      "complete": "हर कटोरी में एक। कुल तीन।",
+      "undone": "वह फल वापस ट्रे में आ गया।",
+      "modelled": "उदाहरण में खाली कटोरी में एक फल रखा है। चाहो तो आज़माओ, देखो या रुक जाओ।",
+      "triangle": "तीन सीधे किनारे—पूरा बंद आकार।",
+      "curved": "इसका किनारा मुड़ा हुआ है। सीधे किनारे देखें।",
+      "four": "इसमें चार किनारे हैं। हमें तीन चाहिए।",
+      "open": "यहाँ जगह खुली है। त्रिकोण बंद होता है।",
+      "quantity-two": "एक प्लेट खाली रह जाएगी। हर प्लेट के लिए एक रखें।",
+      "quantity-four": "एक फल ज़्यादा है। तीन प्लेटों में हर एक के लिए एक फल चाहिए।",
+      "quantity-three": "तीनों प्लेटों में एक-एक फल आ सकता है।",
+      "model-empty": "दो खाली कटोरियाँ। एक-एक करके रखें।",
+      "model-one": "एक कटोरी में एक फल है। एक कटोरी खाली है।",
+      "model-two": "हर कटोरी में एक है। कुल दो फल।",
+      "sides-zero": "पूरा आकार यहाँ है। एक-एक किनारा देखें।",
+      "sides-one": "एक सीधा किनारा उभरा है। पूरा आकार भी दिख रहा है।",
+      "sides-two": "दो सीधे किनारे उभरे हैं। पूरा आकार भी दिख रहा है।",
+      "sides-three": "तीन सीधे किनारे उभरे हैं। वे बंद आकार बनाते हैं।"
+    },
+    "contentHash": "46aa478e35245ec5caac79fc0aa7f4de1dbbfa31d22b177d150cea524fd34087"
+  },
+  {
+    "schemaVersion": 1,
+    "contentId": "triangle-workshop",
+    "contentVersion": 1,
+    "recipeHash": "4d54dfdcd797004f85aca58c3ff130dd5c2d504784de15ee767744d77589f1e4",
+    "ageGroup": "6–7",
+    "locale": "en-IN",
+    "kind": "game",
+    "title": "Triangle Workshop",
+    "objectiveId": "SPACE.TRIANGLE_INVARIANT",
+    "useMode": "supported-reader",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Owner research revision 0.2, Part 3 and RESEARCH-AUDIT F08/F11/F12. Adapted neutral endings/layout wording; native/educator review pending.",
+    "assetStatus": "procedural-preview",
+    "parentNote": "Draw large tilted triangles on paper. Pointing and support are welcome. Described shapes offer a different supported task; no skill score is recorded.",
+    "discussion": "If you like, tell a grown-up what you noticed. An answer is not required.",
+    "pages": [
+      {
+        "id": "G01",
+        "text": "A triangle has three straight sides joined all the way round. Let's follow them: one, two, three.",
+        "optional": false,
+        "mode": "triangle-model",
+        "hints": []
+      },
+      {
+        "id": "G02",
+        "text": "Find a triangle.",
+        "optional": false,
+        "mode": "triangle-familiar",
+        "hints": [
+          "Check the boundary.",
+          "Count the straight sides.",
+          "Let’s follow an example together."
+        ]
+      },
+      {
+        "id": "G03",
+        "text": "A shape can turn. Which is still a triangle?",
+        "optional": false,
+        "mode": "triangle-turned",
+        "hints": [
+          "Check the boundary.",
+          "Count the straight sides.",
+          "Let’s follow an example together."
+        ]
+      },
+      {
+        "id": "G04",
+        "text": "Triangles can look different. Find one with three straight sides joined all the way round.",
+        "optional": false,
+        "mode": "triangle-scalene",
+        "hints": [
+          "Check the boundary.",
+          "Count the straight sides.",
+          "Let’s follow an example together."
+        ]
+      },
+      {
+        "id": "G05",
+        "text": "What do you notice about these shapes? You can point, tell a grown-up, or move on.",
+        "optional": true,
+        "mode": "triangle-reason",
+        "hints": []
+      },
+      {
+        "id": "G06",
+        "text": "These examples have three straight sides and are closed. Our workshop ends here. We can stop now.",
+        "optional": false,
+        "mode": "triangle-end",
+        "hints": []
+      }
+    ],
+    "feedback": {
+      "ready": "Choose a fruit, then an empty bowl.",
+      "selected": "Now choose an empty bowl.",
+      "cancelled": "Selection cleared. Choose another fruit, or stop.",
+      "placed": "One fruit is in that bowl.",
+      "occupied": "This bowl already has one. Let’s find an empty bowl.",
+      "choose-fruit": "Choose a fruit first, then a bowl.",
+      "complete": "One in every bowl. Three altogether.",
+      "undone": "That fruit is back in the tray.",
+      "modelled": "The example places one fruit in an empty bowl. You can try, watch, or stop.",
+      "triangle": "Three straight sides, joined all the way round.",
+      "curved": "This edge curves. Let’s look for straight sides.",
+      "four": "This has four sides. We are looking for three.",
+      "open": "There is a gap. A triangle is closed.",
+      "quantity-two": "One plate would be empty. Let’s give one to each.",
+      "quantity-four": "There is one extra fruit. We need one for each of the three plates.",
+      "quantity-three": "Each of the three plates can have one.",
+      "model-empty": "Two empty bowls. Show one placement at a time.",
+      "model-one": "One fruit in one bowl. One bowl is still empty.",
+      "model-two": "Every bowl has one. Two fruits altogether.",
+      "sides-zero": "The complete outline is here. Explore its sides one at a time.",
+      "sides-one": "One straight side is highlighted. The whole outline stays visible.",
+      "sides-two": "Two straight sides are highlighted. The whole outline stays visible.",
+      "sides-three": "Three straight sides are highlighted. They form a closed outline."
+    },
+    "contentHash": "bcb6e9638fd7c8edfe8d97c93f7f839f09c937c6d10da04f04ad9210a8a5f5ec"
+  },
+  {
+    "schemaVersion": 1,
+    "contentId": "triangle-workshop",
+    "contentVersion": 1,
+    "recipeHash": "4d54dfdcd797004f85aca58c3ff130dd5c2d504784de15ee767744d77589f1e4",
+    "ageGroup": "6–7",
+    "locale": "hi-IN",
+    "kind": "game",
+    "title": "त्रिकोण की खोज",
+    "objectiveId": "SPACE.TRIANGLE_INVARIANT",
+    "useMode": "supported-reader",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Owner research revision 0.2, Part 3 and RESEARCH-AUDIT F08/F11/F12. Adapted neutral endings/layout wording; native/educator review pending.",
+    "assetStatus": "procedural-preview",
+    "parentNote": "कागज़ पर बड़े, तिरछे त्रिकोण बनाएँ। इशारा और मदद ठीक हैं। चित्र का वर्णन सुनकर जवाब देना अलग तरह की सहायता है; कोई कौशल-स्कोर दर्ज नहीं होता।",
+    "discussion": "चाहो तो किसी बड़े को बताओ कि तुमने क्या देखा। जवाब देना ज़रूरी नहीं।",
+    "pages": [
+      {
+        "id": "G01",
+        "text": "त्रिकोण के तीन सीधे किनारे होते हैं। वे मिलकर बंद आकार बनाते हैं। देखें—एक, दो, तीन।",
+        "optional": false,
+        "mode": "triangle-model",
+        "hints": []
+      },
+      {
+        "id": "G02",
+        "text": "त्रिकोण ढूँढ़ो।",
+        "optional": false,
+        "mode": "triangle-familiar",
+        "hints": ["बाहर के किनारे देखो।", "सीधे किनारे गिनो।", "इस उदाहरण के किनारे साथ में देखें।"]
+      },
+      {
+        "id": "G03",
+        "text": "आकार घूम सकता है। कौन-सा अब भी त्रिकोण है?",
+        "optional": false,
+        "mode": "triangle-turned",
+        "hints": ["बाहर के किनारे देखो।", "सीधे किनारे गिनो।", "इस उदाहरण के किनारे साथ में देखें।"]
+      },
+      {
+        "id": "G04",
+        "text": "त्रिकोण अलग-अलग दिख सकते हैं। तीन सीधे किनारों वाला बंद आकार ढूँढ़ो।",
+        "optional": false,
+        "mode": "triangle-scalene",
+        "hints": ["बाहर के किनारे देखो।", "सीधे किनारे गिनो।", "इस उदाहरण के किनारे साथ में देखें।"]
+      },
+      {
+        "id": "G05",
+        "text": "इन आकारों में क्या दिखता है? चाहो तो इशारा करो, किसी बड़े को बताओ, या आगे बढ़ो।",
+        "optional": true,
+        "mode": "triangle-reason",
+        "hints": []
+      },
+      {
+        "id": "G06",
+        "text": "इन उदाहरणों में तीन सीधे किनारे हैं और आकार बंद है। हमारी खोज यहीं पूरी होती है। अब रुक सकते हैं।",
+        "optional": false,
+        "mode": "triangle-end",
+        "hints": []
+      }
+    ],
+    "feedback": {
+      "ready": "पहले फल, फिर खाली कटोरी चुनो।",
+      "selected": "अब खाली कटोरी चुनो।",
+      "cancelled": "चयन हट गया। दूसरा फल चुन सकते हो या रुक सकते हो।",
+      "placed": "उस कटोरी में एक फल है।",
+      "occupied": "इस कटोरी में एक फल है। खाली कटोरी देखें।",
+      "choose-fruit": "पहले फल चुनो, फिर कटोरी।",
+      "complete": "हर कटोरी में एक। कुल तीन।",
+      "undone": "वह फल वापस ट्रे में आ गया।",
+      "modelled": "उदाहरण में खाली कटोरी में एक फल रखा है। चाहो तो आज़माओ, देखो या रुक जाओ।",
+      "triangle": "तीन सीधे किनारे—पूरा बंद आकार।",
+      "curved": "इसका किनारा मुड़ा हुआ है। सीधे किनारे देखें।",
+      "four": "इसमें चार किनारे हैं। हमें तीन चाहिए।",
+      "open": "यहाँ जगह खुली है। त्रिकोण बंद होता है।",
+      "quantity-two": "एक प्लेट खाली रह जाएगी। हर प्लेट के लिए एक रखें।",
+      "quantity-four": "एक फल ज़्यादा है। तीन प्लेटों में हर एक के लिए एक फल चाहिए।",
+      "quantity-three": "तीनों प्लेटों में एक-एक फल आ सकता है।",
+      "model-empty": "दो खाली कटोरियाँ। एक-एक करके रखें।",
+      "model-one": "एक कटोरी में एक फल है। एक कटोरी खाली है।",
+      "model-two": "हर कटोरी में एक है। कुल दो फल।",
+      "sides-zero": "पूरा आकार यहाँ है। एक-एक किनारा देखें।",
+      "sides-one": "एक सीधा किनारा उभरा है। पूरा आकार भी दिख रहा है।",
+      "sides-two": "दो सीधे किनारे उभरे हैं। पूरा आकार भी दिख रहा है।",
+      "sides-three": "तीन सीधे किनारे उभरे हैं। वे बंद आकार बनाते हैं।"
+    },
+    "contentHash": "7d4112e39638789b13fd61b4bab628e6d9998dfa3b362aa4dc4b1db235a50da5"
+  }
+]

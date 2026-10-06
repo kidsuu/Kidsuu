@@ -6,7 +6,7 @@ Tablet-first React Native app with the approved clay UI, animated boy/puppy char
 
 ## Research-to-content implementation
 
-The development-only **Grown-ups → Content Lab** now contains four serialized Hindi/English draft reader editions (a four-part spoken rhyme and six-page story). Variable-length navigation, optional-repeat skipping, edition-specific local progress, v1/v2 → v3 snapshot migration, content hashes and language-aware TTS are implemented. Drafts remain excluded from release bundles and are not educationally approved. See [implementation, tablet checks and remaining work](docs/CONTENT-PLATFORM.md) and [the attributed research inputs](docs/research/README.md).
+The development-only **Grown-ups → Content Lab** now contains **eight Hindi/English draft editions**: a four-part spoken rhyme, six-page story, visual one-to-one placement activity and deterministic triangle game. The [interactive-player batch](docs/INTERACTIVE-PILOTS.md) adds tap placement/undo/models and geometric choices/hints, not another text quiz. Variable-length navigation, optional-repeat skipping, edition-specific local progress, v1/v2 → v3 snapshot migration, content hashes and language-aware TTS are implemented. Drafts remain excluded from release bundles and are not educationally approved. See [implementation, tablet checks and remaining work](docs/CONTENT-PLATFORM.md) and [the attributed research inputs](docs/research/README.md).
 
 ## Run locally
 

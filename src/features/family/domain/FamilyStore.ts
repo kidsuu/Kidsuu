@@ -1,4 +1,4 @@
-import { editionKey, type ReaderPackage } from '../../content/domain/contentPackage';
+import { editionKey, type EditionContent } from '../../content/domain/contentPackage';
 import { exploreUnit, type EditionProgressByChild } from '../../content/domain/editionProgress';
 import { FamilyApiError } from '../../../shared/api/FamilyApiClient';
 import type { ActivityId, ProgressInput } from '../../../../packages/contracts/src';
@@ -253,7 +253,7 @@ export class FamilyStore {
     });
   }
   /** Internal content-lab drafts only. Never sent through the legacy activity API. */
-  recordEdition(content: ReaderPackage, unitId: string, action: 'explore' | 'skip') {
+  recordEdition(content: EditionContent, unitId: string, action: 'explore' | 'skip') {
     const id = this.state.selectedId;
     if (!id || !this.repository.local || content.publication !== 'draft')
       return Promise.resolve(false);

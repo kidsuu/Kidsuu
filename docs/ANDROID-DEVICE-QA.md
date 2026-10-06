@@ -141,3 +141,7 @@ Review/redact logs before sharing. Do not share a whole-device bugreport or unre
 ## Content Lab follow-up (batch 1)
 
 New manual cases are in [CONTENT-PLATFORM.md](CONTENT-PLATFORM.md): 4/6-unit layout, Hindi shaping/voice, independent edition resume, optional-repeat skipping, parent lock/timeout, lifecycle/rapid taps, durable restart and deletion. All physical-device results for this batch remain pending. New code needs no new native module. Snapshot v3 migration preserves old data but older v2 app code cannot read the upgraded snapshot; do not reset local data as the default rollback action.
+
+## Interactive content follow-up (batch 2)
+
+Run the twelve cases in [INTERACTIVE-PILOTS.md](INTERACTIVE-PILOTS.md): two-/three-bowl state, cancel/undo/model/rapid taps, exact quantity trays, rotated/scalene/open/curved geometry, optional G05, locale isolation, read-aloud/lifecycle, TalkBack/font scaling, board restart and low-end performance. No native binary or schema change is needed for this batch. All physical-device results remain pending.

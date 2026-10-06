@@ -1,4 +1,4 @@
-import { editionKey, exactObject, type ReaderPackage } from './contentPackage';
+import { editionKey, exactObject, type EditionContent } from './contentPackage';
 export interface EditionProgress {
   editionKey: string;
   contentHash: string;
@@ -53,7 +53,7 @@ export function isEditionProgress(value: unknown): value is EditionProgress {
   );
 }
 export function progressMatches(
-  content: ReaderPackage,
+  content: EditionContent,
   row?: EditionProgress,
 ): row is EditionProgress {
   return (
@@ -66,7 +66,7 @@ export function progressMatches(
       JSON.stringify(content.pages.filter((p) => p.optional).map((p) => p.id))
   );
 }
-export function resumeEdition(content: ReaderPackage, row?: EditionProgress): number {
+export function resumeEdition(content: EditionContent, row?: EditionProgress): number {
   if (!progressMatches(content, row)) return 0;
   const index = content.pages.findIndex(
     (p) => !row.exploredUnitIds.includes(p.id) && !row.skippedUnitIds.includes(p.id),
@@ -75,7 +75,7 @@ export function resumeEdition(content: ReaderPackage, row?: EditionProgress): nu
 }
 /** No voice callbacks, scores, mastery inference or viewing-time telemetry. */
 export function exploreUnit(
-  content: ReaderPackage,
+  content: EditionContent,
   previous: EditionProgress | undefined,
   unitId: string,
   action: 'explore' | 'skip',

@@ -23,7 +23,7 @@ This repository is a tested app foundation, **not release-ready**. `npm run chec
 ## Already verified locally
 
 - Strict TypeScript, zero-warning ESLint, Prettier and static asset references.
-- 135 app tests, including release auth refusal, demo-only flows, 805 pane geometries, sample catalog consistency and 241-pose loop seam integrity.
+- 160 app tests, including release auth refusal, demo-only flows, 805 pane geometries, sample catalog consistency and 241-pose loop seam integrity.
 - Android and iOS Metro production JavaScript exports on Expo SDK 57.
 - Release bundles exclude the demo account/engine and new Content Lab draft fixtures and include fail-closed authentication.
 
@@ -56,3 +56,7 @@ Owner has an Android tablet/computer, linked @kidsuu/kidsuu locally and reported
 ## Research-driven content batch 1
 
 Development-only adult Content Lab: four serialized draft editions, strict package validation/hash manifests, optional-unit-aware variable reader, new per-child/age/locale/version/hash ledger, atomic v1/v2 → v3 migration and language-aware TTS. Android/iOS release bundles exclude drafts. No human content approval, generated assets, live edition API, graphical game players or physical-device acceptance is claimed. Existing legacy activity history is unchanged and retains its old edition limitation. See CONTENT-PLATFORM.md for the exact scope, rollback warning, known editorial issues and remaining sequence.
+
+## Visual interaction batch 2
+
+Content Lab now includes the bilingual One for Each Bowl and Triangle Workshop players: procedural count/shape visuals, tap-to-place, undo/reset, explicit models, per-feature feedback, bounded hints and optional reasoning. There are eight draft locale editions total. Pure state-space/geometry/schema/ledger regressions and JS bundle isolation are engineering checks, not physical-device or educator approval. Shared snapshot v3/backend contracts unchanged. See INTERACTIVE-PILOTS.md for exact scope and pending native acceptance; assets remain procedural/unreviewed and no recorded audio was generated.

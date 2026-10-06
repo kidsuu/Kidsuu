@@ -1,3 +1,4 @@
+import { interactiveCatalog } from '../src/features/content/data/demo/interactiveCatalog';
 import { pilotCatalog } from '../src/features/content/data/demo/catalog';
 import { afterEach, describe, expect, it } from 'vitest';
 import { DatabaseSync } from 'node:sqlite';
@@ -50,6 +51,8 @@ describe('actual SQLite file persistence (Node adapter, not native device QA)', 
     await store.unlock();
     await store.recordEdition(pilotCatalog[1], 'R01', 'explore');
     await store.recordEdition(pilotCatalog[1], 'R03', 'skip');
+    await store.recordEdition(interactiveCatalog[3], 'G01', 'explore');
+    await store.recordEdition(interactiveCatalog[3], 'G05', 'skip');
     store.dispose();
     first.db.close();
     const second = openFile(file),
@@ -65,6 +68,10 @@ describe('actual SQLite file persistence (Node adapter, not native device QA)', 
     expect(restored.getSnapshot().editions[id][0]).toMatchObject({
       exploredUnitIds: ['R01'],
       skippedUnitIds: ['R03'],
+    });
+    expect(restored.getSnapshot().editions[id][1]).toMatchObject({
+      exploredUnitIds: ['G01'],
+      skippedUnitIds: ['G05'],
     });
     expect(await restored.prepareSignOut()).toBe(true);
     second.db.close();

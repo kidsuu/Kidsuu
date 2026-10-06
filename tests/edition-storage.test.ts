@@ -6,6 +6,7 @@ import {
 import { createDemoFamilyRepository } from '../src/features/family/data/demo/DemoFamilyRepository';
 import { FamilyStore } from '../src/features/family/domain/FamilyStore';
 import { decodeSnapshot } from '../src/features/family/data/offline/snapshot';
+import { interactiveCatalog } from '../src/features/content/data/demo/interactiveCatalog';
 import { pilotCatalog } from '../src/features/content/data/demo/catalog';
 import { exploreUnit } from '../src/features/content/domain/editionProgress';
 const content = pilotCatalog[0];
@@ -175,5 +176,50 @@ describe('edition ledger durable isolation and migration', () => {
     await expect(
       repo.local!.putEditionProgress(id, exploreUnit(content, undefined, 'R01', 'explore')),
     ).rejects.toMatchObject({ code: 'LOCAL_CLOSED' });
+  });
+});
+
+describe('interactive ledger integration', () => {
+  it('restores all eight editions without saving answers/hints/board state or legacy totals', async () => {
+    const device = disk(),
+      { store } = await open(device.storage);
+    await store.unlock();
+    const id = store.getSnapshot().selectedId!;
+    for (const p of [...pilotCatalog, ...interactiveCatalog])
+      expect(await store.recordEdition(p, p.pages[0].id, 'explore')).toBe(true);
+    expect(await store.recordEdition(interactiveCatalog[2], 'G05', 'skip')).toBe(true);
+    store.dispose();
+    const restored = (await open(device.storage)).store.getSnapshot();
+    expect(restored.editions[id]).toHaveLength(8);
+    expect(restored.progress).toEqual([]);
+    const game = restored.editions[id].find((r) =>
+      r.editionKey.includes('triangle-workshop:6-7:en-IN'),
+    )!;
+    expect(game.skippedUnitIds).toEqual(['G05']);
+    expect(game.exploredUnitIds).toEqual(['G01']);
+    for (const key of [
+      'answers',
+      'hints',
+      'locations',
+      'selectedToken',
+      'independentSuccess',
+      'score',
+    ])
+      expect(device.value()).not.toContain(`"${key}"`);
+    expect(restored.parentUnlocked).toBe(false);
+  });
+  it('rejects unsupported saves and changed recipe hashes without mutating old progress', async () => {
+    const device = disk(),
+      { store } = await open(device.storage),
+      p = interactiveCatalog[0];
+    await store.unlock();
+    await store.recordEdition(p, 'L01', 'explore');
+    const before = device.value();
+    expect(await store.recordEdition(p, 'L02', 'skip')).toBe(false);
+    expect(device.value()).toBe(before);
+    expect(await store.recordEdition({ ...p, contentHash: 'b'.repeat(64) }, 'L02', 'explore')).toBe(
+      false,
+    );
+    expect(device.value()).toBe(before);
   });
 });

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "status": "adult-draft-preview",
+  "recipeHash": "4d54dfdcd797004f85aca58c3ff130dd5c2d504784de15ee767744d77589f1e4",
+  "packages": [
+    {
+      "editionKey": "one-each-bowl:4-5:en-IN:1",
+      "contentHash": "20d0d4022aa2647bdb3942198fab4f4bc02dd6bf38717d65b543cc6087521f91",
+      "unitCount": 6,
+      "illustrations": "procedural-unreviewed",
+      "recordedAudio": "not-generated",
+      "humanApproval": "pending"
+    },
+    {
+      "editionKey": "one-each-bowl:4-5:hi-IN:1",
+      "contentHash": "46aa478e35245ec5caac79fc0aa7f4de1dbbfa31d22b177d150cea524fd34087",
+      "unitCount": 6,
+      "illustrations": "procedural-unreviewed",
+      "recordedAudio": "not-generated",
+      "humanApproval": "pending"
+    },
+    {
+      "editionKey": "triangle-workshop:6-7:en-IN:1",
+      "contentHash": "bcb6e9638fd7c8edfe8d97c93f7f839f09c937c6d10da04f04ad9210a8a5f5ec",
+      "unitCount": 6,
+      "illustrations": "procedural-unreviewed",
+      "recordedAudio": "not-generated",
+      "humanApproval": "pending"
+    },
+    {
+      "editionKey": "triangle-workshop:6-7:hi-IN:1",
+      "contentHash": "7d4112e39638789b13fd61b4bab628e6d9998dfa3b362aa4dc4b1db235a50da5",
+      "unitCount": 6,
+      "illustrations": "procedural-unreviewed",
+      "recordedAudio": "not-generated",
+      "humanApproval": "pending"
+    }
+  ]
+}

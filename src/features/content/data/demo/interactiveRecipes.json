@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "shapes": [
+    {
+      "id": "closed-tri",
+      "kind": "path",
+      "points": [
+        [20, 80],
+        [50, 20],
+        [80, 80]
+      ],
+      "closed": true,
+      "curve": null
+    },
+    {
+      "id": "oval",
+      "kind": "ellipse",
+      "radii": [36, 25]
+    },
+    {
+      "id": "square",
+      "kind": "path",
+      "points": [
+        [20, 20],
+        [80, 20],
+        [80, 80],
+        [20, 80]
+      ],
+      "closed": true,
+      "curve": null
+    },
+    {
+      "id": "circle",
+      "kind": "ellipse",
+      "radii": [32, 32]
+    },
+    {
+      "id": "rectangle",
+      "kind": "path",
+      "points": [
+        [15, 30],
+        [85, 30],
+        [85, 70],
+        [15, 70]
+      ],
+      "closed": true,
+      "curve": null
+    },
+    {
+      "id": "turned-tri",
+      "kind": "path",
+      "points": [
+        [20, 20],
+        [80, 50],
+        [20, 80]
+      ],
+      "closed": true,
+      "curve": null
+    },
+    {
+      "id": "open-three",
+      "kind": "path",
+      "points": [
+        [20, 80],
+        [50, 20],
+        [80, 80],
+        [40, 80]
+      ],
+      "closed": false,
+      "curve": null
+    },
+    {
+      "id": "scalene-tri",
+      "kind": "path",
+      "points": [
+        [15, 85],
+        [40, 15],
+        [85, 65]
+      ],
+      "closed": true,
+      "curve": null
+    },
+    {
+      "id": "curved-three",
+      "kind": "path",
+      "points": [
+        [20, 80],
+        [50, 20],
+        [80, 80]
+      ],
+      "closed": true,
+      "curve": {
+        "edge": 1,
+        "control": [90, 10]
+      }
+    }
+  ],
+  "rounds": {
+    "triangle-familiar": ["closed-tri", "oval", "square"],
+    "triangle-turned": ["circle", "rectangle", "turned-tri"],
+    "triangle-scalene": ["open-three", "scalene-tri", "curved-three"]
+  },
+  "quantityChoices": [2, 4, 3],
+  "modelCount": 2,
+  "placementCount": 3
+}

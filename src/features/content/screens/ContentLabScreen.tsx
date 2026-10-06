@@ -5,13 +5,12 @@ import type { FamilyState, FamilyStore } from '../../family/domain/FamilyStore';
 import { deviceNarrator } from '../../activities/audio/deviceNarration';
 import { useReaderNarration } from '../../activities/audio/useReaderNarration';
 import { pilotCatalog } from '../data/demo/catalog';
-import {
-  canPreview,
-  editionKey,
-  type ContentLocale,
-  type ReaderPackage,
-} from '../domain/contentPackage';
+import { interactiveCatalog } from '../data/demo/interactiveCatalog';
+import { isInteractive, type LabPackage } from '../domain/interactivePackage';
+import { InteractiveStage } from '../components/InteractiveStage';
+import { canPreview, editionKey, type ContentLocale } from '../domain/contentPackage';
 import { hasExploredRequired, progressMatches, resumeEdition } from '../domain/editionProgress';
+const labCatalog: readonly LabPackage[] = [...pilotCatalog, ...interactiveCatalog];
 interface Props {
   store: FamilyStore;
   state: FamilyState;
@@ -24,7 +23,7 @@ export function ContentLabScreen(props: Props) {
   const { state, isDemo, onBack } = props;
   const [locale, setLocale] = useState<ContentLocale>('en-IN');
   const [contentId, setContentId] = useState<string | null>(null);
-  const content = pilotCatalog.find((c) => c.contentId === contentId && c.locale === locale);
+  const content = labCatalog.find((c) => c.contentId === contentId && c.locale === locale);
   if (!__DEV__ || !isDemo || !state.parentUnlocked || !state.selectedId) return null;
   const editions = state.editions[state.selectedId] ?? [];
   if (content && canPreview(content, __DEV__, isDemo, state.parentUnlocked))
@@ -48,8 +47,9 @@ export function ContentLabScreen(props: Props) {
       <View style={s.card}>
         <Text style={s.heading}>Small stories. Thoughtful learning.</Text>
         <Text style={s.body}>
-          Two research-based draft packages, each in Hindi and English. These are text-only
-          prototypes: no new illustration, recorded audio or human sign-off is implied.
+          Four research-informed draft packages, each in Hindi and English: two readers and two
+          visual activities. Procedural shapes and toy tokens are unreviewed. No recorded audio,
+          generated character illustration or human sign-off is implied.
         </Text>
         <Text style={s.body}>
           Reviewing with dummy profile:{' '}
@@ -65,15 +65,21 @@ export function ContentLabScreen(props: Props) {
           <Button label="हिन्दी" selected={locale === 'hi-IN'} onPress={() => setLocale('hi-IN')} />
         </View>
       </View>
-      {pilotCatalog
+      {labCatalog
         .filter((c) => c.locale === locale && canPreview(c, __DEV__, isDemo, state.parentUnlocked))
         .map((c) => {
           const row = editions.find((r) => r.editionKey === editionKey(c));
           return (
             <View key={editionKey(c)} style={s.card}>
               <Text style={s.label}>
-                {c.kind === 'story' ? 'STORY' : 'SPOKEN RHYME'} · Ages {c.ageGroup} · Draft v
-                {c.contentVersion}
+                {c.kind === 'story'
+                  ? 'STORY'
+                  : c.kind === 'rhyme'
+                    ? 'SPOKEN RHYME'
+                    : c.kind === 'learning'
+                      ? 'LEARNING'
+                      : 'GAME'}{' '}
+                · Ages {c.ageGroup} · Draft v{c.contentVersion}
               </Text>
               <Text accessibilityRole="header" style={s.heading}>
                 {c.title}
@@ -116,7 +122,7 @@ function EditionReader({
   state,
   foreground,
   onBack,
-}: Props & { content: ReaderPackage }) {
+}: Props & { content: LabPackage }) {
   const hi = content.locale === 'hi-IN';
   const copy = (en: string, hindi: string) => (hi ? hindi : en);
   const row = (state.editions[state.selectedId ?? ''] ?? []).find(
@@ -166,8 +172,12 @@ function EditionReader({
       />
       <Text style={styles.draft}>
         {copy(
-          'ADULT PREVIEW · UNREVIEWED DRAFT · TEXT ONLY',
-          'वयस्क समीक्षा · अनसमीक्षित ड्राफ्ट · केवल पाठ',
+          isInteractive(content)
+            ? 'ADULT PREVIEW · UNREVIEWED ACTIVITY'
+            : 'ADULT PREVIEW · UNREVIEWED DRAFT · TEXT ONLY',
+          isInteractive(content)
+            ? 'वयस्क समीक्षा · अनसमीक्षित गतिविधि'
+            : 'वयस्क समीक्षा · अनसमीक्षित ड्राफ्ट · केवल पाठ',
         )}
       </Text>
       <Text accessibilityRole="header" style={s.title}>
@@ -225,11 +235,26 @@ function EditionReader({
           <View style={[s.card, styles.page, content.kind === 'rhyme' && styles.rhyme]}>
             <Text accessibilityLiveRegion="polite" style={s.label}>
               {copy('Part', 'भाग')} {page + 1} / {content.pages.length}
-              {current.optional ? copy(' · optional repeat', ' · वैकल्पिक दोहराव') : ''}
+              {current.optional ? copy(' · optional part', ' · वैकल्पिक भाग') : ''}
             </Text>
             <Text accessibilityLanguage={content.locale} style={styles.copy}>
               {current.text}
             </Text>
+            {isInteractive(content) && (
+              <InteractiveStage
+                key={`${editionKey(content)}:${page}`}
+                content={content}
+                pageIndex={page}
+                disabled={locked || mismatch}
+                onInteraction={() => {
+                  void deviceNarrator.stop();
+                }}
+                canRead={allowed && audio.status === 'idle'}
+                onRead={(text) => {
+                  if (allowed && !locked) void deviceNarrator.play(text, content.locale);
+                }}
+              />
+            )}
           </View>
           <View style={s.row}>
             <Button
@@ -250,7 +275,7 @@ function EditionReader({
             />
             {current.optional && (
               <Button
-                label={copy('Skip this repeat', 'यह दोहराव छोड़ें')}
+                label={copy('Skip this optional part', 'यह वैकल्पिक भाग छोड़ें')}
                 disabled={locked || mismatch}
                 onPress={() => void advance('skip')}
               />
