@@ -1,4 +1,7 @@
+import { exactObject } from './packageValidation';
+import { parseSceneFrames, type SceneFrame } from './sceneFrames';
 import { AGE_GROUPS, type AgeGroup } from '../../../../packages/contracts/src';
+export { exactObject } from './packageValidation';
 export const CONTENT_LOCALES = ['en-IN', 'hi-IN'] as const;
 export type ContentLocale = (typeof CONTENT_LOCALES)[number];
 export interface ReaderPackage {
@@ -15,10 +18,11 @@ export interface ReaderPackage {
   publication: 'draft' | 'withdrawn';
   reviews: readonly never[];
   source: string;
-  assetStatus: 'text-only-preview';
+  assetStatus: 'text-only-preview' | 'illustrated-preview';
+  scenePackHash?: string;
   parentNote: string;
   discussion: string;
-  pages: readonly { id: string; text: string; optional: boolean }[];
+  pages: readonly { id: string; text: string; optional: boolean; scenes?: readonly SceneFrame[] }[];
 }
 /** Minimal shared navigation identity; interactive packages do not masquerade as stories. */
 export type EditionContent = Pick<
@@ -48,26 +52,19 @@ const keys = [
   'discussion',
   'pages',
 ];
-export function exactObject(
-  value: unknown,
-  fields: readonly string[],
-): value is Record<string, unknown> {
-  return (
-    !!value &&
-    typeof value === 'object' &&
-    !Array.isArray(value) &&
-    Object.keys(value).length === fields.length &&
-    fields.every((key) => Object.hasOwn(value, key))
-  );
-}
 const text = (value: unknown, max: number) =>
   typeof value === 'string' &&
   value.trim().length > 0 &&
   value.length <= max &&
   !/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/u.test(value);
 export function parseReaderPackage(input: unknown): ReaderPackage {
+  const illustrated =
+    !!input &&
+    typeof input === 'object' &&
+    'assetStatus' in input &&
+    input.assetStatus === 'illustrated-preview';
   if (
-    !exactObject(input, keys) ||
+    !exactObject(input, illustrated ? [...keys, 'scenePackHash'] : keys) ||
     input.schemaVersion !== 1 ||
     typeof input.contentHash !== 'string' ||
     !/^[a-f0-9]{64}$/.test(input.contentHash) ||
@@ -82,7 +79,9 @@ export function parseReaderPackage(input: unknown): ReaderPackage {
     !['caregiver-shared', 'supported-reader'].includes(input.useMode as string) ||
     (input.ageGroup === '2–3' && input.useMode !== 'caregiver-shared') ||
     !['draft', 'withdrawn'].includes(input.publication as string) ||
-    input.assetStatus !== 'text-only-preview' ||
+    (!illustrated && input.assetStatus !== 'text-only-preview') ||
+    (illustrated &&
+      (typeof input.scenePackHash !== 'string' || !/^[a-f0-9]{64}$/.test(input.scenePackHash))) ||
     !Array.isArray(input.reviews) ||
     input.reviews.length !== 0 ||
     !text(input.title, 120) ||
@@ -99,7 +98,10 @@ export function parseReaderPackage(input: unknown): ReaderPackage {
   const ids = new Set<string>();
   for (const page of input.pages) {
     if (
-      !exactObject(page, ['id', 'text', 'optional']) ||
+      !exactObject(
+        page,
+        illustrated ? ['id', 'text', 'optional', 'scenes'] : ['id', 'text', 'optional'],
+      ) ||
       typeof page.id !== 'string' ||
       !/^[A-Z][A-Z0-9-]{1,31}$/.test(page.id) ||
       ids.has(page.id) ||
@@ -107,6 +109,7 @@ export function parseReaderPackage(input: unknown): ReaderPackage {
       typeof page.optional !== 'boolean'
     )
       throw new Error('Invalid or duplicate reader page.');
+    if (illustrated) parseSceneFrames(page.scenes);
     ids.add(page.id);
   }
   if (input.pages[0].optional || input.pages[input.pages.length - 1].optional)
@@ -138,6 +141,6 @@ export function releaseBlockers(content: ReaderPackage): string[] {
   return [
     `${editionKey(content)}: ${content.publication}; not approved for publication`,
     'Qualified editorial, safety, language and rights reviews pending',
-    'Text-only preview; reviewed visual/audio asset manifest and device QA pending',
+    'Reviewed visual/audio assets and physical-device QA pending',
   ];
 }

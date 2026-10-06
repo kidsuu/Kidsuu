@@ -2,7 +2,7 @@
 
 Date: 5 October 2026. Branch: `feature/family-app`. Status: **tested internal authoring/reader foundation, not production approval**. Real auth remains deferred by the owner. Main/staging are not changed by this batch.
 
-**Follow-up:** batch 2 implements the visual Learning/Game pilots; current lab total is eight locale editions. See [INTERACTIVE-PILOTS.md](INTERACTIVE-PILOTS.md). The historical batch-1 scope and verification below remain identified as such.
+**Follow-up:** batch 2 implements the visual Learning/Game pilots; current lab total is eight locale editions. See [INTERACTIVE-PILOTS.md](INTERACTIVE-PILOTS.md). Batch 3 adds [illustrated reader v2](ILLUSTRATED-READERS.md), with six story scenes, two manual rhyme pictures, asset provenance and preserved v1 history. The historical batch-1 scope and verification below remain identified as such.
 
 ## Implemented
 

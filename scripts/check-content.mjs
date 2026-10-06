@@ -1,16 +1,19 @@
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
+import { checkSceneAssets } from './check-scene-assets.mjs';
 const root = new URL('../src/features/content/data/demo/', import.meta.url);
 const read = (file) => JSON.parse(readFileSync(new URL(file, root), 'utf8'));
 const hash = (value) => createHash('sha256').update(JSON.stringify(value)).digest('hex');
+const scenePack = read('scenePack.json');
+const sceneHash = checkSceneAssets();
 const recipeHash = hash(read('interactiveRecipes.json'));
 const keys = new Set();
 for (const family of [
   {
     data: 'readerPilots.json',
     manifest: 'manifest.json',
-    assets: 'text-only-preview',
-    illustrations: 'not-generated',
+    assets: 'illustrated-preview',
+    illustrations: 'ai-and-composited-unreviewed',
   },
   {
     data: 'interactivePilots.json',
@@ -54,11 +57,25 @@ for (const family of [
       throw new Error(`This internal pipeline cannot approve publication: ${key}`);
     if (family.assets === 'procedural-preview' && content.recipeHash !== recipeHash)
       throw new Error(`Recipe hash mismatch: ${key}`);
+    if (family.assets === 'illustrated-preview') {
+      if (content.scenePackHash !== sceneHash || manifest.scenePackHash !== sceneHash)
+        throw new Error(`Scene pack hash mismatch: ${key}`);
+      for (const page of content.pages) {
+        if (
+          !page.scenes?.length ||
+          page.scenes.some(
+            (f) =>
+              f.assetId === 'cast-reference' || !scenePack.assets.some((a) => a.id === f.assetId),
+          )
+        )
+          throw new Error(`Missing scene reference: ${key}`);
+      }
+    }
     keys.add(key);
   }
 }
 console.log(
-  `PASS: ${keys.size} draft editions and procedural geometry match SHA-256 manifests. No recorded media or human approval claimed.`,
+  `PASS: ${keys.size} draft editions, scene art and procedural geometry match SHA-256 manifests. No recorded media or human approval claimed.`,
 );
 if (process.argv.includes('--release')) {
   console.error(

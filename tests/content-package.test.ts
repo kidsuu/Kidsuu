@@ -36,7 +36,7 @@ describe('strict reader packages and publication boundary', () => {
       expect(manifest.packages.find((m) => m.editionKey === editionKey(p))).toMatchObject({
         contentHash,
         unitCount: p.pages.length,
-        illustrations: 'not-generated',
+        illustrations: 'ai-and-composited-unreviewed',
         recordedAudio: 'not-generated',
         humanApproval: 'pending',
       });
@@ -75,7 +75,7 @@ describe('strict reader packages and publication boundary', () => {
     expect(() => parseReaderCatalog([rhyme, rhyme])).toThrow();
     const keys = [
       rhyme,
-      { ...rhyme, contentVersion: 2 },
+      { ...rhyme, contentVersion: rhyme.contentVersion + 1 },
       { ...rhyme, ageGroup: '4–5' as const },
       pilotCatalog[1],
     ].map(editionKey);
@@ -125,7 +125,7 @@ describe('edition exploration, never mastery or listening', () => {
     for (const content of [
       pilotCatalog[1],
       { ...rhyme, ageGroup: '4–5' as const },
-      { ...rhyme, contentVersion: 2 },
+      { ...rhyme, contentVersion: rhyme.contentVersion + 1 },
       { ...rhyme, contentHash: 'b'.repeat(64) },
       { ...rhyme, pages: rhyme.pages.slice(0, 2) },
     ]) {

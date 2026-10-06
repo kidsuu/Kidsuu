@@ -1,3 +1,5 @@
+import oldReaders from '../docs/content-archive/readerPilots-v1.json';
+import { parseReaderCatalog, editionKey } from '../src/features/content/domain/contentPackage';
 import { describe, it, expect, vi } from 'vitest';
 import {
   createOfflineFamilyRepository,
@@ -221,5 +223,40 @@ describe('interactive ledger integration', () => {
       false,
     );
     expect(device.value()).toBe(before);
+  });
+});
+
+describe('illustration version upgrade storage', () => {
+  it('keeps archived v1, illustrated v2 and legacy history separate through durable restart', async () => {
+    const device = disk(),
+      { store } = await open(device.storage);
+    await store.unlock();
+    const id = store.getSnapshot().selectedId!;
+    const old = parseReaderCatalog(oldReaders)[0];
+    expect(await store.recordEdition(old, 'R01', 'explore')).toBe(true);
+    expect(await store.recordEdition(old, 'R03', 'skip')).toBe(true);
+    const original = structuredClone(store.getSnapshot().editions[id][0]);
+    expect(await store.recordEdition(content, 'R02', 'explore')).toBe(true);
+    expect(store.getSnapshot().editions[id].find((r) => r.editionKey === editionKey(old))).toEqual(
+      original,
+    );
+    const before = device.value();
+    vi.mocked(device.storage.write).mockRejectedValueOnce(new Error('Full'));
+    expect(await store.recordEdition(content, 'R01', 'explore')).toBe(false);
+    expect(device.value()).toBe(before);
+    store.dispose();
+    const reopened = (await open(device.storage)).store;
+    const restored = reopened.getSnapshot();
+    expect(restored.editions[id]).toHaveLength(2);
+    expect(restored.editions[id].find((r) => r.editionKey === editionKey(old))).toEqual(original);
+    expect(
+      restored.editions[id].find((r) => r.editionKey === editionKey(content))?.exploredUnitIds,
+    ).toEqual(['R02']);
+    expect(restored.progress).toEqual([]);
+    expect(restored.parentUnlocked).toBe(false);
+    expect(device.value()).not.toContain('assetId');
+    expect(device.value()).not.toContain('scenePackHash');
+    expect(await reopened.prepareSignOut()).toBe(true);
+    expect(device.value()).toBeNull();
   });
 });

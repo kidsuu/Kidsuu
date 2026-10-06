@@ -43,7 +43,10 @@ export const FEEDBACK_KEYS = [
   'sides-three',
 ] as const;
 export type FeedbackKey = (typeof FEEDBACK_KEYS)[number];
-export type InteractivePackage = Omit<ReaderPackage, 'kind' | 'assetStatus' | 'pages'> & {
+export type InteractivePackage = Omit<
+  ReaderPackage,
+  'kind' | 'assetStatus' | 'pages' | 'scenePackHash'
+> & {
   kind: 'learning' | 'game';
   assetStatus: 'procedural-preview';
   recipeHash: string;

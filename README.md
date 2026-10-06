@@ -6,7 +6,7 @@ Tablet-first React Native app with the approved clay UI, animated boy/puppy char
 
 ## Research-to-content implementation
 
-The development-only **Grown-ups → Content Lab** now contains **eight Hindi/English draft editions**: a four-part spoken rhyme, six-page story, visual one-to-one placement activity and deterministic triangle game. The [interactive-player batch](docs/INTERACTIVE-PILOTS.md) adds tap placement/undo/models and geometric choices/hints, not another text quiz. Variable-length navigation, optional-repeat skipping, edition-specific local progress, v1/v2 → v3 snapshot migration, content hashes and language-aware TTS are implemented. Drafts remain excluded from release bundles and are not educationally approved. See [implementation, tablet checks and remaining work](docs/CONTENT-PLATFORM.md) and [the attributed research inputs](docs/research/README.md).
+The development-only **Grown-ups → Content Lab** now contains **eight Hindi/English draft editions**: a four-part spoken rhyme, six-page story, visual one-to-one placement activity and deterministic triangle game. The [illustrated-reader batch](docs/ILLUSTRATED-READERS.md) adds six object scenes, two manual rhyme pictures and unchanged original-character reuse to reader v2; archived v1 progress stays separate. Visuals/rights/language reviews are pending. The [interactive-player batch](docs/INTERACTIVE-PILOTS.md) adds tap placement/undo/models and geometric choices/hints, not another text quiz. Variable-length navigation, optional-repeat skipping, edition-specific local progress, v1/v2 → v3 snapshot migration, content hashes and language-aware TTS are implemented. Drafts remain excluded from release bundles and are not educationally approved. See [implementation, tablet checks and remaining work](docs/CONTENT-PLATFORM.md) and [the attributed research inputs](docs/research/README.md).
 
 ## Run locally
 
@@ -69,7 +69,7 @@ Features do not import the app layer; shared code does not import features. ESLi
 - Original articulated characters and corrected 2D choreography; system Reduce Motion/background/offscreen handling.
 - Clean landscape/portrait login, static repaired splash, registration/recovery UI.
 - Error boundary, explicit feature contracts, deterministic lockfile, formatting/linting, unit tests and GitHub Actions CI.
-- Only **74 referenced PNG assets** (about 3.09 MiB). No ZIP deliveries, offline HTML previews, screenshots, generated bundles, credentials, unused raw references or rejected 3D experiments are committed.
+- **83 referenced PNG assets** (about 8.28 MiB, including 5.19 MiB of development-only reader art). No ZIP deliveries, offline HTML previews, screenshots, generated bundles, credentials, unused raw references or rejected 3D experiments are committed.
 
 ## Quality commands
 
@@ -80,7 +80,7 @@ npm run audit:dependencies
 npm run check:release     # intentionally fails until production work is complete
 ```
 
-Current local checks: **135 app tests**, including **805** responsive geometry cases; TypeScript, lint and formatting; static-asset integrity; Android/iOS Metro exports. These exports are **not APK/IPA builds or device tests**. The bundle check confirms that seeded demo accounts/engine are absent and the unavailable auth adapter is present.
+Current local checks: **170 app tests across 18 files**, including **805** responsive geometry cases; TypeScript, lint and formatting; static-asset integrity; Android/iOS Metro exports. These exports are **not APK/IPA builds or device tests**. The bundle check confirms that seeded demo accounts/engine are absent and the unavailable auth adapter is present.
 
 Dependency audit still reports upstream transitive advisories. See [security notes](docs/SECURITY.md); audit is not claimed clean. CI reports the audit separately and does not silently fix dependencies with `--force`.
 

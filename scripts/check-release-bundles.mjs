@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 function walk(dir) {
@@ -6,8 +7,15 @@ function walk(dir) {
     return statSync(f).isDirectory() ? walk(f) : [f];
   });
 }
+const scenePack = JSON.parse(readFileSync('src/features/content/data/demo/scenePack.json', 'utf8'));
+const draftImageHashes = new Set(scenePack.assets.map((a) => a.sha256));
 for (const platform of ['android', 'ios']) {
-  const files = walk(`.expo/verify-${platform}`).filter((f) => f.endsWith('.js'));
+  const exported = walk(`.expo/verify-${platform}`);
+  for (const path of exported) {
+    if (draftImageHashes.has(createHash('sha256').update(readFileSync(path)).digest('hex')))
+      throw new Error(`${platform}: draft image bytes leaked into release: ${path}`);
+  }
+  const files = exported.filter((f) => f.endsWith('.js'));
   if (!files.length)
     throw new Error(`No ${platform} JavaScript bundle found. Run npm run verify:bundles first.`);
   const code = files.map((f) => readFileSync(f, 'utf8')).join('\n');
@@ -26,6 +34,10 @@ for (const platform of ['android', 'ios']) {
     'one-each-bowl',
     'triangle-workshop',
     'NUM.ONE_TO_ONE_3',
+    'kidsuu-reader-scenes',
+    'cast-reference',
+    'rhyme-rest',
+    'story-06',
   ]) {
     if (code.includes(sentinel))
       throw new Error(`${platform}: development fixture leaked into release bundle (${sentinel})`);
@@ -33,6 +45,6 @@ for (const platform of ['android', 'ios']) {
   if (!code.includes('Authentication is not connected yet'))
     throw new Error(`${platform}: expected fail-closed auth adapter not found`);
   console.log(
-    `PASS: ${platform} release bundle excludes demo auth and draft content fixtures and includes fail-closed adapter.`,
+    `PASS: ${platform} release bundle excludes demo auth and draft content fixtures/scene image bytes and includes fail-closed adapter.`,
   );
 }

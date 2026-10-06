@@ -60,3 +60,7 @@ Development-only adult Content Lab: four serialized draft editions, strict packa
 ## Visual interaction batch 2
 
 Content Lab now includes the bilingual One for Each Bowl and Triangle Workshop players: procedural count/shape visuals, tap-to-place, undo/reset, explicit models, per-feature feedback, bounded hints and optional reasoning. There are eight draft locale editions total. Pure state-space/geometry/schema/ledger regressions and JS bundle isolation are engineering checks, not physical-device or educator approval. Shared snapshot v3/backend contracts unchanged. See INTERACTIVE-PILOTS.md for exact scope and pending native acceptance; assets remain procedural/unreviewed and no recorded audio was generated.
+
+## Illustrated reader batch 3
+
+The four current reader editions are v2, with six object-focused story scenes and two manual rhyme pictures (down/rest share one). Original puppy is deterministically composited; boy/Puppy cast reference is byte-identical, not a generative redesign. Scene hashes/dimensions/byte budgets, localized descriptions, native contain/fallback rendering and preserved v1 progress are implemented. There are still eight current draft editions. 170 automated tests and Android/iOS JS release-isolation checks do not establish native acceptance or publication rights. All art/language/educator/safety/rights reviews and physical-device cases remain pending. See [scope and QA](ILLUSTRATED-READERS.md) and [provenance](READER-ART-PROVENANCE.md). Auth/SMS remain deferred; main/staging are unchanged by this branch work.

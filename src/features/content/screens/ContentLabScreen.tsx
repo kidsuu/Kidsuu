@@ -8,6 +8,7 @@ import { pilotCatalog } from '../data/demo/catalog';
 import { interactiveCatalog } from '../data/demo/interactiveCatalog';
 import { isInteractive, type LabPackage } from '../domain/interactivePackage';
 import { InteractiveStage } from '../components/InteractiveStage';
+import { ReaderScene, StoryFriends } from '../components/ReaderScene';
 import { canPreview, editionKey, type ContentLocale } from '../domain/contentPackage';
 import { hasExploredRequired, progressMatches, resumeEdition } from '../domain/editionProgress';
 const labCatalog: readonly LabPackage[] = [...pilotCatalog, ...interactiveCatalog];
@@ -48,8 +49,9 @@ export function ContentLabScreen(props: Props) {
         <Text style={s.heading}>Small stories. Thoughtful learning.</Text>
         <Text style={s.body}>
           Four research-informed draft packages, each in Hindi and English: two readers and two
-          visual activities. Procedural shapes and toy tokens are unreviewed. No recorded audio,
-          generated character illustration or human sign-off is implied.
+          visual activities. Readers now include unreviewed AI backgrounds/props and reused original
+          character artwork. No replacement character drawings, recorded audio or human sign-off are
+          included. All visual and language reviews remain pending.
         </Text>
         <Text style={s.body}>
           Reviewing with dummy profile:{' '}
@@ -174,10 +176,10 @@ function EditionReader({
         {copy(
           isInteractive(content)
             ? 'ADULT PREVIEW · UNREVIEWED ACTIVITY'
-            : 'ADULT PREVIEW · UNREVIEWED DRAFT · TEXT ONLY',
+            : 'ADULT PREVIEW · UNREVIEWED ILLUSTRATED DRAFT',
           isInteractive(content)
             ? 'वयस्क समीक्षा · अनसमीक्षित गतिविधि'
-            : 'वयस्क समीक्षा · अनसमीक्षित ड्राफ्ट · केवल पाठ',
+            : 'वयस्क समीक्षा · अनसमीक्षित चित्रों का ड्राफ्ट',
         )}
       </Text>
       <Text accessibilityRole="header" style={s.title}>
@@ -202,6 +204,9 @@ function EditionReader({
           This draft changed without a new version. Saving is blocked; ask the editor to version the
           package. Existing progress is preserved.
         </Text>
+      )}
+      {!finished && content.kind === 'story' && page === 0 && (
+        <StoryFriends locale={content.locale} />
       )}
       {finished ? (
         <View style={s.card}>
@@ -237,6 +242,17 @@ function EditionReader({
               {copy('Part', 'भाग')} {page + 1} / {content.pages.length}
               {current.optional ? copy(' · optional part', ' · वैकल्पिक भाग') : ''}
             </Text>
+            {!isInteractive(content) && content.pages[page].scenes && (
+              <ReaderScene
+                key={`${editionKey(content)}:${current.id}`}
+                frames={content.pages[page].scenes!}
+                locale={content.locale}
+                locked={locked}
+                onChange={() => {
+                  void deviceNarrator.stop();
+                }}
+              />
+            )}
             <Text accessibilityLanguage={content.locale} style={styles.copy}>
               {current.text}
             </Text>

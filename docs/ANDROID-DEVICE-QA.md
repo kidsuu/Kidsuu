@@ -145,3 +145,7 @@ New manual cases are in [CONTENT-PLATFORM.md](CONTENT-PLATFORM.md): 4/6-unit lay
 ## Interactive content follow-up (batch 2)
 
 Run the twelve cases in [INTERACTIVE-PILOTS.md](INTERACTIVE-PILOTS.md): two-/three-bowl state, cancel/undo/model/rapid taps, exact quantity trays, rotated/scalene/open/curved geometry, optional G05, locale isolation, read-aloud/lifecycle, TalkBack/font scaling, board restart and low-end performance. No native binary or schema change is needed for this batch. All physical-device results remain pending.
+
+## Illustrated reader follow-up (batch 3)
+
+Run V01–V11 in [ILLUSTRATED-READERS.md](ILLUSTRATED-READERS.md): six-scene narrative alignment, two still rhyme states with down/rest reuse, audible stop on frame changes, contained aspect ratios/rotation/font scale, TalkBack descriptions, no progress from image taps, old v1/new v2 isolation, loaded-JS offline image availability, fallback, memory/jank and qualified review. All are **NOT RUN** on the target tablet. No native module or storage schema change; do not erase old edition history to update. This remains an adult development Content Lab feature, not public Home content.

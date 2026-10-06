@@ -2,7 +2,7 @@
   {
     "schemaVersion": 1,
     "contentId": "up-down-rest",
-    "contentVersion": 1,
+    "contentVersion": 2,
     "ageGroup": "2–3",
     "locale": "en-IN",
     "kind": "rhyme",
@@ -12,37 +12,76 @@
     "publication": "draft",
     "reviews": [],
     "source": "Owner-supplied research, 2026-10-05, Part 3; adapted draft, sources not independently reverified.",
-    "assetStatus": "text-only-preview",
+    "assetStatus": "illustrated-preview",
     "parentNote": "Share with a grown-up. An adult may gently lift and lower a soft cloth, or simply describe up and down. Never cover a face or move the child’s arms for them. Watching or declining is fine. This is spoken rhythm, not a song.",
     "discussion": "If you like, point up and down with a grown-up. Stopping now is fine too.",
     "pages": [
       {
         "id": "R01",
         "text": "Let's listen with a grown-up. You can watch, point, or move gently if you like.",
-        "optional": false
+        "optional": false,
+        "scenes": [
+          {
+            "assetId": "rhyme-rest",
+            "label": "Down / Rest",
+            "description": "A blue cloth lies flat on a low table beside an adult hand. Puppy stands on the floor to the left. The cloth is away from Puppy’s face. This same still picture represents down and rest; it does not show lowering."
+          }
+        ]
       },
       {
         "id": "R02",
         "text": "Up and down,\nSoft and slow.\nNow we rest.\nThere we go.",
-        "optional": false
+        "optional": false,
+        "scenes": [
+          {
+            "assetId": "rhyme-rest",
+            "label": "Down / Rest",
+            "description": "A blue cloth lies flat on a low table beside an adult hand. Puppy stands on the floor to the left. The cloth is away from Puppy’s face. This same still picture represents down and rest; it does not show lowering."
+          },
+          {
+            "assetId": "rhyme-up",
+            "label": "Up",
+            "description": "An adult hand holds a blue cloth above the low table. Puppy stands on the floor to the left, in the same pose as the rest picture. The cloth is away from Puppy’s face."
+          }
+        ]
       },
       {
         "id": "R03",
         "text": "Up and down,\nSoft and slow.\nNow we rest.\nThere we go.",
-        "optional": true
+        "optional": true,
+        "scenes": [
+          {
+            "assetId": "rhyme-rest",
+            "label": "Down / Rest",
+            "description": "A blue cloth lies flat on a low table beside an adult hand. Puppy stands on the floor to the left. The cloth is away from Puppy’s face. This same still picture represents down and rest; it does not show lowering."
+          },
+          {
+            "assetId": "rhyme-up",
+            "label": "Up",
+            "description": "An adult hand holds a blue cloth above the low table. Puppy stands on the floor to the left, in the same pose as the rest picture. The cloth is away from Puppy’s face."
+          }
+        ]
       },
       {
         "id": "R04",
         "text": "Our rhyme is finished. We can rest now.",
-        "optional": false
+        "optional": false,
+        "scenes": [
+          {
+            "assetId": "rhyme-rest",
+            "label": "Down / Rest",
+            "description": "A blue cloth lies flat on a low table beside an adult hand. Puppy stands on the floor to the left. The cloth is away from Puppy’s face. This same still picture represents down and rest; it does not show lowering."
+          }
+        ]
       }
     ],
-    "contentHash": "3364785548bee86f859b26feff99b27e1d81d088d28f5f0029ce15e9fdcec6ed"
+    "scenePackHash": "3714aae15f1fa0f016b13000a3894f45bbbf3714c1b49afbe2d861972642695a",
+    "contentHash": "91b4da30df753832bf5ebb4d726eecf77845c9785fe70f165623c4f525186ad4"
   },
   {
     "schemaVersion": 1,
     "contentId": "up-down-rest",
-    "contentVersion": 1,
+    "contentVersion": 2,
     "ageGroup": "2–3",
     "locale": "hi-IN",
     "kind": "rhyme",
@@ -52,37 +91,76 @@
     "publication": "draft",
     "reviews": [],
     "source": "Owner-supplied research, 2026-10-05, Part 3; adapted draft, sources not independently reverified.",
-    "assetStatus": "text-only-preview",
+    "assetStatus": "illustrated-preview",
     "parentNote": "छोटी कविता किसी बड़े के साथ बोलें। चाहें तो बड़ा व्यक्ति मुलायम कपड़ा हल्का ऊपर-नीचे करे। चेहरे पर कपड़ा न रखें, हाथ-पैर न खींचें। बच्चा केवल देख सकता है या मना कर सकता है। यह बोली हुई कविता है, गीत नहीं।",
     "discussion": "चाहो तो किसी बड़े के साथ ऊपर और नीचे की ओर इशारा करो। अभी रुकना भी ठीक है।",
     "pages": [
       {
         "id": "R01",
         "text": "किसी बड़े के साथ सुनें। चाहो तो देखो, इशारा करो, या हल्का-सा हिलो।",
-        "optional": false
+        "optional": false,
+        "scenes": [
+          {
+            "assetId": "rhyme-rest",
+            "label": "नीचे / आराम",
+            "description": "नीला कपड़ा नीची मेज़ पर समतल रखा है। पास में बड़े व्यक्ति का हाथ है। पपी बाईं ओर फ़र्श पर खड़ा है। कपड़ा उसके चेहरे से दूर है। यही स्थिर चित्र नीचे और आराम, दोनों के लिए है; नीचे लाने की गति नहीं दिखाता।"
+          }
+        ]
       },
       {
         "id": "R02",
         "text": "कपड़ा ऊपर ले जाएँ,\nफिर नीचे ले आएँ।\nअब हम थोड़ा रुक जाएँ,\nचाहें तो मुस्काएँ।",
-        "optional": false
+        "optional": false,
+        "scenes": [
+          {
+            "assetId": "rhyme-rest",
+            "label": "नीचे / आराम",
+            "description": "नीला कपड़ा नीची मेज़ पर समतल रखा है। पास में बड़े व्यक्ति का हाथ है। पपी बाईं ओर फ़र्श पर खड़ा है। कपड़ा उसके चेहरे से दूर है। यही स्थिर चित्र नीचे और आराम, दोनों के लिए है; नीचे लाने की गति नहीं दिखाता।"
+          },
+          {
+            "assetId": "rhyme-up",
+            "label": "ऊपर",
+            "description": "एक बड़े व्यक्ति का हाथ नीले कपड़े को नीची मेज़ के ऊपर पकड़े है। पपी बाईं ओर फ़र्श पर खड़ा है। उसकी मुद्रा आराम वाले चित्र जैसी है। कपड़ा उसके चेहरे से दूर है।"
+          }
+        ]
       },
       {
         "id": "R03",
         "text": "कपड़ा ऊपर ले जाएँ,\nफिर नीचे ले आएँ।\nअब हम थोड़ा रुक जाएँ,\nचाहें तो मुस्काएँ।",
-        "optional": true
+        "optional": true,
+        "scenes": [
+          {
+            "assetId": "rhyme-rest",
+            "label": "नीचे / आराम",
+            "description": "नीला कपड़ा नीची मेज़ पर समतल रखा है। पास में बड़े व्यक्ति का हाथ है। पपी बाईं ओर फ़र्श पर खड़ा है। कपड़ा उसके चेहरे से दूर है। यही स्थिर चित्र नीचे और आराम, दोनों के लिए है; नीचे लाने की गति नहीं दिखाता।"
+          },
+          {
+            "assetId": "rhyme-up",
+            "label": "ऊपर",
+            "description": "एक बड़े व्यक्ति का हाथ नीले कपड़े को नीची मेज़ के ऊपर पकड़े है। पपी बाईं ओर फ़र्श पर खड़ा है। उसकी मुद्रा आराम वाले चित्र जैसी है। कपड़ा उसके चेहरे से दूर है।"
+          }
+        ]
       },
       {
         "id": "R04",
         "text": "हमारी कविता पूरी हुई। अब आराम करें।",
-        "optional": false
+        "optional": false,
+        "scenes": [
+          {
+            "assetId": "rhyme-rest",
+            "label": "नीचे / आराम",
+            "description": "नीला कपड़ा नीची मेज़ पर समतल रखा है। पास में बड़े व्यक्ति का हाथ है। पपी बाईं ओर फ़र्श पर खड़ा है। कपड़ा उसके चेहरे से दूर है। यही स्थिर चित्र नीचे और आराम, दोनों के लिए है; नीचे लाने की गति नहीं दिखाता।"
+          }
+        ]
       }
     ],
-    "contentHash": "819a3669c1cff9b360a90db8ebf56590a54580adab99927d287db9de680a21ef"
+    "scenePackHash": "3714aae15f1fa0f016b13000a3894f45bbbf3714c1b49afbe2d861972642695a",
+    "contentHash": "ed3225c9c8518e6b5c615f9ca8ab82efbef93c416b425ccef55c818b97352431"
   },
   {
     "schemaVersion": 1,
     "contentId": "dry-bench-story",
-    "contentVersion": 1,
+    "contentVersion": 2,
     "ageGroup": "8–9",
     "locale": "en-IN",
     "kind": "story",
@@ -92,47 +170,90 @@
     "publication": "draft",
     "reviews": [],
     "source": "Owner-supplied research, 2026-10-05, Part 3; adapted draft, sources not independently reverified.",
-    "assetStatus": "text-only-preview",
+    "assetStatus": "illustrated-preview",
     "parentNote": "Enjoy the first reading without interruption. Afterwards, optionally talk about a clue. More than one supported explanation is welcome. There is no need to go outside in the rain.",
     "discussion": "Why might the boy have chosen that place for the picture? What in the story helps your idea?",
     "pages": [
       {
         "id": "S01",
         "text": "The boy and Puppy were making a paper picture in the shared courtyard. A grown-up sat nearby. The boy drew a long blue line. Puppy watched a leaf land beside it.",
-        "optional": false
+        "optional": false,
+        "scenes": [
+          {
+            "assetId": "story-01",
+            "label": "Scene 1",
+            "description": "A close-up of a wooden table. White paper has one long blue wavy line. A green leaf and blue crayon lie beside it."
+          }
+        ]
       },
       {
         "id": "S02",
         "text": "A few raindrops fell. One touched the corner of the picture. The paper curled a little. The grown-up called, ‘Let's stay under the roof.’ They were only a few steps away.",
-        "optional": false
+        "optional": false,
+        "scenes": [
+          {
+            "assetId": "story-02",
+            "label": "Scene 2",
+            "description": "Rain falls around the table. Water drops lie on the wood and paper; one corner of the paper curls upward. The blue line is still visible."
+          }
+        ]
       },
       {
         "id": "S03",
         "text": "Under the roof stood a bench. One end was wet where the rain blew in. Near the wall, the bench was dry. Puppy sniffed the wet end, then stepped closer to the wall.",
-        "optional": false
+        "optional": false,
+        "scenes": [
+          {
+            "assetId": "story-03",
+            "label": "Scene 3",
+            "description": "A bench stands under a roof beside a wall. The left end has water drops and a puddle. The right end near the wall has dry wood."
+          }
+        ]
       },
       {
         "id": "S04",
         "text": "The boy held the picture over the dry place. Puppy looked up at it. ‘May I put our picture here?’ the boy asked. Puppy stepped aside. The boy set the paper down gently.",
-        "optional": false
+        "optional": false,
+        "scenes": [
+          {
+            "assetId": "story-04",
+            "label": "Scene 4",
+            "description": "The white paper with the blue wavy line rests on the dry right end of the bench. A folded-looking corner is visible. The wet left end stays empty."
+          }
+        ]
       },
       {
         "id": "S05",
         "text": "They looked at the curled corner. The long blue line was still there. The boy placed the fallen leaf beside it. ‘It looks like a little boat,’ he said. Puppy wagged once.",
-        "optional": false
+        "optional": false,
+        "scenes": [
+          {
+            "assetId": "story-05",
+            "label": "Scene 5",
+            "description": "A green leaf lies beside the blue wavy line on the paper. The paper stays on the dry right end of the bench; water remains at the other end."
+          }
+        ]
       },
       {
         "id": "S06",
         "text": "Rain tapped beyond the roof. The picture rested on the dry bench, and the grown-up stayed beside them. The boy added one small sail. For a little while, their boat picture had a quiet place to wait.",
-        "optional": false
+        "optional": false,
+        "scenes": [
+          {
+            "assetId": "story-06",
+            "label": "Scene 6",
+            "description": "A small blue-outlined sail is now drawn beside the green leaf and blue wavy line. The paper rests on dry wood under the roof."
+          }
+        ]
       }
     ],
-    "contentHash": "78e747c9bd6f85e32ff0fa0a80017c4a5f05a60a34ded45f734032e464295499"
+    "scenePackHash": "3714aae15f1fa0f016b13000a3894f45bbbf3714c1b49afbe2d861972642695a",
+    "contentHash": "2448fb84c8f6309a2c39489230531d6111125220dd0ae325620472477c03887f"
   },
   {
     "schemaVersion": 1,
     "contentId": "dry-bench-story",
-    "contentVersion": 1,
+    "contentVersion": 2,
     "ageGroup": "8–9",
     "locale": "hi-IN",
     "kind": "story",
@@ -142,41 +263,84 @@
     "publication": "draft",
     "reviews": [],
     "source": "Owner-supplied research, 2026-10-05, Part 3; adapted draft, sources not independently reverified.",
-    "assetStatus": "text-only-preview",
+    "assetStatus": "illustrated-preview",
     "parentNote": "पहली बार कहानी बिना रोके पढ़ सकते हैं। अंत में चाहें तो सुराग पर बात करें। कई उत्तर संभव हैं। बारिश में बाहर जाना ज़रूरी नहीं।",
     "discussion": "बच्चे ने चित्र रखने के लिए वह जगह क्यों चुनी होगी? कहानी में किस बात से तुम्हें ऐसा लगा?",
     "pages": [
       {
         "id": "S01",
         "text": "बच्चा और पपी साझा आँगन में कागज़ पर चित्र बना रहे थे। पास में एक बड़े व्यक्ति बैठे थे। बच्चे ने लंबी नीली रेखा बनाई। पपी ने देखा, उसके पास एक पत्ता आ गिरा।",
-        "optional": false
+        "optional": false,
+        "scenes": [
+          {
+            "assetId": "story-01",
+            "label": "दृश्य 1",
+            "description": "लकड़ी की मेज़ का पास से दृश्य। सफ़ेद कागज़ पर एक लंबी नीली लहरदार रेखा है। उसके पास हरा पत्ता और नीला क्रेयॉन रखा है।"
+          }
+        ]
       },
       {
         "id": "S02",
         "text": "बारिश की कुछ बूँदें गिरीं। एक बूँद चित्र के कोने पर पड़ी। कागज़ थोड़ा मुड़ गया। बड़े ने कहा, ‘छत के नीचे रहें।’ वे बस कुछ कदम दूर थे।",
-        "optional": false
+        "optional": false,
+        "scenes": [
+          {
+            "assetId": "story-02",
+            "label": "दृश्य 2",
+            "description": "मेज़ के आसपास बारिश हो रही है। लकड़ी और कागज़ पर पानी की बूँदें हैं। कागज़ का एक कोना ऊपर मुड़ा है। नीली रेखा अभी भी दिखती है।"
+          }
+        ]
       },
       {
         "id": "S03",
         "text": "छत के नीचे एक बेंच थी। हवा के साथ आई बारिश से उसका एक सिरा गीला था। दीवार के पास बेंच सूखी थी। पपी ने गीले सिरे को सूँघा, फिर दीवार के पास चला गया।",
-        "optional": false
+        "optional": false,
+        "scenes": [
+          {
+            "assetId": "story-03",
+            "label": "दृश्य 3",
+            "description": "दीवार के पास छत के नीचे बेंच है। बाएँ सिरे पर बूँदें और जमा पानी हैं। दीवार के पास दाएँ सिरे की लकड़ी सूखी है।"
+          }
+        ]
       },
       {
         "id": "S04",
         "text": "बच्चे ने चित्र को सूखी जगह के ऊपर पकड़ा। पपी ने उसकी ओर देखा। ‘हमारा चित्र यहाँ रखूँ?’ बच्चे ने पूछा। पपी एक तरफ हो गया। बच्चे ने कागज़ धीरे से रख दिया।",
-        "optional": false
+        "optional": false,
+        "scenes": [
+          {
+            "assetId": "story-04",
+            "label": "दृश्य 4",
+            "description": "नीली लहरदार रेखा वाला सफ़ेद कागज़ बेंच के सूखे दाएँ सिरे पर रखा है। एक कोना मुड़ा हुआ दिखता है। गीला बायाँ सिरा खाली है।"
+          }
+        ]
       },
       {
         "id": "S05",
         "text": "दोनों ने मुड़े हुए कोने को देखा। लंबी नीली रेखा अभी भी थी। बच्चे ने गिरा हुआ पत्ता उसके पास रखा। ‘यह छोटी नाव जैसी लग रही है,’ उसने कहा। पपी ने एक बार पूँछ हिलाई।",
-        "optional": false
+        "optional": false,
+        "scenes": [
+          {
+            "assetId": "story-05",
+            "label": "दृश्य 5",
+            "description": "कागज़ पर नीली लहरदार रेखा के पास हरा पत्ता रखा है। कागज़ बेंच के सूखे दाएँ सिरे पर है। दूसरे सिरे पर पानी है।"
+          }
+        ]
       },
       {
         "id": "S06",
         "text": "छत के बाहर बारिश टप-टप कर रही थी। चित्र सूखी बेंच पर रखा था। बड़े उनके पास ही थे। बच्चे ने एक छोटा पाल बना दिया। नाव के उनके चित्र को थोड़ी देर ठहरने की जगह मिल गई थी।",
-        "optional": false
+        "optional": false,
+        "scenes": [
+          {
+            "assetId": "story-06",
+            "label": "दृश्य 6",
+            "description": "हरे पत्ते और नीली लहरदार रेखा के पास अब नीली किनारी वाला छोटा पाल बना है। कागज़ छत के नीचे सूखी लकड़ी पर रखा है।"
+          }
+        ]
       }
     ],
-    "contentHash": "e09a304f4d0529c854814626d94806c831be8e082b6360de3f5191af51a0b387"
+    "scenePackHash": "3714aae15f1fa0f016b13000a3894f45bbbf3714c1b49afbe2d861972642695a",
+    "contentHash": "0bf66fc61739057e9ba92e52ea84c294e7aadad0b2598e466d66ebb4cb34e65a"
   }
 ]

@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "status": "adult-draft-preview",
+  "packages": [
+    {
+      "editionKey": "up-down-rest:2-3:en-IN:1",
+      "contentHash": "3364785548bee86f859b26feff99b27e1d81d088d28f5f0029ce15e9fdcec6ed",
+      "unitCount": 4,
+      "illustrations": "not-generated",
+      "recordedAudio": "not-generated",
+      "humanApproval": "pending"
+    },
+    {
+      "editionKey": "up-down-rest:2-3:hi-IN:1",
+      "contentHash": "819a3669c1cff9b360a90db8ebf56590a54580adab99927d287db9de680a21ef",
+      "unitCount": 4,
+      "illustrations": "not-generated",
+      "recordedAudio": "not-generated",
+      "humanApproval": "pending"
+    },
+    {
+      "editionKey": "dry-bench-story:8-9:en-IN:1",
+      "contentHash": "78e747c9bd6f85e32ff0fa0a80017c4a5f05a60a34ded45f734032e464295499",
+      "unitCount": 6,
+      "illustrations": "not-generated",
+      "recordedAudio": "not-generated",
+      "humanApproval": "pending"
+    },
+    {
+      "editionKey": "dry-bench-story:8-9:hi-IN:1",
+      "contentHash": "e09a304f4d0529c854814626d94806c831be8e082b6360de3f5191af51a0b387",
+      "unitCount": 6,
+      "illustrations": "not-generated",
+      "recordedAudio": "not-generated",
+      "humanApproval": "pending"
+    }
+  ]
+}
