@@ -8,6 +8,8 @@ Tablet-first React Native app with the approved clay UI, animated boy/puppy char
 
 The development-only **Grown-ups → Content Lab** now contains **eight Hindi/English draft editions**: a four-part spoken rhyme, six-page story, visual one-to-one placement activity and deterministic triangle game. The [illustrated-reader batch](docs/ILLUSTRATED-READERS.md) adds six object scenes, two manual rhyme pictures and unchanged original-character reuse to reader v2; archived v1 progress stays separate. Visuals/rights/language reviews are pending. The [interactive-player batch](docs/INTERACTIVE-PILOTS.md) adds tap placement/undo/models and geometric choices/hints, not another text quiz. Variable-length navigation, optional-repeat skipping, edition-specific local progress, v1/v2 → v3 snapshot migration, content hashes and language-aware TTS are implemented. Drafts remain excluded from release bundles and are not educationally approved. See [implementation, tablet checks and remaining work](docs/CONTENT-PLATFORM.md) and [the attributed research inputs](docs/research/README.md).
 
+The [parent edition-history view](docs/EDITION-HISTORY.md) adds per-profile language/age filters, required/optional/skip counts and retained older-version records without mastery inference or new writes. **Delivery workflow:** verified batches are pushed to `main` at the owner’s request; deployment and public content release remain separately gated.
+
 ## Run locally
 
 Use **Node 22.13+** (the project pins Node 22 via `.nvmrc`).
@@ -80,7 +82,7 @@ npm run audit:dependencies
 npm run check:release     # intentionally fails until production work is complete
 ```
 
-Current local checks: **170 app tests across 18 files**, including **805** responsive geometry cases; TypeScript, lint and formatting; static-asset integrity; Android/iOS Metro exports. These exports are **not APK/IPA builds or device tests**. The bundle check confirms that seeded demo accounts/engine are absent and the unavailable auth adapter is present.
+Current local checks: **186 app tests across 19 files**, including **805** responsive geometry cases; TypeScript, lint and formatting; static-asset integrity; Android/iOS Metro exports. These exports are **not APK/IPA builds or device tests**. The bundle check confirms that seeded demo accounts/engine are absent and the unavailable auth adapter is present.
 
 Dependency audit still reports upstream transitive advisories. See [security notes](docs/SECURITY.md); audit is not claimed clean. CI reports the audit separately and does not silently fix dependencies with `--force`.
 
@@ -107,7 +109,7 @@ In development demo mode, Sign in opens a device-local family experience:
 - Parent controls relock on background, exit and after five minutes. **The demo gate is not secure parent verification.** Release auth still refuses entry.
 - Demo family data now saves to device-local SQLite and restores after restart; sign-out/delete erases it. Credentials and parent unlock are never saved. No cloud sync. See [offline storage](docs/OFFLINE-STORAGE.md).
 
-See [family preview and remaining work](docs/FAMILY-PREVIEW.md) and [tablet test checklist](docs/TABLET-QA.md). Current implementation is on a review branch; it is not automatically deployed or a built APK. See [reader behavior and audio limits](docs/READERS.md).
+See [family preview and remaining work](docs/FAMILY-PREVIEW.md) and [tablet test checklist](docs/TABLET-QA.md). Current implementation is delivered on `main`; source delivery does not automatically deploy it or create an APK. See [reader behavior and audio limits](docs/READERS.md).
 
 ## First Android tablet development build
 

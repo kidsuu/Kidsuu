@@ -38,6 +38,9 @@ for (const platform of ['android', 'ios']) {
     'cast-reference',
     'rhyme-rest',
     'story-06',
+    'Edition history',
+    'Saved edition records:',
+    'Invalid selected-profile edition history.',
   ]) {
     if (code.includes(sentinel))
       throw new Error(`${platform}: development fixture leaked into release bundle (${sentinel})`);

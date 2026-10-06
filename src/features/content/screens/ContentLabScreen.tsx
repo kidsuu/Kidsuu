@@ -1,3 +1,5 @@
+import { EditionHistoryScreen } from './EditionHistoryScreen';
+import { buildEditionHistory, reviewableEdition } from '../domain/editionHistory';
 import React, { useEffect, useRef, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Button, Notice, Panel, s } from '../../family/components/FamilyControls';
@@ -24,9 +26,49 @@ export function ContentLabScreen(props: Props) {
   const { state, isDemo, onBack } = props;
   const [locale, setLocale] = useState<ContentLocale>('en-IN');
   const [contentId, setContentId] = useState<string | null>(null);
+  const [history, setHistory] = useState(false);
   const content = labCatalog.find((c) => c.contentId === contentId && c.locale === locale);
-  if (!__DEV__ || !isDemo || !state.parentUnlocked || !state.selectedId) return null;
+  if (!__DEV__ || !isDemo || !props.foreground || !state.parentUnlocked || !state.selectedId)
+    return null;
   const editions = state.editions[state.selectedId] ?? [];
+  if (history)
+    return (
+      <EditionHistoryScreen
+        state={state}
+        catalog={labCatalog}
+        locale={locale}
+        isDemo={isDemo}
+        foreground={props.foreground}
+        onBack={() => setHistory(false)}
+        onReload={() => {
+          deviceNarrator.setAllowed(false);
+          void props.store.load();
+        }}
+        onOpen={(key) => {
+          const latest = props.store.getSnapshot();
+          if (
+            !latest.parentUnlocked ||
+            latest.loading ||
+            latest.busy ||
+            latest.error ||
+            latest.selectedId !== state.selectedId
+          )
+            return;
+          try {
+            const rows = buildEditionHistory(labCatalog, latest.editions, latest.selectedId);
+            const selected = reviewableEdition(labCatalog, rows, key);
+            if (!selected || !canPreview(selected, __DEV__, isDemo, latest.parentUnlocked)) return;
+            deviceNarrator.setAllowed(false);
+            setLocale(selected.locale);
+            setContentId(selected.contentId);
+            setHistory(false);
+          } catch {
+            /* Invalid history is never repaired, reassigned or saved by a view action. */
+          }
+        }}
+      />
+    );
+
   if (content && canPreview(content, __DEV__, isDemo, state.parentUnlocked))
     return (
       <EditionReader
@@ -67,10 +109,19 @@ export function ContentLabScreen(props: Props) {
           <Button label="हिन्दी" selected={locale === 'hi-IN'} onPress={() => setLocale('hi-IN')} />
         </View>
       </View>
+      <Button
+        label={locale === 'hi-IN' ? 'संस्करणों का रिकॉर्ड देखें' : 'View edition history'}
+        disabled={state.busy || state.loading}
+        onPress={() => {
+          deviceNarrator.setAllowed(false);
+          setHistory(true);
+        }}
+      />
       {labCatalog
         .filter((c) => c.locale === locale && canPreview(c, __DEV__, isDemo, state.parentUnlocked))
         .map((c) => {
           const row = editions.find((r) => r.editionKey === editionKey(c));
+          const changed = !!row && !progressMatches(c, row);
           return (
             <View key={editionKey(c)} style={s.card}>
               <Text style={s.label}>
@@ -93,7 +144,14 @@ export function ContentLabScreen(props: Props) {
                   : 'Reading support available'}
               </Text>
               <Text style={s.body}>{c.parentNote}</Text>
-              {row && (
+              {changed && (
+                <Text accessibilityRole="alert" style={s.body}>
+                  {locale === 'hi-IN'
+                    ? 'सहेजा रिकॉर्ड इस संस्करण से मेल नहीं खाता। खोलना बंद है। पुराने रिकॉर्ड संस्करणों के इतिहास में देख सकते हैं।'
+                    : 'Saved history does not match this version. Opening is blocked. Retained records are available in edition history.'}
+                </Text>
+              )}
+              {row && !changed && (
                 <Text style={s.body}>
                   {row.exploredUnitIds.length} marked explored · {row.skippedUnitIds.length}{' '}
                   optional parts skipped.{' '}
@@ -104,7 +162,7 @@ export function ContentLabScreen(props: Props) {
               )}
               <Button
                 label={locale === 'hi-IN' ? 'ड्राफ्ट देखें' : 'Open draft'}
-                disabled={state.busy || state.loading}
+                disabled={state.busy || state.loading || changed}
                 onPress={() => setContentId(c.contentId)}
               />
             </View>

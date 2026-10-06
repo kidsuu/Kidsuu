@@ -10,7 +10,7 @@ Local checks: app tests, Expo dependency compatibility, Android native configura
 
 1. Create an account at <https://expo.dev/signup>. Keep the password and tokens private; do not send them in chat. Check current EAS plan/quota/queue limits in your account. No paid plan or purchase is authorized by this guide; stop if payment approval is requested.
 2. Install Git/GitHub Desktop and a supported Node 22 version (at least 22.13; use current patched Node 22). Confirm `node --version` and `npm --version`.
-3. Use your own GitHub account to clone the private `kidsuu/Kidsuu` repository. In GitHub Desktop, switch to **`feature/family-app`**, fetch/pull, then open a terminal in that checkout. Do not download an old main-branch ZIP.
+3. Use your own GitHub account to clone the private `kidsuu/Kidsuu` repository. In GitHub Desktop, switch to **`main`**, fetch/pull, then open a terminal in that checkout. Use the current checkout, not an old ZIP. If local Expo configuration changes prevent switching, preserve them; do not force-reset.
 4. Install and check:
 
 ```sh
@@ -149,3 +149,7 @@ Run the twelve cases in [INTERACTIVE-PILOTS.md](INTERACTIVE-PILOTS.md): two-/thr
 ## Illustrated reader follow-up (batch 3)
 
 Run V01–V11 in [ILLUSTRATED-READERS.md](ILLUSTRATED-READERS.md): six-scene narrative alignment, two still rhyme states with down/rest reuse, audible stop on frame changes, contained aspect ratios/rotation/font scale, TalkBack descriptions, no progress from image taps, old v1/new v2 isolation, loaded-JS offline image availability, fallback, memory/jank and qualified review. All are **NOT RUN** on the target tablet. No native module or storage schema change; do not erase old edition history to update. This remains an adult development Content Lab feature, not public Home content.
+
+## Edition history follow-up (batch 4)
+
+Source batches are now delivered on `main` with owner authorization. Run H01–H11 in [EDITION-HISTORY.md](EDITION-HISTORY.md): no-save-on-view, per-profile/language/version isolation, optional skip counts, filters/empty states, v1 retention, exact current-draft opening, timeout/background, rotation/font scale/TalkBack, invalid/mismatched history and restart/deletion/performance. All device cases remain **NOT RUN**. Main source delivery does not publish draft content or deploy Cloudflare.

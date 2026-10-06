@@ -1,5 +1,7 @@
 # Illustrated readers — batch 3
 
+**Current delivery note (6 October 2026):** the owner authorized main integration. Completed feature work through `f08a4ec` is now on `main`; the original batch/branch evidence below is historical. Pull current main for [parent edition history and follow-up QA](EDITION-HISTORY.md). This does not approve public content or deployment.
+
 6 October 2026 · `feature/family-app` · **Internal adult-review drafts, not publication approval.**
 
 ## Implemented scope
@@ -39,7 +41,9 @@ From the existing Windows checkout (preserve owner Expo linking):
 
 ```powershell
 cd "$HOME\Kidsuu"
-git pull --ff-only origin feature/family-app
+git fetch origin
+git switch main
+git pull --ff-only origin main
 npm run check
 npm run qa:start
 ```

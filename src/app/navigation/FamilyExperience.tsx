@@ -181,6 +181,7 @@ export function FamilyExperience({
     /* eslint-enable @typescript-eslint/no-require-imports */
     return (
       <ContentLabScreen
+        key={selected.id}
         store={store}
         state={state}
         foreground={foreground}
@@ -255,11 +256,11 @@ export function FamilyExperience({
               <View style={s.card}>
                 <Text style={s.heading}>Content Lab · adult draft review</Text>
                 <Text style={s.body}>
-                  Hindi / English reader prototypes. Not educator-approved or child-tested. Progress
-                  stays separate from existing activities.
+                  Hindi / English reader and visual-activity drafts, plus edition history. Not
+                  educator-approved or child-tested. Records stay separate from Home activities.
                 </Text>
                 <Button
-                  label="Open Content Lab"
+                  label="Open Content Lab · drafts & history"
                   disabled={state.busy || state.loading}
                   onPress={() => setScreen('content-lab')}
                 />
@@ -321,6 +322,10 @@ export function FamilyExperience({
             {state.progress.filter((p) => p.completedSteps === p.totalSteps).length}
           </Text>
           <Text style={s.body}>Activities completed · {state.progress.length} started</Text>
+          <Text style={s.body}>
+            Home activity checkpoints only. Content Lab edition history is separate and available in
+            the development Grown-ups area; these totals do not include it.
+          </Text>
           <Text style={s.body}>
             Family goal: {state.parent?.settings.dailyGoalMinutes ?? 15} minutes. Time is not
             tracked.
