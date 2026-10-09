@@ -7,6 +7,8 @@ import type {
   ChildProfile,
   Parent,
   LearningSummary,
+  StoredFamilySnapshot,
+  StoredObjectMeta,
 } from '../../packages/contracts/src';
 const ISSUER = 'https://identity.kidsuu.test/',
   AUDIENCE = 'kidsuu-staging';
@@ -22,6 +24,7 @@ async function runtime(auth = true, limit = 10000) {
       scriptPath: 'dist/worker.js',
       compatibilityDate: '2026-10-01',
       d1Databases: { DB: crypto.randomUUID() },
+      r2Buckets: { STORAGE: crypto.randomUUID() },
       ratelimits: { API_RATE_LIMITER: { namespace_id: '1001', simple: { limit, period: 60 } } },
       bindings: {
         ENVIRONMENT: 'test',
@@ -71,13 +74,22 @@ async function call(
 ) {
   const headers: Record<string, string> = { 'cf-connecting-ip': '192.0.2.1', ...options.headers };
   if (options.token) headers.authorization = 'Bearer ' + options.token;
-  if (options.body !== undefined && !headers['content-type'])
+  if (
+    options.body !== undefined &&
+    !(options.body instanceof Uint8Array) &&
+    !headers['content-type']
+  )
     headers['content-type'] = 'application/json';
   return (options.worker ?? mf).dispatchFetch('https://kidsuu.test' + path, {
     method: options.method ?? 'GET',
     headers,
     ...(options.body !== undefined
-      ? { body: typeof options.body === 'string' ? options.body : JSON.stringify(options.body) }
+      ? {
+          body:
+            typeof options.body === 'string' || options.body instanceof Uint8Array
+              ? options.body
+              : JSON.stringify(options.body),
+        }
       : {}),
   });
 }
@@ -89,9 +101,11 @@ async function errorCode(res: { json(): Promise<unknown> }) {
 }
 async function parent() {
   const subject = crypto.randomUUID(),
-    jwt = await token(subject);
-  expect((await call('/v1/parents/me', { method: 'POST', token: jwt, body: {} })).status).toBe(200);
-  return { jwt, subject };
+    jwt = await token(subject),
+    res = await call('/v1/parents/me', { method: 'POST', token: jwt, body: {} });
+  expect(res.status).toBe(200);
+  const { parent: record } = await data<{ parent: Parent }>(res);
+  return { jwt, subject, id: record.id };
 }
 async function profile(jwt: string) {
   const r = await call('/v1/children', {
@@ -403,5 +417,175 @@ describe('parent-scoped D1 data', () => {
       )?.n,
     ).toBe(0);
     expect((await call('/v1/children', { token: jwt })).status).toBe(404);
+  });
+});
+describe('R2 object storage (snapshots, content packages and media assets)', () => {
+  it('stores parent-scoped snapshots in R2 with optimistic concurrency and prunes deleted children', async () => {
+    const alice = await parent(),
+      bob = await parent(),
+      childA = await profile(alice.jwt),
+      childB = await profile(alice.jwt),
+      bobChild = await profile(bob.jwt);
+
+    const initial = await call('/v1/parents/me/snapshot', { token: alice.jwt });
+    expect(initial.status).toBe(200);
+    expect(await data<{ snapshot: StoredFamilySnapshot | null }>(initial)).toEqual({
+      snapshot: null,
+    });
+
+    // Reject foreign child ID in snapshot
+    expect(
+      (
+        await call('/v1/parents/me/snapshot', {
+          method: 'PUT',
+          token: alice.jwt,
+          body: {
+            snapshot: { selectedId: bobChild.id, saved: {}, editions: {} },
+          },
+        })
+      ).status,
+    ).toBe(400);
+
+    const editionRow = {
+      editionKey: 'up-down-rest:2-3:en-IN:2',
+      contentHash: 'a'.repeat(64),
+      unitIds: ['R01', 'R02', 'R03', 'R04'],
+      optionalUnitIds: ['R03'],
+      exploredUnitIds: ['R01', 'R02'],
+      skippedUnitIds: ['R03'],
+      updatedAt: '2026-10-09T08:00:00.000Z',
+    };
+
+    const put1 = await call('/v1/parents/me/snapshot', {
+      method: 'PUT',
+      token: alice.jwt,
+      body: {
+        snapshot: {
+          selectedId: childA.id,
+          saved: { [childA.id]: ['colours'], [childB.id]: ['moon'] },
+          editions: { [childA.id]: [editionRow], [childB.id]: [editionRow] },
+        },
+      },
+    });
+    expect(put1.status).toBe(200);
+    const saved1 = (await data<{ snapshot: StoredFamilySnapshot }>(put1)).snapshot;
+    expect(saved1.version).toBe(1);
+    expect(saved1.sha256).toMatch(/^[a-f0-9]{64}$/);
+    expect(saved1.snapshot.selectedId).toBe(childA.id);
+
+    // Reject stale version
+    expect(
+      (
+        await call('/v1/parents/me/snapshot', {
+          method: 'PUT',
+          token: alice.jwt,
+          body: {
+            version: 0,
+            snapshot: { selectedId: childB.id, saved: {}, editions: {} },
+          },
+        })
+      ).status,
+    ).toBe(409);
+
+    // Deleting childA in D1 automatically prunes childA from the R2 snapshot
+    expect(
+      (
+        await call(`/v1/children/${childA.id}`, {
+          method: 'DELETE',
+          token: alice.jwt,
+          headers: { 'if-match': '"1"' },
+        })
+      ).status,
+    ).toBe(204);
+
+    const afterChildDelete = (
+      await data<{ snapshot: StoredFamilySnapshot }>(
+        await call('/v1/parents/me/snapshot', { token: alice.jwt }),
+      )
+    ).snapshot;
+    expect(afterChildDelete.version).toBe(2);
+    expect(afterChildDelete.snapshot.selectedId).toBeNull();
+    expect(afterChildDelete.snapshot.saved[childA.id]).toBeUndefined();
+    expect(afterChildDelete.snapshot.saved[childB.id]).toEqual(['moon']);
+    expect(afterChildDelete.snapshot.editions[childA.id]).toBeUndefined();
+    expect(afterChildDelete.snapshot.editions[childB.id]).toHaveLength(1);
+
+    // Deleting parent in D1 also deletes all R2 objects under parents/{parentId}/
+    const bucket = await mf.getR2Bucket('STORAGE');
+    expect(await bucket.get(`parents/${alice.id}/snapshot.json`)).not.toBeNull();
+    expect(
+      (
+        await call('/v1/parents/me', {
+          method: 'DELETE',
+          token: alice.jwt,
+          headers: { 'if-match': '"1"', 'x-confirm-delete': 'delete-my-data' },
+        })
+      ).status,
+    ).toBe(200);
+    expect(await bucket.get(`parents/${alice.id}/snapshot.json`)).toBeNull();
+  });
+
+  it('stores and serves content packages and media assets from R2 with integrity metadata', async () => {
+    const { jwt } = await parent();
+    const pkgKey = 'up-down-rest:2-3:en-IN:2';
+    const putPkg = await call(`/v1/storage/packages/${pkgKey}`, {
+      method: 'PUT',
+      token: jwt,
+      body: { contentId: 'up-down-rest', version: 2, locale: 'en-IN' },
+    });
+    expect(putPkg.status).toBe(201);
+    const pkgMeta = (await data<{ meta: StoredObjectMeta }>(putPkg)).meta;
+    expect(pkgMeta.key).toBe(pkgKey);
+    expect(pkgMeta.sha256).toMatch(/^[a-f0-9]{64}$/);
+
+    const getPkg = await call(`/v1/storage/packages/${pkgKey}`, { token: jwt });
+    expect(getPkg.status).toBe(200);
+    expect(getPkg.headers.get('x-content-sha256')).toBe(pkgMeta.sha256);
+    expect((await data<{ package: Record<string, unknown> }>(getPkg)).package).toEqual({
+      contentId: 'up-down-rest',
+      version: 2,
+      locale: 'en-IN',
+    });
+
+    // Upload and fetch binary PNG asset in R2
+    const pngBytes = new Uint8Array([137, 80, 78, 71, 13, 10, 26, 10, 1, 2, 3, 4]);
+    const putAsset = await call('/v1/storage/assets/scenes/rhyme-up.png', {
+      method: 'PUT',
+      token: jwt,
+      body: pngBytes,
+      headers: { 'content-type': 'image/png' },
+    });
+    expect(putAsset.status).toBe(201);
+    const assetMeta = (await data<{ meta: StoredObjectMeta }>(putAsset)).meta;
+    expect(assetMeta.contentType).toBe('image/png');
+    expect(assetMeta.size).toBe(pngBytes.byteLength);
+
+    const getAsset = await call('/v1/storage/assets/scenes/rhyme-up.png', { token: jwt });
+    expect(getAsset.status).toBe(200);
+    expect(getAsset.headers.get('content-type')).toBe('image/png');
+    expect(getAsset.headers.get('x-content-sha256')).toBe(assetMeta.sha256);
+    expect(new Uint8Array(await getAsset.arrayBuffer())).toEqual(pngBytes);
+
+    // Reject mismatched MIME or invalid key
+    expect(
+      (
+        await call('/v1/storage/assets/scenes/rhyme-up.png', {
+          method: 'PUT',
+          token: jwt,
+          body: pngBytes,
+          headers: { 'content-type': 'audio/mpeg' },
+        })
+      ).status,
+    ).toBe(415);
+    expect(
+      (
+        await call('/v1/storage/assets/scenes/bad.exe', {
+          method: 'PUT',
+          token: jwt,
+          body: pngBytes,
+          headers: { 'content-type': 'image/png' },
+        })
+      ).status,
+    ).toBe(400);
   });
 });

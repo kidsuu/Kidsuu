@@ -6,6 +6,7 @@ import { ApiError } from '../errors';
 import { childId, deleteVersion, readBody } from '../http';
 import * as schema from '../domain/validation';
 import { FamilyRepository } from '../db/repository';
+import { R2StorageRepository } from '../storage/r2Repository';
 const app = new Hono<AppEnv>();
 app.post('/parents/me', recentParentAuth, async (c) => {
   await readBody(c, schema.empty);
@@ -30,7 +31,9 @@ app.delete('/parents/me', recentParentAuth, async (c) => {
       'DELETE_CONFIRMATION_REQUIRED',
       'Explicit deletion confirmation is required.',
     );
-  await new FamilyRepository(c.env.DB, c.get('identity').parentId).deleteParent(deleteVersion(c));
+  const owner = c.get('identity').parentId;
+  await new FamilyRepository(c.env.DB, owner).deleteParent(deleteVersion(c));
+  await new R2StorageRepository(c.env.STORAGE, owner).deleteAllParentStorage();
   return c.json({ dataDeleted: true, identityAccountDeleted: false });
 });
 app.get('/children', async (c) =>
@@ -62,9 +65,14 @@ app.patch('/children/:id', recentParentAuth, async (c) =>
   }),
 );
 app.delete('/children/:id', recentParentAuth, async (c) => {
-  await new FamilyRepository(c.env.DB, c.get('identity').parentId).deleteChild(
-    childId(c.req.param('id')),
-    deleteVersion(c),
+  const owner = c.get('identity').parentId,
+    id = childId(c.req.param('id')),
+    repo = new FamilyRepository(c.env.DB, owner);
+  await repo.deleteChild(id, deleteVersion(c));
+  const remaining = await repo.children();
+  await new R2StorageRepository(c.env.STORAGE, owner).pruneDeletedChild(
+    id,
+    new Set(remaining.map((ch) => ch.id)),
   );
   return c.body(null, 204);
 });

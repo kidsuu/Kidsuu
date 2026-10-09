@@ -1,11 +1,12 @@
 # Kidsuu staging API
 
-Cloudflare Workers + D1, served initially on `workers.dev`. No purchased domain is required. This is a **staging backend**, not a completed production launch or an auth provider.
+Cloudflare Workers + D1 (relational database) + R2 (`kidsuu-storage` object storage), served initially on `workers.dev`. No purchased domain is required. This is a **staging backend**, not a completed production launch or an auth provider.
 
 ## Implemented
 
-- Parent preferences, up to five child profiles, per-activity progress and a parent summary.
-- D1 migrations, owner-scoped SQL, foreign-key cascade deletion, optimistic profile/settings updates, monotonic/idempotent progress updates.
+- **D1 Relational Database (`DB`):** Parent preferences (`parents`), up to five child profiles (`child_profiles`), and per-activity progress (`activity_progress`).
+- **R2 Object Storage (`STORAGE` → `kidsuu-storage`):** Parent-scoped snapshots (`parents/{parentId}/snapshot.json` for selected profile, saved bookmarks and edition progress ledger), versioned content packages (`content/packages/{key}.json`), and media assets (`content/assets/{key}`).
+- D1 migrations, owner-scoped SQL, foreign-key cascade deletion plus automatic R2 storage cleanup when a child profile or parent record is deleted.
 - Asymmetric provider JWT verification (issuer, audience, signature, expiry and lifetime), recent account reauthentication for sensitive parent operations, strict JSON validation, payload limits, allowlisted browser origins, rate limiting and no-store responses.
 - Tests run the bundled Worker against a real local workerd/D1 simulator, with generated test-only signing keys and no external identity service.
 - A typed, separately tested tablet HTTP client lives in `src/shared/api/FamilyApiClient.ts` at the repository root. It is **not yet wired into the app screens or AuthGateway**.
@@ -59,6 +60,13 @@ All `/v1` routes require Bearer authentication. `Recent` means the extra recent-
 | GET    | `/v1/children/:id/progress`             | No     | Current per-activity progress                                   |
 | PUT    | `/v1/children/:id/progress/:activityId` | No     | `{completedSteps, totalSteps}`                                  |
 | GET    | `/v1/children/:id/summary`              | Yes    | Parent-facing summary of stored progress                        |
+| GET    | `/v1/parents/me/snapshot`               | No     | Read parent-scoped snapshot (bookmarks/edition ledger) from R2  |
+| PUT    | `/v1/parents/me/snapshot`               | No     | Save parent-scoped snapshot to R2 with optimistic concurrency   |
+| DELETE | `/v1/parents/me/snapshot`               | Yes    | Delete parent-scoped snapshot from R2                           |
+| GET    | `/v1/storage/packages/:key`             | No     | Fetch versioned content package JSON from R2                    |
+| PUT    | `/v1/storage/packages/:key`             | Yes    | Store versioned content package JSON in R2                      |
+| GET    | `/v1/storage/assets/:key`               | No     | Stream verified media asset (PNG/WebP/audio) from R2            |
+| PUT    | `/v1/storage/assets/:key`               | Yes    | Upload verified media asset (PNG/WebP/audio, <= 2 MiB) to R2    |
 
 Deletion requires `If-Match: "<version>"`; deleting family data also requires `X-Confirm-Delete: delete-my-data`. Patch operations take `version` in JSON. Stale edits return `409 VERSION_CONFLICT`, not last-write-wins overwrites. Another parent's child ID returns `404`, even for mutations.
 

@@ -19,6 +19,7 @@ function run(extra: Record<string, string> = {}) {
       ...process.env,
       CLOUDFLARE_ACCOUNT_ID: 'a'.repeat(32),
       D1_DATABASE_ID: '11111111-1111-4111-8111-111111111111',
+      R2_BUCKET_NAME: '',
       AUTH_ISSUER: '',
       AUTH_AUDIENCE: '',
       AUTH_JWKS_URL: '',
@@ -40,20 +41,30 @@ describe('staging deployment configuration', () => {
     }
     expect(scripts['dry-run']).toContain('--dry-run');
   });
-  it('uses committed staging identifiers when GitHub variables are empty', () => {
+  it('uses committed staging identifiers (D1 + R2 kidsuu-storage) when GitHub variables are empty', () => {
     const expected = parse(readFileSync('wrangler.jsonc', 'utf8'));
-    const { result, root } = run({ CLOUDFLARE_ACCOUNT_ID: '', D1_DATABASE_ID: '' });
+    const { result, root } = run({
+      CLOUDFLARE_ACCOUNT_ID: '',
+      D1_DATABASE_ID: '',
+      R2_BUCKET_NAME: '',
+    });
     expect(result.status).toBe(0);
     const config = JSON.parse(readFileSync(join(root, '.wrangler/staging.json'), 'utf8'));
     expect(config.account_id).toBe(expected.account_id);
     expect(config.d1_databases[0].database_id).toBe(expected.d1_databases[0].database_id);
+    expect(config.r2_buckets[0].binding).toBe('STORAGE');
+    expect(config.r2_buckets[0].bucket_name).toBe('kidsuu-storage');
     expect(config.vars.AUTH_ISSUER).toBe('');
     expect(config.vars.ENVIRONMENT).toBe('staging');
     expect(config.tsconfig).toBe('../tsconfig.json');
     expect(resolve(root, '.wrangler', config.tsconfig)).toBe(join(root, 'tsconfig.json'));
   });
-  it('rejects an invalid explicit account override instead of ignoring it', () => {
+  it('rejects an invalid explicit account or R2 bucket override instead of ignoring it', () => {
     expect(run({ CLOUDFLARE_ACCOUNT_ID: 'not-an-account-id' }).result.status).not.toBe(0);
+    expect(run({ R2_BUCKET_NAME: 'INVALID_BUCKET_NAME!' }).result.status).not.toBe(0);
+    expect(run({ R2_BUCKET_NAME: '00000000-0000-0000-0000-000000000000' }).result.status).not.toBe(
+      0,
+    );
   });
 
   it('rejects a placeholder database, rather than accidentally deploying against it', () => {
@@ -76,6 +87,7 @@ describe('staging deployment configuration', () => {
     expect(config.name).toBe('kidsuu-api-staging');
     expect(config.vars.AUTH_ISSUER).toBe('');
     expect(config.account_id).toBe('a'.repeat(32));
+    expect(config.r2_buckets[0].bucket_name).toBe('kidsuu-storage');
     expect(result.stdout).toContain('locked');
   });
 });

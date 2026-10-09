@@ -10,7 +10,8 @@ const config = parse(readFileSync(resolve(root, 'wrangler.jsonc'), 'utf8'), pars
 if (parseErrors.length) throw new Error('Invalid Wrangler JSONC configuration.');
 // Public staging identifiers are versioned; empty GitHub variables must not erase them.
 const account = process.env.CLOUDFLARE_ACCOUNT_ID?.trim() || config.account_id,
-  db = process.env.D1_DATABASE_ID?.trim() || config.d1_databases?.[0]?.database_id;
+  db = process.env.D1_DATABASE_ID?.trim() || config.d1_databases?.[0]?.database_id,
+  bucket = process.env.R2_BUCKET_NAME?.trim() || config.r2_buckets?.[0]?.bucket_name;
 if (!account || !/^[a-f0-9]{32}$/i.test(account))
   throw new Error('Set CLOUDFLARE_ACCOUNT_ID to your Cloudflare account ID.');
 if (
@@ -19,6 +20,12 @@ if (
   db === '00000000-0000-0000-0000-000000000000'
 )
   throw new Error('Create kidsuu-staging in Cloudflare D1 and set D1_DATABASE_ID.');
+if (
+  !bucket ||
+  !/^[a-z0-9][a-z0-9-]{1,61}[a-z0-9]$/.test(bucket) ||
+  bucket === '00000000-0000-0000-0000-000000000000'
+)
+  throw new Error('Create kidsuu-storage in Cloudflare R2 and set R2_BUCKET_NAME.');
 const auth = ['AUTH_ISSUER', 'AUTH_AUDIENCE', 'AUTH_JWKS_URL'].map(
   (k) => process.env[k]?.trim() || '',
 );
@@ -45,6 +52,7 @@ config.main = resolve(root, 'src/index.ts');
 config.tsconfig = '../tsconfig.json';
 config.d1_databases[0].database_id = db;
 config.d1_databases[0].migrations_dir = resolve(root, 'migrations');
+config.r2_buckets[0].bucket_name = bucket;
 Object.assign(config.vars, {
   AUTH_ISSUER: auth[0],
   AUTH_AUDIENCE: auth[1],
@@ -54,5 +62,5 @@ Object.assign(config.vars, {
 mkdirSync(resolve(root, '.wrangler'), { recursive: true });
 writeFileSync(resolve(root, '.wrangler/staging.json'), JSON.stringify(config, null, 2) + '\n');
 console.log(
-  `Prepared staging configuration. Authentication: ${auth.every(Boolean) ? 'configured' : 'locked (not configured)'}. No tokens were written to this file.`,
+  `Prepared staging configuration (D1 + R2 ${bucket}). Authentication: ${auth.every(Boolean) ? 'configured' : 'locked (not configured)'}. No tokens were written to this file.`,
 );

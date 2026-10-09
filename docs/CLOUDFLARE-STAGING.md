@@ -12,8 +12,9 @@ The account owner supplied these non-secret identifiers:
 
 - Account ID: `094a6f6e25a127dfb82c7f9168c4d241`
 - D1 database ID: `a75ed321-9e8f-4f77-8974-cd53addedff5`
+- R2 bucket name: `kidsuu-storage` (binding `STORAGE`)
 - Worker: `kidsuu-api-staging`
-- Database binding: `DB` (configuration name `kidsuu-staging`)
+- Database binding: `DB` (configuration name `kidsuu-staging`, relational tables only)
 
 These defaults are stored in `backend/wrangler.jsonc`. The owner subsequently ran the main-only deployment workflow successfully (commit `634669d`, run #3). Live origin: `https://kidsuu-api-staging.kidsuuofficial.workers.dev`. `/health` returned staging `ok`; `/v1/children` returned `AUTH_NOT_CONFIGURED`. D1 migration checks completed in the supplied logs. Authenticated CRUD/device integration is not yet verified.
 
@@ -60,6 +61,7 @@ Repository variables:
 
 - `CLOUDFLARE_ACCOUNT_ID` (optional; defaults to the committed staging account)
 - `D1_DATABASE_ID` (optional; defaults to the committed staging database)
+- `R2_BUCKET_NAME` (optional; defaults to `kidsuu-storage`)
 - `AUTH_ISSUER`, `AUTH_AUDIENCE`, `AUTH_JWKS_URL` (all configured, or all blank)
 - `ALLOWED_ORIGINS` (optional comma-separated exact HTTPS origins)
 

@@ -3,6 +3,7 @@ import type { AppEnv } from './env';
 import { ApiError, failure } from './errors';
 import { authenticate, rateLimit } from './auth/identity';
 import family from './routes/family';
+import storage from './routes/storage';
 const app = new Hono<AppEnv>();
 app.use('*', async (c, next) => {
   c.set('requestId', crypto.randomUUID());
@@ -20,7 +21,7 @@ app.use('*', async (c, next) => {
       throw new ApiError(403, 'ORIGIN_NOT_ALLOWED', 'Browser origin is not allowed.');
     c.header('Access-Control-Allow-Origin', origin);
     c.header('Vary', 'Origin');
-    c.header('Access-Control-Expose-Headers', 'X-Request-Id,Retry-After');
+    c.header('Access-Control-Expose-Headers', 'X-Request-Id,Retry-After,ETag,X-Content-Sha256');
   }
   if (c.req.method === 'OPTIONS') {
     if (!origin)
@@ -39,6 +40,7 @@ app.get('/health', (c) =>
 );
 app.use('/v1/*', rateLimit, authenticate, rateLimit);
 app.route('/v1', family);
+app.route('/v1', storage);
 app.notFound((c) => failure(c, new ApiError(404, 'NOT_FOUND', 'Endpoint not found.')));
 app.onError((e, c) => {
   if (e instanceof ApiError) return failure(c, e);

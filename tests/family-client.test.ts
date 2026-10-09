@@ -1,5 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createFamilyApiClient, FamilyApiError } from '../src/shared/api/FamilyApiClient';
+import { createR2StorageClient } from '../src/shared/api/R2StorageClient';
+import { createR2CloudFamilyRepository } from '../src/features/family/data/r2/r2CloudRepository';
 const origin = 'https://kidsuu-api.example.workers.dev';
 const childId = '1f3d7790-9fb8-4c89-a1ea-071ced3a2711';
 describe('Family API client', () => {
@@ -10,6 +12,7 @@ describe('Family API client', () => {
     'https://example.test?token=x',
   ])('rejects unsafe API origin %s', (baseUrl) => {
     expect(() => createFamilyApiClient({ baseUrl, getAccessToken: async () => null })).toThrow();
+    expect(() => createR2StorageClient({ baseUrl, getAccessToken: async () => null })).toThrow();
   });
   it('fails before making a request without a live token', async () => {
     const fetchImpl = vi.fn();
@@ -104,5 +107,49 @@ describe('Family API client', () => {
       fetchImpl,
     });
     await expect(client.listChildren()).rejects.toBeInstanceOf(FamilyApiError);
+  });
+  it('separates D1 relational calls from R2 object storage snapshots and assets', async () => {
+    const snapshotResponse = {
+      version: 1,
+      sha256: 'a'.repeat(64),
+      updatedAt: '2026-10-09T08:00:00.000Z',
+      snapshot: {
+        selectedId: childId,
+        saved: { [childId]: ['colours'] },
+        editions: {},
+      },
+    };
+    const fetchImpl = vi
+      .fn<typeof fetch>()
+      .mockResolvedValueOnce(Response.json({ snapshot: null }))
+      .mockResolvedValueOnce(Response.json({ snapshot: snapshotResponse }));
+    const dbClient = createFamilyApiClient({
+      baseUrl: origin,
+      getAccessToken: async () => 'opaque-test-token',
+      fetchImpl,
+    });
+    const r2Client = createR2StorageClient({
+      baseUrl: origin,
+      getAccessToken: async () => 'opaque-test-token',
+      fetchImpl,
+    });
+    const repo = createR2CloudFamilyRepository(dbClient, r2Client);
+    expect(await repo.local!.getPreferences()).toEqual({
+      selectedId: null,
+      saved: {},
+      editions: {},
+    });
+    await repo.local!.setSaved(childId, ['colours']);
+    expect(fetchImpl).toHaveBeenNthCalledWith(
+      2,
+      origin + '/v1/parents/me/snapshot',
+      expect.objectContaining({
+        method: 'PUT',
+      }),
+    );
+    expect(r2Client.getAssetUrl('scenes/rhyme-up.png')).toBe(
+      origin + '/v1/storage/assets/scenes/rhyme-up.png',
+    );
+    expect(() => r2Client.getAssetUrl('../bad.png')).toThrow();
   });
 });

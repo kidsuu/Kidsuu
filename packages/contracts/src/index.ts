@@ -57,6 +57,37 @@ export interface LearningSummary {
   totalSteps: number;
   lastActivityAt: string | null;
 }
+export interface StoredEditionProgress {
+  editionKey: string;
+  contentHash: string;
+  unitIds: string[];
+  optionalUnitIds: string[];
+  exploredUnitIds: string[];
+  skippedUnitIds: string[];
+  updatedAt: string;
+}
+export interface FamilyStorageSnapshot {
+  selectedId: string | null;
+  saved: Record<string, ActivityId[]>;
+  editions: Record<string, StoredEditionProgress[]>;
+}
+export interface StoredFamilySnapshot {
+  version: number;
+  sha256: string;
+  updatedAt: string;
+  snapshot: FamilyStorageSnapshot;
+}
+export interface PutFamilySnapshotInput {
+  version?: number;
+  snapshot: FamilyStorageSnapshot;
+}
+export interface StoredObjectMeta {
+  key: string;
+  contentType: string;
+  size: number;
+  sha256: string;
+  updatedAt: string;
+}
 export interface ApiFailure {
   error: { code: string; message: string; requestId: string; fields?: string[] };
 }
