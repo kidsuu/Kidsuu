@@ -462,7 +462,10 @@ describe('R2 object storage (snapshots, content packages and media assets)', () 
       body: {
         snapshot: {
           selectedId: childA.id,
-          saved: { [childA.id]: ['colours'], [childB.id]: ['moon'] },
+          saved: {
+            [childA.id]: ['colours', 'pattern-trail', 'little-seed-journey'],
+            [childB.id]: ['moon'],
+          },
           editions: { [childA.id]: [editionRow], [childB.id]: [editionRow] },
         },
       },
@@ -472,6 +475,22 @@ describe('R2 object storage (snapshots, content packages and media assets)', () 
     expect(saved1.version).toBe(1);
     expect(saved1.sha256).toMatch(/^[a-f0-9]{64}$/);
     expect(saved1.snapshot.selectedId).toBe(childA.id);
+    expect(saved1.snapshot.saved[childA.id]).toEqual([
+      'colours',
+      'pattern-trail',
+      'little-seed-journey',
+    ]);
+    for (const bookmarks of [['invented-content'], ['pattern-trail', 'pattern-trail']]) {
+      const rejected = await call('/v1/parents/me/snapshot', {
+        method: 'PUT',
+        token: alice.jwt,
+        body: {
+          version: 1,
+          snapshot: { selectedId: childA.id, saved: { [childA.id]: bookmarks }, editions: {} },
+        },
+      });
+      expect(rejected.status).toBe(400);
+    }
 
     // Reject stale version
     expect(

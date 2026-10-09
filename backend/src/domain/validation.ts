@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ACTIVITY_IDS, AGE_GROUPS, AVATARS } from '../../../packages/contracts/src';
+import { SAVED_CONTENT_IDS, AGE_GROUPS, AVATARS } from '../../../packages/contracts/src';
 const nickname = z
   .string()
   .trim()
@@ -68,8 +68,8 @@ export const familySnapshot = z.strictObject({
   saved: z.record(
     uuidV4,
     z
-      .array(z.enum(ACTIVITY_IDS))
-      .max(ACTIVITY_IDS.length)
+      .array(z.enum(SAVED_CONTENT_IDS))
+      .max(SAVED_CONTENT_IDS.length)
       .refine((items) => new Set(items).size === items.length),
   ),
   editions: z.record(

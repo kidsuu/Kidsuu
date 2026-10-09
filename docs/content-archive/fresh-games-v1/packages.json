@@ -1,0 +1,332 @@
+[
+  {
+    "schemaVersion": 1,
+    "contentId": "pattern-trail",
+    "contentVersion": 1,
+    "ageGroup": "4–5",
+    "locale": "en-IN",
+    "kind": "game",
+    "mode": "pattern",
+    "title": "Pattern Trail",
+    "subtitle": "Make a path that follows the pattern.",
+    "objectiveId": "PATTERN.REPEAT_UNIT",
+    "useMode": "supported-reader",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Original Kidsuu fresh-content batch, 9 October 2026; educational/language/rights review pending.",
+    "parentNote": "Look for the repeating unit together. Tap a piece, then a space; dragging is optional. Help and replay do not mean independent mastery.",
+    "discussion": "",
+    "pages": [
+      {
+        "id": "W01",
+        "text": "Find what repeats. Choose a piece, then fill the empty space.",
+        "optional": false,
+        "scene": "trail"
+      },
+      {
+        "id": "W02",
+        "text": "Find what repeats. Choose a piece, then fill the empty space.",
+        "optional": false,
+        "scene": "trail"
+      },
+      {
+        "id": "W03",
+        "text": "Follow the whole repeating group. Fill the spaces to finish this path.",
+        "optional": false,
+        "scene": "trail"
+      },
+      {
+        "id": "W04",
+        "text": "Follow the whole repeating group. Fill the spaces to finish this path.",
+        "optional": false,
+        "scene": "trail"
+      },
+      {
+        "id": "W05",
+        "text": "Follow the whole repeating group. Fill the spaces to finish this path.",
+        "optional": false,
+        "scene": "trail"
+      },
+      {
+        "id": "W06",
+        "text": "Follow the whole repeating group. Fill the spaces to finish this path.",
+        "optional": false,
+        "scene": "trail"
+      }
+    ],
+    "contentHash": "73d72e8be79e963732cd720aaf06154fad9112fa7387ac16aa201523c2c1b7cb"
+  },
+  {
+    "schemaVersion": 1,
+    "contentId": "pattern-trail",
+    "contentVersion": 1,
+    "ageGroup": "4–5",
+    "locale": "hi-IN",
+    "kind": "game",
+    "mode": "pattern",
+    "title": "पैटर्न पथ",
+    "subtitle": "पैटर्न देखकर रास्ता बनाओ।",
+    "objectiveId": "PATTERN.REPEAT_UNIT",
+    "useMode": "supported-reader",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Original Kidsuu fresh-content batch, 9 October 2026; educational/language/rights review pending.",
+    "parentNote": "दोहराता क्रम साथ में देखें। टुकड़ा चुनें, फिर खाली जगह छुएँ। खींचना ज़रूरी नहीं। मदद से खेलना स्वतंत्र सीखने का प्रमाण नहीं है।",
+    "discussion": "",
+    "pages": [
+      {
+        "id": "W01",
+        "text": "देखो, क्या दोहराता है। टुकड़ा चुनो, फिर खाली जगह भरो।",
+        "optional": false,
+        "scene": "trail"
+      },
+      {
+        "id": "W02",
+        "text": "देखो, क्या दोहराता है। टुकड़ा चुनो, फिर खाली जगह भरो।",
+        "optional": false,
+        "scene": "trail"
+      },
+      {
+        "id": "W03",
+        "text": "पूरा दोहराता समूह देखो। खाली जगह भरकर रास्ता बनाओ।",
+        "optional": false,
+        "scene": "trail"
+      },
+      {
+        "id": "W04",
+        "text": "पूरा दोहराता समूह देखो। खाली जगह भरकर रास्ता बनाओ।",
+        "optional": false,
+        "scene": "trail"
+      },
+      {
+        "id": "W05",
+        "text": "पूरा दोहराता समूह देखो। खाली जगह भरकर रास्ता बनाओ।",
+        "optional": false,
+        "scene": "trail"
+      },
+      {
+        "id": "W06",
+        "text": "पूरा दोहराता समूह देखो। खाली जगह भरकर रास्ता बनाओ।",
+        "optional": false,
+        "scene": "trail"
+      }
+    ],
+    "contentHash": "387e6f99073d3b1a40cc792d313a2012d0b1c384479f81b44ce25175ef27909c"
+  },
+  {
+    "schemaVersion": 1,
+    "contentId": "river-builders",
+    "contentVersion": 1,
+    "ageGroup": "6–7",
+    "locale": "en-IN",
+    "kind": "game",
+    "mode": "bridge",
+    "title": "River Builders",
+    "subtitle": "Join wooden planks to cross the river.",
+    "objectiveId": "NUMBER.COMPOSE_LENGTH",
+    "useMode": "supported-reader",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Original Kidsuu fresh-content batch, 9 October 2026; educational/language/rights review pending.",
+    "parentNote": "Compare the pictured unit lengths, then combine two planks to cover the gap exactly. Unit marks provide a non-reading route. No timed decisions.",
+    "discussion": "",
+    "pages": [
+      {
+        "id": "W01",
+        "text": "Choose a plank, then a bridge space. Two planks must cover the gap exactly.",
+        "optional": false,
+        "scene": "river"
+      },
+      {
+        "id": "W02",
+        "text": "Choose a plank, then a bridge space. Two planks must cover the gap exactly.",
+        "optional": false,
+        "scene": "river"
+      },
+      {
+        "id": "W03",
+        "text": "Choose a plank, then a bridge space. Two planks must cover the gap exactly.",
+        "optional": false,
+        "scene": "river"
+      },
+      {
+        "id": "W04",
+        "text": "Choose a plank, then a bridge space. Two planks must cover the gap exactly.",
+        "optional": false,
+        "scene": "river"
+      },
+      {
+        "id": "W05",
+        "text": "Choose a plank, then a bridge space. Two planks must cover the gap exactly.",
+        "optional": false,
+        "scene": "river"
+      },
+      {
+        "id": "W06",
+        "text": "Choose a plank, then a bridge space. Two planks must cover the gap exactly.",
+        "optional": false,
+        "scene": "river"
+      }
+    ],
+    "contentHash": "a4e9fa2288f022abbc521a2ba11d7798bc2ec52c6507dd097b6c2bb16dac2755"
+  },
+  {
+    "schemaVersion": 1,
+    "contentId": "river-builders",
+    "contentVersion": 1,
+    "ageGroup": "6–7",
+    "locale": "hi-IN",
+    "kind": "game",
+    "mode": "bridge",
+    "title": "नदी के पुल",
+    "subtitle": "लकड़ी के टुकड़ों से पुल बनाओ।",
+    "objectiveId": "NUMBER.COMPOSE_LENGTH",
+    "useMode": "supported-reader",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Original Kidsuu fresh-content batch, 9 October 2026; educational/language/rights review pending.",
+    "parentNote": "दिखाई गई लंबाइयाँ देखें। दो टुकड़े जोड़कर खाली दूरी भरें। निशान गिन सकते हैं। कोई समय सीमा नहीं है।",
+    "discussion": "",
+    "pages": [
+      {
+        "id": "W01",
+        "text": "लकड़ी चुनो, फिर पुल की जगह छुओ। दो टुकड़े मिलकर पूरी खाली दूरी भरें।",
+        "optional": false,
+        "scene": "river"
+      },
+      {
+        "id": "W02",
+        "text": "लकड़ी चुनो, फिर पुल की जगह छुओ। दो टुकड़े मिलकर पूरी खाली दूरी भरें।",
+        "optional": false,
+        "scene": "river"
+      },
+      {
+        "id": "W03",
+        "text": "लकड़ी चुनो, फिर पुल की जगह छुओ। दो टुकड़े मिलकर पूरी खाली दूरी भरें।",
+        "optional": false,
+        "scene": "river"
+      },
+      {
+        "id": "W04",
+        "text": "लकड़ी चुनो, फिर पुल की जगह छुओ। दो टुकड़े मिलकर पूरी खाली दूरी भरें।",
+        "optional": false,
+        "scene": "river"
+      },
+      {
+        "id": "W05",
+        "text": "लकड़ी चुनो, फिर पुल की जगह छुओ। दो टुकड़े मिलकर पूरी खाली दूरी भरें।",
+        "optional": false,
+        "scene": "river"
+      },
+      {
+        "id": "W06",
+        "text": "लकड़ी चुनो, फिर पुल की जगह छुओ। दो टुकड़े मिलकर पूरी खाली दूरी भरें।",
+        "optional": false,
+        "scene": "river"
+      }
+    ],
+    "contentHash": "d9741d20873b7a72284ba9a45d0de4608d3a59a526d496df504e29243550060b"
+  },
+  {
+    "schemaVersion": 1,
+    "contentId": "lantern-grove",
+    "contentVersion": 1,
+    "ageGroup": "8–9",
+    "locale": "en-IN",
+    "kind": "game",
+    "mode": "lantern",
+    "title": "Lantern Grove",
+    "subtitle": "One touch. A whole new possibility.",
+    "objectiveId": "REASON.CAUSE_AND_PLAN",
+    "useMode": "supported-reader",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Original Kidsuu fresh-content batch, 9 October 2026; educational/language/rights review pending.",
+    "parentNote": "A lantern changes itself and the lanterns directly above, below, left and right. Start with the one-touch board; undo and hints are available. Spatial and causal puzzle, not an ability assessment.",
+    "discussion": "",
+    "pages": [
+      {
+        "id": "W01",
+        "text": "Light every lantern. A touch changes this lantern and its neighbours. Diagonal neighbours do not change.",
+        "optional": false,
+        "scene": "night"
+      },
+      {
+        "id": "W02",
+        "text": "Light every lantern. A touch changes this lantern and its neighbours. Diagonal neighbours do not change.",
+        "optional": false,
+        "scene": "night"
+      },
+      {
+        "id": "W03",
+        "text": "Light every lantern. A touch changes this lantern and its neighbours. Diagonal neighbours do not change.",
+        "optional": false,
+        "scene": "night"
+      },
+      {
+        "id": "W04",
+        "text": "Light every lantern. A touch changes this lantern and its neighbours. Diagonal neighbours do not change.",
+        "optional": false,
+        "scene": "night"
+      },
+      {
+        "id": "W05",
+        "text": "Light every lantern. A touch changes this lantern and its neighbours. Diagonal neighbours do not change.",
+        "optional": false,
+        "scene": "night"
+      }
+    ],
+    "contentHash": "f92f5e93e18df7c85ab641e9aee6c34b8ade1f1be095c33e7087860c4db59412"
+  },
+  {
+    "schemaVersion": 1,
+    "contentId": "lantern-grove",
+    "contentVersion": 1,
+    "ageGroup": "8–9",
+    "locale": "hi-IN",
+    "kind": "game",
+    "mode": "lantern",
+    "title": "रोशनी का बाग",
+    "subtitle": "एक स्पर्श, एक नया रास्ता।",
+    "objectiveId": "REASON.CAUSE_AND_PLAN",
+    "useMode": "supported-reader",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Original Kidsuu fresh-content batch, 9 October 2026; educational/language/rights review pending.",
+    "parentNote": "एक लालटेन छूने पर वह और ठीक ऊपर, नीचे, बाएँ और दाएँ की लालटेनें बदलती हैं। पहले एक चाल वाला बोर्ड खेलें। वापस जाने और संकेत की सुविधा है। यह क्षमता की परीक्षा नहीं है।",
+    "discussion": "",
+    "pages": [
+      {
+        "id": "W01",
+        "text": "सारी लालटेनें जलाओ। छूने पर वह लालटेन और उसकी बगल वाली लालटेनें बदलती हैं। तिरछी लालटेनें नहीं बदलतीं।",
+        "optional": false,
+        "scene": "night"
+      },
+      {
+        "id": "W02",
+        "text": "सारी लालटेनें जलाओ। छूने पर वह लालटेन और उसकी बगल वाली लालटेनें बदलती हैं। तिरछी लालटेनें नहीं बदलतीं।",
+        "optional": false,
+        "scene": "night"
+      },
+      {
+        "id": "W03",
+        "text": "सारी लालटेनें जलाओ। छूने पर वह लालटेन और उसकी बगल वाली लालटेनें बदलती हैं। तिरछी लालटेनें नहीं बदलतीं।",
+        "optional": false,
+        "scene": "night"
+      },
+      {
+        "id": "W04",
+        "text": "सारी लालटेनें जलाओ। छूने पर वह लालटेन और उसकी बगल वाली लालटेनें बदलती हैं। तिरछी लालटेनें नहीं बदलतीं।",
+        "optional": false,
+        "scene": "night"
+      },
+      {
+        "id": "W05",
+        "text": "सारी लालटेनें जलाओ। छूने पर वह लालटेन और उसकी बगल वाली लालटेनें बदलती हैं। तिरछी लालटेनें नहीं बदलतीं।",
+        "optional": false,
+        "scene": "night"
+      }
+    ],
+    "contentHash": "1576445d94d7c09fdd01dfae29c9a791c2f39233c1057803382fa654cc8dd908"
+  }
+]

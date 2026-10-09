@@ -1,0 +1,101 @@
+{
+  "categories": [
+    {
+      "id": "learning",
+      "name": "Learning",
+      "hint": "Little discoveries",
+      "color": "#DFEBF5",
+      "ink": "#497AA4"
+    },
+    {
+      "id": "games",
+      "name": "Games",
+      "hint": "Play & solve",
+      "color": "#E0EEE4",
+      "ink": "#51826C"
+    },
+    {
+      "id": "rhymes",
+      "name": "Rhymes",
+      "hint": "Listen & share",
+      "color": "#F8E4D9",
+      "ink": "#AF795F"
+    },
+    {
+      "id": "stories",
+      "name": "Stories",
+      "hint": "Wonder awaits",
+      "color": "#ECE3F5",
+      "ink": "#8A68AC"
+    }
+  ],
+  "ages": ["2–3", "4–5", "6–7", "8–9"],
+  "activities": [
+    {
+      "id": "pattern-trail",
+      "category": "games",
+      "titles": ["Pattern Trail", "Pattern Trail", "Pattern Trail", "Pattern Trail"],
+      "minutes": [5, 5, 5, 5],
+      "description": "Make a path that follows the pattern.",
+      "ageGroups": ["4–5"]
+    },
+    {
+      "id": "river-builders",
+      "category": "games",
+      "titles": ["River Builders", "River Builders", "River Builders", "River Builders"],
+      "minutes": [6, 6, 6, 6],
+      "description": "Join wooden planks to cross the river.",
+      "ageGroups": ["6–7"]
+    },
+    {
+      "id": "lantern-grove",
+      "category": "games",
+      "titles": ["Lantern Grove", "Lantern Grove", "Lantern Grove", "Lantern Grove"],
+      "minutes": [7, 7, 7, 7],
+      "description": "One touch. A whole new possibility.",
+      "ageGroups": ["8–9"]
+    },
+    {
+      "id": "little-seed-lab",
+      "category": "learning",
+      "titles": [
+        "Hello, Little Seed",
+        "Hello, Little Seed",
+        "Hello, Little Seed",
+        "Hello, Little Seed"
+      ],
+      "minutes": [3, 3, 3, 3],
+      "description": "Watch. Wonder. Grow together.",
+      "ageGroups": ["2–3"]
+    },
+    {
+      "id": "pocket-garden",
+      "category": "learning",
+      "titles": ["Pocket Garden", "Pocket Garden", "Pocket Garden", "Pocket Garden"],
+      "minutes": [5, 5, 5, 5],
+      "description": "Plant a little. Discover a lot.",
+      "ageGroups": ["4–5"]
+    },
+    {
+      "id": "little-seed-journey",
+      "category": "stories",
+      "titles": [
+        "The Little Seed’s Journey",
+        "The Little Seed’s Journey",
+        "The Little Seed’s Journey",
+        "The Little Seed’s Journey"
+      ],
+      "minutes": [5, 5, 5, 5],
+      "description": "A small seed. A patient little wonder.",
+      "ageGroups": ["4–5"]
+    },
+    {
+      "id": "tip-tap-rain",
+      "category": "rhymes",
+      "titles": ["Tip, Tap, Rain", "Tip, Tap, Rain", "Tip, Tap, Rain", "Tip, Tap, Rain"],
+      "minutes": [3, 3, 3, 3],
+      "description": "A little rhythm to share.",
+      "ageGroups": ["2–3"]
+    }
+  ]
+}

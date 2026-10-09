@@ -55,50 +55,34 @@ async function main() {
     });
   };
 
-  // 1. Upload all 8 bilingual Content Lab packages (4 readers + 4 interactive)
-  const readers = JSON.parse(
-    readFileSync(resolve(repoRoot, 'src/features/content/data/demo/readerPilots.json'), 'utf8'),
+  // Staging-only drafts. Retired package keys are not overwritten or reused.
+  const packages = JSON.parse(
+    readFileSync(resolve(repoRoot, 'src/features/world/data/packages.json'), 'utf8'),
   );
-  const interactive = JSON.parse(
-    readFileSync(
-      resolve(repoRoot, 'src/features/content/data/demo/interactivePilots.json'),
-      'utf8',
-    ),
-  );
-  for (const pkg of [...readers, ...interactive]) {
-    const editionKey = `${pkg.contentId}:${pkg.ageGroup.replace('–', '-')}:${pkg.locale}:${pkg.contentVersion}`;
+  for (const pkg of packages) {
+    if (pkg.publication !== 'draft' || pkg.reviews.length)
+      throw new Error('Unsupported staging package');
+    const editionKey =
+      pkg.contentId +
+      ':' +
+      pkg.ageGroup.replace('–', '-') +
+      ':' +
+      pkg.locale +
+      ':' +
+      pkg.contentVersion;
     await addObject(
-      `content/packages/${editionKey}.json`,
+      'content/packages/' + editionKey + '.json',
       JSON.stringify(pkg, null, 2) + '\n',
       'application/json',
     );
   }
-
-  // 2. Upload all content & scene manifests + catalog fixtures
-  for (const [name, relPath] of [
-    ['readerManifest.json', 'src/features/content/data/demo/manifest.json'],
-    ['interactiveManifest.json', 'src/features/content/data/demo/interactiveManifest.json'],
-    ['interactiveRecipes.json', 'src/features/content/data/demo/interactiveRecipes.json'],
-    ['scenePack.json', 'src/features/content/data/demo/scenePack.json'],
-    ['sampleCatalog.json', 'src/features/home/data/sampleCatalog.json'],
-  ]) {
+  for (const name of ['manifest.json', 'homeCatalog.json'])
     await addObject(
-      `content/manifests/${name}`,
-      readFileSync(resolve(repoRoot, relPath)),
+      'content/manifests/fresh-' + name,
+      readFileSync(resolve(repoRoot, 'src/features/world/data', name)),
       'application/json',
     );
-  }
-
-  // 3. Upload all 9 reader scene PNGs under content/assets/scenes/<file>
-  const scenePack = JSON.parse(
-    readFileSync(resolve(repoRoot, 'src/features/content/data/demo/scenePack.json'), 'utf8'),
-  );
-  for (const asset of scenePack.assets) {
-    const full = resolve(repoRoot, 'src/features/content/assets/demo', asset.file);
-    await addObject(`content/assets/scenes/${asset.file}`, readFileSync(full), 'image/png');
-  }
-
-  // 4. Upload all 83 app PNG assets under content/assets/app/<relative-path>
+  // Upload current app PNG assets under content/assets/app/<relative-path>
   const allPngs = walkPngs(resolve(repoRoot, 'src')).sort();
   for (const full of allPngs) {
     const rel = relative(resolve(repoRoot, 'src'), full).replace(/\\/g, '/');

@@ -7,8 +7,8 @@ function walk(dir) {
     return statSync(f).isDirectory() ? walk(f) : [f];
   });
 }
-const scenePack = JSON.parse(readFileSync('src/features/content/data/demo/scenePack.json', 'utf8'));
-const draftImageHashes = new Set(scenePack.assets.map((a) => a.sha256));
+const worldManifest = JSON.parse(readFileSync('src/features/world/data/manifest.json', 'utf8'));
+const draftImageHashes = new Set(worldManifest.assets.map((a) => a.sha256));
 for (const platform of ['android', 'ios']) {
   const exported = walk(`.expo/verify-${platform}`);
   for (const path of exported) {
@@ -28,6 +28,12 @@ for (const platform of ['android', 'ios']) {
     'createDemoFamilyRepository',
     'kidsuu-demo-offline.db',
     'kidsuu-demo-family',
+    'PATTERN.REPEAT_UNIT',
+    'NUMBER.COMPOSE_LENGTH',
+    'REASON.CAUSE_AND_PLAN',
+    'The Little Seed’s Journey',
+    'Tip, Tap, Rain',
+    'Invalid fresh content package',
     'up-down-rest',
     'dry-bench-story',
     'ORAL.UP_DOWN_SHARED',

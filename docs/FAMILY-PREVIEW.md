@@ -1,5 +1,7 @@
 # Family preview: auth deferred by the owner
 
+> Historical implementation document. On 9 October 2026 all playable content described here was replaced by [Fresh Worlds](FRESH-CONTENT.md). Saved records remain historical; these old players are no longer in app source.
+
 ## Implemented in this branch
 
 Native profile picker, parent profile editor (nickname/age band/avatar, maximum five), versioned settings, confirmed profile/family deletion, per-child saved IDs and learning progress. The original full-body 2D motion/splash/login artwork is untouched. New screens use responsive wrapped cards, scrolling, 48+ dp buttons, accessible labels and live status messages. Actual device/a11y inspection remains necessary.

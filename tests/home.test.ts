@@ -1,7 +1,7 @@
-import { AGE_GROUPS, ACTIVITY_IDS } from '../packages/contracts/src';
+import { AGE_GROUPS, FRESH_CONTENT_IDS } from '../packages/contracts/src';
 import { describe, expect, it } from 'vitest';
 import { responsiveHomeLayout } from '../src/features/home/domain/responsiveLayout';
-import catalog from '../src/features/home/data/sampleCatalog.json';
+import catalog from '../src/features/world/data/homeCatalog.json';
 import choreography from '../src/features/home/components/PlayScene/choreography.json';
 describe('tablet-first geometry', () => {
   it('fits the full canvas and grids across 805 pane sizes', () => {
@@ -45,11 +45,11 @@ describe('tablet-first geometry', () => {
   });
 });
 describe('content and motion integrity', () => {
-  it('every sample activity has four age variants and a valid category', () => {
+  it('every fresh card uses a stable identity, explicit target age and valid category', () => {
     const categories = new Set(catalog.categories.map((c) => c.id));
     expect(catalog.ages).toHaveLength(4);
     expect(catalog.ages).toEqual([...AGE_GROUPS]);
-    expect(catalog.activities.map((a) => a.id).sort()).toEqual([...ACTIVITY_IDS].sort());
+    expect(catalog.activities.map((a) => a.id).sort()).toEqual([...FRESH_CONTENT_IDS].sort());
     expect(new Set(catalog.activities.map((a) => a.id)).size).toBe(catalog.activities.length);
     for (const activity of catalog.activities) {
       expect(categories.has(activity.category)).toBe(true);

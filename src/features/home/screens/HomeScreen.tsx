@@ -90,6 +90,9 @@ export default function KidsuuHomeScreen({
   const [heroVisible, setHeroVisible] = useState(true);
   const [scenePaused, setScenePaused] = useState(false);
   const [motionAllowed, setMotionAllowed] = useState(false);
+  const visibleActivities = activities.filter(
+    (a) => !a.ageGroups || a.ageGroups.includes(ages[age]),
+  );
   const title = (a: Activity) => a.titles[age];
   const open = (a: Activity) =>
     onOpenActivity({ ...a, title: title(a), durationMinutes: a.minutes[age], ageGroup: ages[age] });
@@ -112,12 +115,12 @@ export default function KidsuuHomeScreen({
     scroll.current?.scrollTo({ y: 0, animated: false });
   };
   const category = (id: string) => categories.find((c) => c.id === id)!;
-  const results = activities.filter(
+  const results = visibleActivities.filter(
     (a) =>
       (filter === 'all' || a.category === filter) &&
       title(a).toLowerCase().includes(query.toLowerCase()),
   );
-  const savedItems = activities.filter((a) => saved.includes(a.id));
+  const savedItems = visibleActivities.filter((a) => saved.includes(a.id));
   const continuing = activities.find((a) => a.id === continueProgress?.activityId);
   const ratio =
     continueProgress && continueProgress.total > 0
@@ -131,7 +134,7 @@ export default function KidsuuHomeScreen({
       <Pressable
         key={a.id}
         accessibilityRole="button"
-        accessibilityLabel={`View ${title(a)}`}
+        accessibilityLabel={`Preview ${title(a)}`}
         onPress={() => open(a)}
         style={[
           styles.activity,
@@ -382,12 +385,7 @@ export default function KidsuuHomeScreen({
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={[styles.recommendations, { gap: layout.gap }]}
             >
-              {['moon', 'shapes', 'clap'].map((id) =>
-                activityCard(
-                  activities.find((a) => a.id === id)!,
-                  true,
-                ),
-              )}
+              {visibleActivities.slice(0, 3).map((a) => activityCard(a, true))}
             </ScrollView>
             <Text style={[styles.bottomNote, tablet && t.bottomNote]}>
               {'Every little discovery counts.\nExplore at your own happy pace.'}

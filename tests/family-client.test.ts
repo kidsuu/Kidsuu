@@ -115,13 +115,14 @@ describe('Family API client', () => {
       updatedAt: '2026-10-09T08:00:00.000Z',
       snapshot: {
         selectedId: childId,
-        saved: { [childId]: ['colours'] },
+        saved: { [childId]: ['colours', 'pattern-trail'] },
         editions: {},
       },
     };
     const fetchImpl = vi
       .fn<typeof fetch>()
       .mockResolvedValueOnce(Response.json({ snapshot: null }))
+      .mockResolvedValueOnce(Response.json({ snapshot: snapshotResponse }))
       .mockResolvedValueOnce(Response.json({ snapshot: snapshotResponse }));
     const dbClient = createFamilyApiClient({
       baseUrl: origin,
@@ -139,7 +140,13 @@ describe('Family API client', () => {
       saved: {},
       editions: {},
     });
-    await repo.local!.setSaved(childId, ['colours']);
+    await repo.local!.setSaved(childId, ['colours', 'pattern-trail']);
+    expect((await repo.local!.getPreferences()).saved[childId]).toEqual([
+      'colours',
+      'pattern-trail',
+    ]);
+    const request = JSON.parse(String(fetchImpl.mock.calls[1][1]?.body));
+    expect(request.snapshot.saved[childId]).toEqual(['colours', 'pattern-trail']);
     expect(fetchImpl).toHaveBeenNthCalledWith(
       2,
       origin + '/v1/parents/me/snapshot',
