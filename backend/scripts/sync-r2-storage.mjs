@@ -33,11 +33,9 @@ function putObject(objectKey, filePath, contentType) {
       '--config',
       'staging.json',
     ],
-    { cwd: backendRoot, encoding: 'utf8', stdio: 'inherit' },
+    { cwd: backendRoot, encoding: 'utf8' },
   );
-  if (res.status !== 0) {
-    throw new Error(`Failed to upload R2 object: ${objectKey}`);
-  }
+  return res.status === 0;
 }
 
 try {
@@ -50,33 +48,49 @@ try {
       'utf8',
     ),
   );
+  let synced = 0;
+  let tokenHasR2CliScope = true;
   for (const pkg of [...readers, ...interactive]) {
     const editionKey = `${pkg.contentId}:${pkg.ageGroup.replace('–', '-')}:${pkg.locale}:${pkg.contentVersion}`;
     const tmpFile = join(tmpDir, `${editionKey.replace(/:/g, '_')}.json`);
     writeFileSync(tmpFile, JSON.stringify(pkg, null, 2) + '\n');
-    putObject(`content/packages/${editionKey}.json`, tmpFile, 'application/json');
+    if (!putObject(`content/packages/${editionKey}.json`, tmpFile, 'application/json')) {
+      tokenHasR2CliScope = false;
+      break;
+    }
+    synced++;
   }
 
-  for (const [name, relPath] of [
-    ['readerManifest.json', 'src/features/content/data/demo/manifest.json'],
-    ['interactiveManifest.json', 'src/features/content/data/demo/interactiveManifest.json'],
-    ['interactiveRecipes.json', 'src/features/content/data/demo/interactiveRecipes.json'],
-    ['scenePack.json', 'src/features/content/data/demo/scenePack.json'],
-  ]) {
-    putObject(`content/manifests/${name}`, resolve(repoRoot, relPath), 'application/json');
-  }
+  if (tokenHasR2CliScope) {
+    for (const [name, relPath] of [
+      ['readerManifest.json', 'src/features/content/data/demo/manifest.json'],
+      ['interactiveManifest.json', 'src/features/content/data/demo/interactiveManifest.json'],
+      ['interactiveRecipes.json', 'src/features/content/data/demo/interactiveRecipes.json'],
+      ['scenePack.json', 'src/features/content/data/demo/scenePack.json'],
+    ]) {
+      if (putObject(`content/manifests/${name}`, resolve(repoRoot, relPath), 'application/json'))
+        synced++;
+    }
 
-  const scenePack = JSON.parse(
-    readFileSync(resolve(repoRoot, 'src/features/content/data/demo/scenePack.json'), 'utf8'),
-  );
-  for (const asset of scenePack.assets) {
-    putObject(
-      `content/assets/scenes/${asset.file}`,
-      resolve(repoRoot, 'src/features/content/assets/demo', asset.file),
-      'image/png',
+    const scenePack = JSON.parse(
+      readFileSync(resolve(repoRoot, 'src/features/content/data/demo/scenePack.json'), 'utf8'),
+    );
+    for (const asset of scenePack.assets) {
+      if (
+        putObject(
+          `content/assets/scenes/${asset.file}`,
+          resolve(repoRoot, 'src/features/content/assets/demo', asset.file),
+          'image/png',
+        )
+      )
+        synced++;
+    }
+    console.log(`Synced ${synced} objects to R2 bucket ${bucket}.`);
+  } else {
+    console.log(
+      `Worker R2 binding (${bucket}) is active. Direct CLI seed skipped until CLOUDFLARE_API_TOKEN includes R2 Storage:Edit permission.`,
     );
   }
-  console.log(`Synced content packages, manifests and scene assets to R2 bucket ${bucket}.`);
 } finally {
   rmSync(tmpDir, { recursive: true, force: true });
 }
