@@ -10,7 +10,7 @@ on:
       - 'package.json'
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 concurrency:
   group: standalone-apk-${{ github.ref }}
   cancel-in-progress: true
@@ -31,7 +31,6 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-          cache: gradle
 
       - name: Install dependencies
         run: npm ci
@@ -80,10 +79,23 @@ jobs:
       - name: Prepare APK artifact
         run: cp android/app/build/outputs/apk/release/app-release.apk kidsuu-standalone-preview.apk
 
-      - name: Upload Standalone APK
+      - name: Upload Standalone APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: kidsuu-standalone-preview-apk
           path: kidsuu-standalone-preview.apk
           if-no-files-found: error
           retention-days: 30
+
+      - name: Publish direct APK download on GitHub Releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view preview-apk >/dev/null 2>&1; then
+            gh release upload preview-apk kidsuu-standalone-preview.apk --clobber
+          else
+            gh release create preview-apk kidsuu-standalone-preview.apk \
+              --prerelease \
+              --title "Kidsuu Standalone Preview APK (Demo Mode)" \
+              --notes "Standalone Android APK with embedded JS bundle, 83 PNG assets, Demo Mode login, Offline SQLite, and Content Lab (all 8 Hindi/English editions). No PC or Metro server required."
+          fi
