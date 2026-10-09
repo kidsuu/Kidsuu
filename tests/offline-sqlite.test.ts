@@ -1,5 +1,4 @@
-import { interactiveCatalog } from '../src/features/content/data/demo/interactiveCatalog';
-import { pilotCatalog } from '../src/features/content/data/demo/catalog';
+import { interactiveCatalog, pilotCatalog } from './legacy-fixtures';
 import { afterEach, describe, expect, it } from 'vitest';
 import { DatabaseSync } from 'node:sqlite';
 import { mkdtempSync, rmSync } from 'node:fs';

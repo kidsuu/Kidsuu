@@ -5,6 +5,7 @@ export type Activity = {
   titles: string[];
   minutes: number[];
   description: string;
+  ageGroups?: AgeGroup[];
 };
 export type ActivitySelection = Activity & {
   title: string;

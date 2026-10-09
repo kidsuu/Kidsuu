@@ -8,8 +8,7 @@ import {
 import { createDemoFamilyRepository } from '../src/features/family/data/demo/DemoFamilyRepository';
 import { FamilyStore } from '../src/features/family/domain/FamilyStore';
 import { decodeSnapshot } from '../src/features/family/data/offline/snapshot';
-import { interactiveCatalog } from '../src/features/content/data/demo/interactiveCatalog';
-import { pilotCatalog } from '../src/features/content/data/demo/catalog';
+import { interactiveCatalog, pilotCatalog } from './legacy-fixtures';
 import { exploreUnit } from '../src/features/content/domain/editionProgress';
 const content = pilotCatalog[0];
 function disk(initial: string | null = null) {

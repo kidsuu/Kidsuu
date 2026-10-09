@@ -1,85 +1,70 @@
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
-import { checkSceneAssets } from './check-scene-assets.mjs';
-const root = new URL('../src/features/content/data/demo/', import.meta.url);
-const read = (file) => JSON.parse(readFileSync(new URL(file, root), 'utf8'));
+const read = (name) => JSON.parse(readFileSync('src/features/world/data/' + name, 'utf8'));
+const packages = read('packages.json'),
+  manifest = read('manifest.json'),
+  home = read('homeCatalog.json');
 const hash = (value) => createHash('sha256').update(JSON.stringify(value)).digest('hex');
-const scenePack = read('scenePack.json');
-const sceneHash = checkSceneAssets();
-const recipeHash = hash(read('interactiveRecipes.json'));
+if (
+  packages.length !== 14 ||
+  manifest.packages.length !== 14 ||
+  manifest.status !== 'adult-draft-preview'
+)
+  throw Error('Invalid fresh manifest');
 const keys = new Set();
-for (const family of [
-  {
-    data: 'readerPilots.json',
-    manifest: 'manifest.json',
-    assets: 'illustrated-preview',
-    illustrations: 'ai-and-composited-unreviewed',
-  },
-  {
-    data: 'interactivePilots.json',
-    manifest: 'interactiveManifest.json',
-    assets: 'procedural-preview',
-    illustrations: 'procedural-unreviewed',
-  },
-]) {
-  const packages = read(family.data),
-    manifest = read(family.manifest);
+for (const p of packages) {
+  const { contentHash, ...payload } = p;
+  const key =
+    p.contentId + ':' + p.ageGroup.replace('–', '-') + ':' + p.locale + ':' + p.contentVersion;
+  const records = manifest.packages.filter((r) => r.editionKey === key);
   if (
-    manifest.schemaVersion !== 1 ||
-    manifest.status !== 'adult-draft-preview' ||
-    manifest.packages.length !== packages.length
+    keys.has(key) ||
+    records.length !== 1 ||
+    hash(payload) !== contentHash ||
+    records[0].contentHash !== contentHash ||
+    records[0].unitCount !== p.pages.length ||
+    p.publication !== 'draft' ||
+    p.reviews.length ||
+    records[0].humanApproval !== 'pending' ||
+    records[0].recordedAudio !== 'not-generated'
   )
-    throw new Error('Invalid content manifest.');
-  if (family.assets === 'procedural-preview' && manifest.recipeHash !== recipeHash)
-    throw new Error('Interaction recipe changed without new versioned content hashes.');
-  for (const content of packages) {
-    const { contentHash, ...payload } = content;
-    const key = `${content.contentId}:${content.ageGroup.replace('–', '-')}:${content.locale}:${content.contentVersion}`;
-    const entries = manifest.packages.filter((entry) => entry.editionKey === key);
-    if (
-      keys.has(key) ||
-      entries.length !== 1 ||
-      hash(payload) !== contentHash ||
-      entries[0].contentHash !== contentHash ||
-      entries[0].unitCount !== content.pages.length
-    )
-      throw new Error(
-        `Content integrity failed: ${key}. Version changed content and update its manifest; never relabel old progress.`,
-      );
-    if (
-      content.publication !== 'draft' ||
-      content.assetStatus !== family.assets ||
-      content.reviews.length ||
-      entries[0].humanApproval !== 'pending' ||
-      entries[0].illustrations !== family.illustrations ||
-      entries[0].recordedAudio !== 'not-generated'
-    )
-      throw new Error(`This internal pipeline cannot approve publication: ${key}`);
-    if (family.assets === 'procedural-preview' && content.recipeHash !== recipeHash)
-      throw new Error(`Recipe hash mismatch: ${key}`);
-    if (family.assets === 'illustrated-preview') {
-      if (content.scenePackHash !== sceneHash || manifest.scenePackHash !== sceneHash)
-        throw new Error(`Scene pack hash mismatch: ${key}`);
-      for (const page of content.pages) {
-        if (
-          !page.scenes?.length ||
-          page.scenes.some(
-            (f) =>
-              f.assetId === 'cast-reference' || !scenePack.assets.some((a) => a.id === f.assetId),
-          )
-        )
-          throw new Error(`Missing scene reference: ${key}`);
-      }
-    }
-    keys.add(key);
-  }
+    throw Error('Content integrity failed: ' + key);
+  keys.add(key);
 }
+for (const asset of manifest.assets) {
+  const bytes = readFileSync('src/features/world/assets/' + asset.file);
+  if (
+    bytes.length !== asset.bytes ||
+    bytes.length > 4 * 1024 * 1024 ||
+    createHash('sha256').update(bytes).digest('hex') !== asset.sha256
+  )
+    throw Error('World artwork integrity failed');
+}
+const removed = [
+  'colours',
+  'count',
+  'shapes',
+  'pairs',
+  'clap',
+  'rainbow',
+  'moon',
+  'bear',
+  'one-each-bowl',
+  'triangle-workshop',
+  'up-down-rest',
+  'dry-bench-story',
+];
+if (
+  home.activities.some((a) => removed.includes(a.id)) ||
+  packages.some((p) => removed.includes(p.contentId))
+)
+  throw Error('Removed content returned to playable catalog');
 console.log(
-  `PASS: ${keys.size} draft editions, scene art and procedural geometry match SHA-256 manifests. No recorded media or human approval claimed.`,
+  'PASS: fourteen fresh draft editions, seven new Home cards and artwork integrity. Removed prototypes cannot launch.',
 );
 if (process.argv.includes('--release')) {
   console.error(
-    'BLOCKED: no approved production content catalog. Qualified content/geometry/language/rights review, privacy and physical-device acceptance remain required.',
+    'BLOCKED: educational, language, rights, privacy and physical-device reviews pending.',
   );
   process.exitCode = 1;
 }

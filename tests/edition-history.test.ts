@@ -1,6 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { pilotCatalog } from '../src/features/content/data/demo/catalog';
-import { interactiveCatalog } from '../src/features/content/data/demo/interactiveCatalog';
+import { pilotCatalog, interactiveCatalog } from './legacy-fixtures';
 import oldRaw from '../docs/content-archive/readerPilots-v1.json';
 import { editionKey, parseReaderCatalog } from '../src/features/content/domain/contentPackage';
 import { exploreUnit, type EditionProgress } from '../src/features/content/domain/editionProgress';

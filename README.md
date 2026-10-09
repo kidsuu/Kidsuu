@@ -1,116 +1,59 @@
 # Kidsuu
 
-Tablet-first React Native app with the approved clay UI, animated boy/puppy characters, and age-based Home experience.
+Tablet-first React Native + Expo app with the original approved boy/puppy, age-based Home and device-local family demo.
 
-**Status: development foundation, not a production release.** Live authentication, secure parent verification and live cloud persistence are not connected. Development demo data now persists locally in SQLite. Family screens and four original practice samples plus story/rhyme readers work with development-only dummy data. Release authentication fails closed instead of admitting users through the preview shortcut.
+**Current content: Fresh Worlds, 9 October 2026.** At the owner's request, all previous playable Games, Learning activities, Stories and Rhymes have been removed from app source. A new seven-concept library replaces them, with fourteen English/Hindi draft editions. This remains an internal adult preview; editorial, language, rights and physical-device review are pending.
 
-## Research-to-content implementation
+| Fresh concept             | Category                                      | Age | Parts |
+| ------------------------- | --------------------------------------------- | --- | ----- |
+| Pattern Trail             | Games: complete repeating units               | 4–5 | 6     |
+| River Builders            | Games: compose exact bridge lengths           | 6–7 | 6     |
+| Lantern Grove             | Games: plan direct-neighbour light changes    | 8–9 | 5     |
+| Hello, Little Seed        | Shared Learning: soil, water, sun, time       | 2–3 | 4     |
+| Pocket Garden             | Learning: one seed per pot, quantities 1–5    | 4–5 | 5     |
+| The Little Seed’s Journey | Stories: an original illustrated seed journey | 4–5 | 6     |
+| Tip, Tap, Rain            | Shared spoken rhyme with an optional repeat   | 2–3 | 4     |
 
-The development-only **Grown-ups → Content Lab** now contains **eight Hindi/English draft editions**: a four-part spoken rhyme, six-page story, visual one-to-one placement activity and deterministic triangle game. The [illustrated-reader batch](docs/ILLUSTRATED-READERS.md) adds six object scenes, two manual rhyme pictures and unchanged original-character reuse to reader v2; archived v1 progress stays separate. Visuals/rights/language reviews are pending. The [interactive-player batch](docs/INTERACTIVE-PILOTS.md) adds tap placement/undo/models and geometric choices/hints, not another text quiz. Variable-length navigation, optional-repeat skipping, edition-specific local progress, v1/v2 → v3 snapshot migration, content hashes and language-aware TTS are implemented. Drafts remain excluded from release bundles and are not educationally approved. See [implementation, tablet checks and remaining work](docs/CONTENT-PLATFORM.md) and [the attributed research inputs](docs/research/README.md).
+See [Fresh Worlds implementation and QA](docs/FRESH-CONTENT.md), [art provenance](docs/FRESH-ART-PROVENANCE.md) and [research inputs](docs/research/README.md). Earlier content documents are historical; they do not describe the playable catalog now.
 
-The [parent edition-history view](docs/EDITION-HISTORY.md) adds per-profile language/age filters, required/optional/skip counts and retained older-version records without mastery inference or new writes. **Delivery workflow:** verified batches are pushed to `main` at the owner’s request; deployment and public content release remain separately gated.
+## Run the native preview
 
-## Run locally
-
-Use **Node 22.13+** (the project pins Node 22 via `.nvmrc`).
+Use Node 22.13+ and npm 11.21.0 (backend lockfile requirement).
 
 ```sh
-nvm use
 npm ci
-cp .env.example .env
-npm start
+npm run qa:start
 ```
 
-Use an Expo Go client compatible with SDK 57, or a development build. `npm run android` / `npm run ios` require the corresponding emulator or native toolchain. Expo Go's OS startup screen may differ from the configured standalone splash.
+Use an Expo Go client compatible with SDK 57 or a development client. The local development demo opt-in opens Sign in → Home with fictitious details. Grown-ups → Open demo parent controls → Fresh worlds opens the full review library. Home cards show only the selected age's new activities and enter the adult gate before opening a draft. Parent access relocks on background, exit and timeout. This demo gate is not verified parental identity.
 
-The optional `.env` setting `EXPO_PUBLIC_AUTH_MODE=demo` enables the familiar **Sign in → Home** shortcut **only in development**. Use fictitious details only. Optional registration/recovery demo code: `123456`; seeded recovery mobile: `9000000000`. These are test fixtures, not real credentials or SMS.
+English/Hindi are independent editions. Tap a piece and a target; drag is optional. Hints, undo/reset, replay and explicit Next/Finish are available. No timers, streaks, autoplay or mastery scores. Listening uses available device TTS voices; rhymes are spoken, not recorded songs. A part saved as explored does not prove it was solved or understood.
 
-Without the opt-in, auth stays unconfigured. Production builds ignore demo opt-in and cannot create a session. Never put passwords, API secrets or SMS provider keys in `EXPO_PUBLIC_*` variables: they are embedded in client bundles.
+## Storage and compatibility
+
+SQLite restores demo profiles, settings, bookmarks and edition records. New content has new stable IDs; old progress is retained only as history and never assigned to a new edition. Removed editions cannot launch. Credentials and parent unlock are never stored. Sign-out/delete keep their existing erasure behavior. Backend snapshot validation and the R2 client accept the seven new bookmark IDs alongside historical IDs; live auth/cloud composition remains unconfigured.
+
+## Verification
+
+```sh
+npm run check
+npm run verify:bundles
+npm --prefix backend ci
+npm run backend:check
+```
+
+Native Android/iOS JavaScript exports and release isolation are checked separately from a real APK/IPA or physical-device run. Draft content, generated art and demo auth are excluded from normal release bundles. Content release checks intentionally reject unreviewed drafts. The standalone APK workflow explicitly builds a demo preview on its runner; this source change does not itself compile, install or deploy an APK.
+
+Browser QA renders the actual new native screens with React Native Web in a separate disposable harness; it is not a runtime dependency or an added web product. See the [current verification report](docs/FRESH-VERIFICATION.md) for exact results and limits. Dependency advisories remain documented in [security notes](docs/SECURITY.md).
 
 ## Structure
 
-```text
-App.tsx                        # thin Expo entry
-src/
-  app/
-    App.tsx                    # safe area, status bar, error boundary
-    composition/               # adapter selection
-    config/                    # fail-closed runtime policy
-    navigation/                # typed routes and app flow controller
-  features/
-    auth/
-      domain/                  # framework-free contract, types, validation
-      data/                    # unavailable adapter + isolated demo adapter
-      components/              # field/button/link primitives
-      screens/                 # auth presentation and view props
-      styles/
-      assets/
-    home/
-      domain/                  # catalog types and responsive geometry
-      data/                    # explicitly labelled sample catalog
-      components/PlayScene/    # 12-second rig, native renderer, required layers
-      screens/                 # Home / Explore / Saved / age selection
-      assets/
-    family/                    # profiles/settings/progress, store + isolated demo repository
-    activities/                # practice + age-wise readers + optional device narration
-    onboarding/                # animated launch + static splash
-  shared/
-    assets/brand/              # runtime icon/background/repaired splash logo
-    components/                # error boundary and shared animated logo
-scripts/                       # asset and release-bundle checks
-tests/                        # auth policy, demo engine, tablet geometry, motion
-docs/                         # architecture and release/security decisions
-```
+- src/features/world/: fresh packages, manifests, deterministic puzzle rules, native illustration primitives, library and player.
+- src/features/content/: reusable edition validation, progress/history and review infrastructure.
+- src/features/activities/audio/: locale-aware optional narration.
+- src/features/family/: profile/store/repositories and offline snapshot compatibility.
+- src/features/home/: approved Home art and age-filtered fresh preview cards.
+- packages/contracts/ and backend/: shared transport types and owner-scoped Workers/D1/R2 API.
+- docs/content-archive/: non-runtime historical fixtures retained only to verify saved records.
 
-Features do not import the app layer; shared code does not import features. ESLint enforces those import boundaries. Native screens depend on an auth contract rather than constructing a demo engine.
-
-## Included
-
-- Expo SDK **57**, React Native **0.86**, React **19.2**, strict TypeScript.
-- Tablet portrait/landscape support; phone-compatible layouts. The full animation canvas fits inside the Home hero. Content width is capped, cards use adaptive columns, and tablet controls are larger.
-- Original articulated characters and corrected 2D choreography; system Reduce Motion/background/offscreen handling.
-- Clean landscape/portrait login, static repaired splash, registration/recovery UI.
-- Error boundary, explicit feature contracts, deterministic lockfile, formatting/linting, unit tests and GitHub Actions CI.
-- **83 referenced PNG assets** (about 8.28 MiB, including 5.19 MiB of development-only reader art). No ZIP deliveries, offline HTML previews, screenshots, generated bundles, credentials, unused raw references or rejected 3D experiments are committed.
-
-## Quality commands
-
-```sh
-npm run check             # types, lint, formatting, tests, asset references
-npm run verify:bundles    # Android/iOS JS export + no demo auth in release bundles
-npm run audit:dependencies
-npm run check:release     # intentionally fails until production work is complete
-```
-
-Current local checks: **186 app tests across 19 files**, including **805** responsive geometry cases; TypeScript, lint and formatting; static-asset integrity; Android/iOS Metro exports. These exports are **not APK/IPA builds or device tests**. The bundle check confirms that seeded demo accounts/engine are absent and the unavailable auth adapter is present.
-
-Dependency audit still reports upstream transitive advisories. See [security notes](docs/SECURITY.md); audit is not claimed clean. CI reports the audit separately and does not silently fix dependencies with `--force`.
-
-## Before production
-
-See [architecture](docs/ARCHITECTURE.md), [release checklist](docs/PRODUCTION-READINESS.md), and [security](docs/SECURITY.md). Backend/provider selection, verified parent access, secure identity storage, reviewed content and real-device QA are deliberate next steps—not placeholder implementations presented as complete.
-
-## Cloudflare backend (staging phase)
-
-`backend/` now contains an independently packaged Workers + D1 API. Shared transport types live in `packages/contracts/`; the tablet HTTP client is `src/shared/api/FamilyApiClient.ts`.
-
-The API supports parent settings, owner-scoped child profiles and client-reported progress, with external-provider JWT validation and recent reauthentication for sensitive operations. It does **not** implement identity signup/login/SMS, verified parental consent or real activity players. Private endpoints fail closed until provider configuration exists. The family screens use a repository contract matching the API client. Live composition requires a token getter and real parent reauthentication; neither is supplied yet. Demo mode never calls the live API.
-
-Use npm 11.21.0 for the backend lockfile; install backend dependencies separately with `cd backend && npm ci`. Backend CI pins that npm version. See [backend routes/tests](backend/README.md) and the [Cloudflare setup guide](docs/CLOUDFLARE-STAGING.md). The staging deployment workflow is manual and only runs from `main` after review/merge and owner-provided account configuration. No Cloudflare deployment or Android APK is implied by this source change.
-
-## Family preview (auth deliberately deferred)
-
-In development demo mode, Sign in opens a device-local family experience:
-
-- Choose a child profile; Grown-ups → Open demo parent controls → add/edit/delete up to five profiles.
-- Set a sound preference and daily goal (not a timer or enforced screen-time limit).
-- Try a Learning or Games card: five original text-only practice steps, age-sensitive prompts, progress/continue cards, per-profile saved activities.
-- Story/rhyme cards open 16 age-wise original drafts (80 pages/verses), with deliberate progress checkpoints and optional device read-aloud. Rhymes are spoken, not sung. Audio availability depends on the device.
-- Parent controls relock on background, exit and after five minutes. **The demo gate is not secure parent verification.** Release auth still refuses entry.
-- Demo family data now saves to device-local SQLite and restores after restart; sign-out/delete erases it. Credentials and parent unlock are never saved. No cloud sync. See [offline storage](docs/OFFLINE-STORAGE.md).
-
-See [family preview and remaining work](docs/FAMILY-PREVIEW.md) and [tablet test checklist](docs/TABLET-QA.md). Current implementation is delivered on `main`; source delivery does not automatically deploy it or create an APK. See [reader behavior and audio limits](docs/READERS.md).
-
-## First Android tablet development build
-
-Application ID `com.kidsuu.app` is owner-approved. `eas.json` has only an internal debug development-client profile; no release or iOS build profile is enabled. `npm run qa:start` starts the development server with the explicit demo opt-in on Windows/macOS/Linux. Owner Expo account creation/project linking and APK compilation/install are still required; see [Android device QA setup](docs/ANDROID-DEVICE-QA.md). No physical-device case is marked passed. A Metro-connected development client is not proof of standalone airplane-mode cold launch or production performance.
+Production work remains tracked in [readiness](docs/PRODUCTION-READINESS.md), [Android device QA](docs/ANDROID-DEVICE-QA.md), [architecture](docs/ARCHITECTURE.md) and [backend setup](backend/README.md).

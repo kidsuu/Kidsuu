@@ -1,5 +1,7 @@
 # Story and rhyme readers
 
+> Historical implementation document. On 9 October 2026 all playable content described here was replaced by [Fresh Worlds](FRESH-CONTENT.md). Saved records remain historical; these old players are no longer in app source.
+
 ## What is implemented
 
 All eight existing catalog entries now open working samples: four question-based practice activities and four readers. The readers cover `moon`, `bear`, `clap` and `rainbow` across age bands 2–3, 4–5, 6–7 and 8–9: **16 original editorial drafts, 80 pages/verses**. Titles match the existing catalog. The youngest stories are shorter read-together pieces; older editions include inference, problem-solving and creative language prompts. Content still needs educator/editor review; these are not validated learning outcomes or a complete curriculum.

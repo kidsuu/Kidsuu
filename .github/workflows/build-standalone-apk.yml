@@ -57,6 +57,7 @@ jobs:
             "src/app/composition/createFamilySession.ts",
             "src/app/navigation/FamilyExperience.tsx",
             "src/features/content/screens/ContentLabScreen.tsx",
+            "src/features/world/screens/WorldLibraryScreen.tsx",
             "src/features/content/screens/EditionHistoryScreen.tsx",
           ]) {
             let content = fs.readFileSync(file, "utf8");
@@ -97,5 +98,5 @@ jobs:
             gh release create preview-apk kidsuu-standalone-preview.apk \
               --prerelease \
               --title "Kidsuu Standalone Preview APK (Demo Mode)" \
-              --notes "Standalone Android APK with embedded JS bundle, 83 PNG assets, Demo Mode login, Offline SQLite, and Content Lab (all 8 Hindi/English editions). No PC or Metro server required."
+              --notes "Standalone Android APK with embedded JS bundle, original Kidsuu artwork, Demo Mode login, Offline SQLite, and 14 fresh Hindi/English draft editions. No PC or Metro server required."
           fi

@@ -4,6 +4,7 @@ import {
 } from '../../../content/domain/editionProgress';
 import {
   ACTIVITY_IDS,
+  SAVED_CONTENT_IDS,
   AGE_GROUPS,
   AVATARS,
   type Parent,
@@ -140,9 +141,9 @@ function checkPreferences(value: unknown, data: DemoFamilyData, legacy = false):
     if (
       !ids.has(id) ||
       !Array.isArray(values) ||
-      values.length > ACTIVITY_IDS.length ||
+      values.length > SAVED_CONTENT_IDS.length ||
       new Set(values).size !== values.length ||
-      values.some((value) => !ACTIVITY_IDS.some((a) => a === value))
+      values.some((value) => !SAVED_CONTENT_IDS.some((a) => a === value))
     )
       invalid();
   }

@@ -11,11 +11,8 @@ import {
 } from '../../features/family/screens/ParentScreens';
 import type { ChildProfile } from '../../features/family/domain/FamilyRepository';
 import type { FamilyStore } from '../../features/family/domain/FamilyStore';
-import { PracticeScreen } from '../../features/activities/screens/PracticeScreen';
-import { ReadingScreen } from '../../features/activities/screens/ReadingScreen';
-import { isReading } from '../../features/activities/data/readings';
 
-type Screen = 'home' | 'profiles' | 'gate' | 'parents' | 'progress' | 'activity' | 'content-lab';
+type Screen = 'home' | 'profiles' | 'gate' | 'parents' | 'progress' | 'content-lab';
 export function FamilyExperience({
   store,
   isDemo,
@@ -28,6 +25,12 @@ export function FamilyExperience({
   onSignOut: () => void;
 }) {
   const state = useSyncExternalStore(store.subscribe, store.getSnapshot);
+  const catalog: HomeCatalog =
+    __DEV__ && isDemo
+      ? // Content payload stays behind the development boundary, including Home titles.
+
+        (require('../../features/world/data/homeCatalog.json') as HomeCatalog)
+      : (sampleCatalog as HomeCatalog);
   const [screen, setScreen] = useState<Screen>('home');
   const [editor, setEditor] = useState<ChildProfile | 'new' | null>(null);
   const [activity, setActivity] = useState<ActivitySelection | null>(null);
@@ -167,7 +170,7 @@ export function FamilyExperience({
             disabled={state.loading || state.busy}
             onPress={() => {
               void store.unlock().then((ok) => {
-                if (ok) setScreen('parents');
+                if (ok) setScreen(activity ? 'content-lab' : 'parents');
               });
             }}
           />
@@ -186,7 +189,11 @@ export function FamilyExperience({
         state={state}
         foreground={foreground}
         isDemo={isDemo}
-        onBack={() => setScreen('parents')}
+        initialContentId={activity?.id}
+        onBack={() => {
+          setActivity(null);
+          setScreen('parents');
+        }}
       />
     );
   }
@@ -254,15 +261,18 @@ export function FamilyExperience({
             </View>
             {__DEV__ && isDemo && selected && store.isPersistent && (
               <View style={s.card}>
-                <Text style={s.heading}>Content Lab · adult draft review</Text>
+                <Text style={s.heading}>Fresh worlds · adult draft review</Text>
                 <Text style={s.body}>
-                  Hindi / English reader and visual-activity drafts, plus edition history. Not
-                  educator-approved or child-tested. Records stay separate from Home activities.
+                  New games, learning activities, stories and spoken rhymes in Hindi and English.
+                  Review drafts together. Content and device approvals are pending.
                 </Text>
                 <Button
-                  label="Open Content Lab · drafts & history"
+                  label="Open fresh worlds · drafts & history"
                   disabled={state.busy || state.loading}
-                  onPress={() => setScreen('content-lab')}
+                  onPress={() => {
+                    setActivity(null);
+                    setScreen('content-lab');
+                  }}
                 />
               </View>
             )}
@@ -335,16 +345,18 @@ export function FamilyExperience({
           <View style={s.card}>
             <Text style={s.heading}>Every adventure begins with one step.</Text>
             <Text style={s.body}>
-              Try a learning or games practice card. Completed steps appear here.
+              Previous activity records are retained. Fresh worlds use separate edition history.
             </Text>
           </View>
         ) : (
           state.progress.map((row) => {
-            const a = sampleCatalog.activities.find((a) => a.id === row.activityId),
-              index = selected ? sampleCatalog.ages.indexOf(selected.ageGroup) : 0;
+            const a = catalog.activities.find((a) => a.id === row.activityId),
+              index = selected ? catalog.ages.indexOf(selected.ageGroup) : 0;
             return (
               <View key={row.activityId} style={s.card}>
-                <Text style={s.heading}>{a?.titles[index] ?? row.activityId}</Text>
+                <Text style={s.heading}>
+                  {a?.titles[index] ?? 'Removed activity · ' + row.activityId}
+                </Text>
                 <Text
                   accessibilityRole="progressbar"
                   accessibilityValue={{ min: 0, max: row.totalSteps, now: row.completedSteps }}
@@ -359,32 +371,6 @@ export function FamilyExperience({
         )}
       </Panel>
     );
-  if (screen === 'activity' && activity && selected && isReading(activity.id))
-    return (
-      <ReadingScreen
-        key={`${selected.id}-${activity.id}`}
-        id={activity.id}
-        ageGroup={activity.ageGroup}
-        store={store}
-        state={state}
-        foreground={foreground}
-        isDemo={isDemo}
-        onBack={back}
-      />
-    );
-  if (screen === 'activity' && activity && selected)
-    return (
-      <PracticeScreen
-        key={`${selected.id}-${activity.id}`}
-        activity={activity}
-        store={store}
-        state={state}
-        onBack={back}
-      />
-    );
-  const continuing = state.progress.find(
-    (p) => p.completedSteps > 0 && p.completedSteps < p.totalSteps,
-  );
   return (
     <View style={{ flex: 1, backgroundColor: '#FFFAF2' }}>
       <View style={s.badge}>
@@ -418,7 +404,7 @@ export function FamilyExperience({
       {selected && !state.loading ? (
         <HomeScreen
           key={`${selected.id}-${selected.version}`}
-          catalog={sampleCatalog as HomeCatalog}
+          catalog={catalog}
           profileName={selected.nickname}
           onOpenProfiles={() => setScreen('profiles')}
           initialAgeGroup={selected.ageGroup}
@@ -427,21 +413,15 @@ export function FamilyExperience({
           onSavedChange={(ids) => {
             void store.setSaved(ids);
           }}
-          continueProgress={
-            continuing
-              ? {
-                  activityId: continuing.activityId,
-                  completed: continuing.completedSteps,
-                  total: continuing.totalSteps,
-                }
-              : undefined
-          }
           isFocused={foreground}
-          onOpenParents={() => setScreen('gate')}
+          onOpenParents={() => {
+            setActivity(null);
+            setScreen('gate');
+          }}
           onOpenActivity={(a) => {
             store.clearError();
             setActivity(a);
-            setScreen('activity');
+            if (__DEV__ && isDemo) setScreen(state.parentUnlocked ? 'content-lab' : 'gate');
           }}
         />
       ) : (

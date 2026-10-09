@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "status": "adult-draft-preview",
+  "packages": [
+    {
+      "editionKey": "pattern-trail:4-5:en-IN:1",
+      "contentHash": "73d72e8be79e963732cd720aaf06154fad9112fa7387ac16aa201523c2c1b7cb",
+      "unitCount": 6,
+      "humanApproval": "pending",
+      "recordedAudio": "not-generated"
+    },
+    {
+      "editionKey": "pattern-trail:4-5:hi-IN:1",
+      "contentHash": "387e6f99073d3b1a40cc792d313a2012d0b1c384479f81b44ce25175ef27909c",
+      "unitCount": 6,
+      "humanApproval": "pending",
+      "recordedAudio": "not-generated"
+    },
+    {
+      "editionKey": "river-builders:6-7:en-IN:1",
+      "contentHash": "a4e9fa2288f022abbc521a2ba11d7798bc2ec52c6507dd097b6c2bb16dac2755",
+      "unitCount": 6,
+      "humanApproval": "pending",
+      "recordedAudio": "not-generated"
+    },
+    {
+      "editionKey": "river-builders:6-7:hi-IN:1",
+      "contentHash": "d9741d20873b7a72284ba9a45d0de4608d3a59a526d496df504e29243550060b",
+      "unitCount": 6,
+      "humanApproval": "pending",
+      "recordedAudio": "not-generated"
+    },
+    {
+      "editionKey": "lantern-grove:8-9:en-IN:1",
+      "contentHash": "f92f5e93e18df7c85ab641e9aee6c34b8ade1f1be095c33e7087860c4db59412",
+      "unitCount": 5,
+      "humanApproval": "pending",
+      "recordedAudio": "not-generated"
+    },
+    {
+      "editionKey": "lantern-grove:8-9:hi-IN:1",
+      "contentHash": "1576445d94d7c09fdd01dfae29c9a791c2f39233c1057803382fa654cc8dd908",
+      "unitCount": 5,
+      "humanApproval": "pending",
+      "recordedAudio": "not-generated"
+    },
+    {
+      "editionKey": "little-seed-lab:2-3:en-IN:1",
+      "contentHash": "eaf3b4c0586c6a81947aa3325679d34b302e7d422a81620b557adb743c91b50c",
+      "unitCount": 4,
+      "humanApproval": "pending",
+      "recordedAudio": "not-generated"
+    },
+    {
+      "editionKey": "little-seed-lab:2-3:hi-IN:1",
+      "contentHash": "ec4b8d7036bda339eccbd19ce7dae161855a2241893cbab164f0e15e81f70de1",
+      "unitCount": 4,
+      "humanApproval": "pending",
+      "recordedAudio": "not-generated"
+    },
+    {
+      "editionKey": "pocket-garden:4-5:en-IN:1",
+      "contentHash": "b253bf4c24e876fb43b7db9e0c8000b2bcc20c1c082205166bb984b994424879",
+      "unitCount": 5,
+      "humanApproval": "pending",
+      "recordedAudio": "not-generated"
+    },
+    {
+      "editionKey": "pocket-garden:4-5:hi-IN:1",
+      "contentHash": "c7a6697ca3ee73d3e84a6168af1d12c4f63a0fbdff129dece52b9dd379af2f9a",
+      "unitCount": 5,
+      "humanApproval": "pending",
+      "recordedAudio": "not-generated"
+    },
+    {
+      "editionKey": "little-seed-journey:4-5:en-IN:1",
+      "contentHash": "c032e6d39197a9b0b1c57ce7c1963e5df5edfa65efb278d7a0027c4d1e95b2e8",
+      "unitCount": 6,
+      "humanApproval": "pending",
+      "recordedAudio": "not-generated"
+    },
+    {
+      "editionKey": "little-seed-journey:4-5:hi-IN:1",
+      "contentHash": "63cf9ebd0d9c47fbea958f250f9e62f31c9af1f6ea7f72a1e7f686ce6e65a9a1",
+      "unitCount": 6,
+      "humanApproval": "pending",
+      "recordedAudio": "not-generated"
+    },
+    {
+      "editionKey": "tip-tap-rain:2-3:en-IN:1",
+      "contentHash": "c687c695db57ec1a00ec0cb45be96a1303dffcc313260e3b10da908e0496dd2e",
+      "unitCount": 4,
+      "humanApproval": "pending",
+      "recordedAudio": "not-generated"
+    },
+    {
+      "editionKey": "tip-tap-rain:2-3:hi-IN:1",
+      "contentHash": "e7c2e891bbb5a2523bdf1feb8135193a32550899aacd560b970302f8876cf659",
+      "unitCount": 4,
+      "humanApproval": "pending",
+      "recordedAudio": "not-generated"
+    }
+  ],
+  "assets": [
+    {
+      "file": "woodland.png",
+      "sha256": "04c303bd19b9728a2f80310038c4ac22b6e9fa8aa9402fbb16e3092085b6be8b",
+      "bytes": 2414445,
+      "origin": "Built-in imagegen, 9 October 2026, environment-only original illustration; rights/editorial approval pending"
+    }
+  ]
+}

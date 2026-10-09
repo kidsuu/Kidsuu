@@ -1,4 +1,4 @@
-import { ACTIVITY_IDS, type ActivityId } from '../../../../../packages/contracts/src';
+import { SAVED_CONTENT_IDS, type SavedContentId } from '../../../../../packages/contracts/src';
 import {
   mergeEditionProgress,
   type EditionProgress,
@@ -25,10 +25,10 @@ export function createR2CloudFamilyRepository(
     return next;
   };
 
-  const toActivityIds = (items: readonly string[]): ActivityId[] => [
+  const toSavedIds = (items: readonly string[]): SavedContentId[] => [
     ...new Set(
-      items.filter((item): item is ActivityId =>
-        (ACTIVITY_IDS as readonly string[]).includes(item),
+      items.filter((item): item is SavedContentId =>
+        (SAVED_CONTENT_IDS as readonly string[]).includes(item),
       ),
     ),
   ];
@@ -50,9 +50,9 @@ export function createR2CloudFamilyRepository(
   }
 
   async function pushPreferences(next: LocalFamilyPreferences): Promise<LocalFamilyPreferences> {
-    const saved: Record<string, ActivityId[]> = {};
+    const saved: Record<string, SavedContentId[]> = {};
     for (const [id, list] of Object.entries(next.saved)) {
-      saved[id] = toActivityIds(list);
+      saved[id] = toSavedIds(list);
     }
     const stored = await r2Client.putSnapshot({
       ...(version > 0 ? { version } : {}),
@@ -109,7 +109,7 @@ export function createR2CloudFamilyRepository(
       setSaved: (id: string, activities: string[]) =>
         enqueue(async () => {
           const next = await currentPreferences();
-          next.saved[id] = toActivityIds(activities);
+          next.saved[id] = toSavedIds(activities);
           await pushPreferences(next);
         }),
       putEditionProgress: (id: string, row: EditionProgress) =>

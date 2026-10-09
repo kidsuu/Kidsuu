@@ -1,0 +1,728 @@
+[
+  {
+    "schemaVersion": 1,
+    "contentId": "pattern-trail",
+    "contentVersion": 1,
+    "ageGroup": "4–5",
+    "locale": "en-IN",
+    "kind": "game",
+    "mode": "pattern",
+    "title": "Pattern Trail",
+    "subtitle": "Make a path that follows the pattern.",
+    "objectiveId": "PATTERN.REPEAT_UNIT",
+    "useMode": "supported-reader",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Original Kidsuu fresh-content batch, 9 October 2026; educational/language/rights review pending.",
+    "parentNote": "Look for the repeating unit together. Tap a piece, then a space; dragging is optional. Help and replay do not mean independent mastery.",
+    "discussion": "",
+    "pages": [
+      {
+        "id": "W01",
+        "text": "Find what repeats. Choose a piece, then fill the empty space.",
+        "optional": false,
+        "scene": "trail"
+      },
+      {
+        "id": "W02",
+        "text": "Find what repeats. Choose a piece, then fill the empty space.",
+        "optional": false,
+        "scene": "trail"
+      },
+      {
+        "id": "W03",
+        "text": "Follow the whole repeating group. Fill the spaces to finish this path.",
+        "optional": false,
+        "scene": "trail"
+      },
+      {
+        "id": "W04",
+        "text": "Follow the whole repeating group. Fill the spaces to finish this path.",
+        "optional": false,
+        "scene": "trail"
+      },
+      {
+        "id": "W05",
+        "text": "Follow the whole repeating group. Fill the spaces to finish this path.",
+        "optional": false,
+        "scene": "trail"
+      },
+      {
+        "id": "W06",
+        "text": "Follow the whole repeating group. Fill the spaces to finish this path.",
+        "optional": false,
+        "scene": "trail"
+      }
+    ],
+    "contentHash": "73d72e8be79e963732cd720aaf06154fad9112fa7387ac16aa201523c2c1b7cb"
+  },
+  {
+    "schemaVersion": 1,
+    "contentId": "pattern-trail",
+    "contentVersion": 1,
+    "ageGroup": "4–5",
+    "locale": "hi-IN",
+    "kind": "game",
+    "mode": "pattern",
+    "title": "पैटर्न पथ",
+    "subtitle": "पैटर्न देखकर रास्ता बनाओ।",
+    "objectiveId": "PATTERN.REPEAT_UNIT",
+    "useMode": "supported-reader",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Original Kidsuu fresh-content batch, 9 October 2026; educational/language/rights review pending.",
+    "parentNote": "दोहराता क्रम साथ में देखें। टुकड़ा चुनें, फिर खाली जगह छुएँ। खींचना ज़रूरी नहीं। मदद से खेलना स्वतंत्र सीखने का प्रमाण नहीं है।",
+    "discussion": "",
+    "pages": [
+      {
+        "id": "W01",
+        "text": "देखो, क्या दोहराता है। टुकड़ा चुनो, फिर खाली जगह भरो।",
+        "optional": false,
+        "scene": "trail"
+      },
+      {
+        "id": "W02",
+        "text": "देखो, क्या दोहराता है। टुकड़ा चुनो, फिर खाली जगह भरो।",
+        "optional": false,
+        "scene": "trail"
+      },
+      {
+        "id": "W03",
+        "text": "पूरा दोहराता समूह देखो। खाली जगह भरकर रास्ता बनाओ।",
+        "optional": false,
+        "scene": "trail"
+      },
+      {
+        "id": "W04",
+        "text": "पूरा दोहराता समूह देखो। खाली जगह भरकर रास्ता बनाओ।",
+        "optional": false,
+        "scene": "trail"
+      },
+      {
+        "id": "W05",
+        "text": "पूरा दोहराता समूह देखो। खाली जगह भरकर रास्ता बनाओ।",
+        "optional": false,
+        "scene": "trail"
+      },
+      {
+        "id": "W06",
+        "text": "पूरा दोहराता समूह देखो। खाली जगह भरकर रास्ता बनाओ।",
+        "optional": false,
+        "scene": "trail"
+      }
+    ],
+    "contentHash": "387e6f99073d3b1a40cc792d313a2012d0b1c384479f81b44ce25175ef27909c"
+  },
+  {
+    "schemaVersion": 1,
+    "contentId": "river-builders",
+    "contentVersion": 1,
+    "ageGroup": "6–7",
+    "locale": "en-IN",
+    "kind": "game",
+    "mode": "bridge",
+    "title": "River Builders",
+    "subtitle": "Join wooden planks to cross the river.",
+    "objectiveId": "NUMBER.COMPOSE_LENGTH",
+    "useMode": "supported-reader",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Original Kidsuu fresh-content batch, 9 October 2026; educational/language/rights review pending.",
+    "parentNote": "Compare the pictured unit lengths, then combine two planks to cover the gap exactly. Unit marks provide a non-reading route. No timed decisions.",
+    "discussion": "",
+    "pages": [
+      {
+        "id": "W01",
+        "text": "Choose a plank, then a bridge space. Two planks must cover the gap exactly.",
+        "optional": false,
+        "scene": "river"
+      },
+      {
+        "id": "W02",
+        "text": "Choose a plank, then a bridge space. Two planks must cover the gap exactly.",
+        "optional": false,
+        "scene": "river"
+      },
+      {
+        "id": "W03",
+        "text": "Choose a plank, then a bridge space. Two planks must cover the gap exactly.",
+        "optional": false,
+        "scene": "river"
+      },
+      {
+        "id": "W04",
+        "text": "Choose a plank, then a bridge space. Two planks must cover the gap exactly.",
+        "optional": false,
+        "scene": "river"
+      },
+      {
+        "id": "W05",
+        "text": "Choose a plank, then a bridge space. Two planks must cover the gap exactly.",
+        "optional": false,
+        "scene": "river"
+      },
+      {
+        "id": "W06",
+        "text": "Choose a plank, then a bridge space. Two planks must cover the gap exactly.",
+        "optional": false,
+        "scene": "river"
+      }
+    ],
+    "contentHash": "a4e9fa2288f022abbc521a2ba11d7798bc2ec52c6507dd097b6c2bb16dac2755"
+  },
+  {
+    "schemaVersion": 1,
+    "contentId": "river-builders",
+    "contentVersion": 1,
+    "ageGroup": "6–7",
+    "locale": "hi-IN",
+    "kind": "game",
+    "mode": "bridge",
+    "title": "नदी के पुल",
+    "subtitle": "लकड़ी के टुकड़ों से पुल बनाओ।",
+    "objectiveId": "NUMBER.COMPOSE_LENGTH",
+    "useMode": "supported-reader",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Original Kidsuu fresh-content batch, 9 October 2026; educational/language/rights review pending.",
+    "parentNote": "दिखाई गई लंबाइयाँ देखें। दो टुकड़े जोड़कर खाली दूरी भरें। निशान गिन सकते हैं। कोई समय सीमा नहीं है।",
+    "discussion": "",
+    "pages": [
+      {
+        "id": "W01",
+        "text": "लकड़ी चुनो, फिर पुल की जगह छुओ। दो टुकड़े मिलकर पूरी खाली दूरी भरें।",
+        "optional": false,
+        "scene": "river"
+      },
+      {
+        "id": "W02",
+        "text": "लकड़ी चुनो, फिर पुल की जगह छुओ। दो टुकड़े मिलकर पूरी खाली दूरी भरें।",
+        "optional": false,
+        "scene": "river"
+      },
+      {
+        "id": "W03",
+        "text": "लकड़ी चुनो, फिर पुल की जगह छुओ। दो टुकड़े मिलकर पूरी खाली दूरी भरें।",
+        "optional": false,
+        "scene": "river"
+      },
+      {
+        "id": "W04",
+        "text": "लकड़ी चुनो, फिर पुल की जगह छुओ। दो टुकड़े मिलकर पूरी खाली दूरी भरें।",
+        "optional": false,
+        "scene": "river"
+      },
+      {
+        "id": "W05",
+        "text": "लकड़ी चुनो, फिर पुल की जगह छुओ। दो टुकड़े मिलकर पूरी खाली दूरी भरें।",
+        "optional": false,
+        "scene": "river"
+      },
+      {
+        "id": "W06",
+        "text": "लकड़ी चुनो, फिर पुल की जगह छुओ। दो टुकड़े मिलकर पूरी खाली दूरी भरें।",
+        "optional": false,
+        "scene": "river"
+      }
+    ],
+    "contentHash": "d9741d20873b7a72284ba9a45d0de4608d3a59a526d496df504e29243550060b"
+  },
+  {
+    "schemaVersion": 1,
+    "contentId": "lantern-grove",
+    "contentVersion": 1,
+    "ageGroup": "8–9",
+    "locale": "en-IN",
+    "kind": "game",
+    "mode": "lantern",
+    "title": "Lantern Grove",
+    "subtitle": "One touch. A whole new possibility.",
+    "objectiveId": "REASON.CAUSE_AND_PLAN",
+    "useMode": "supported-reader",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Original Kidsuu fresh-content batch, 9 October 2026; educational/language/rights review pending.",
+    "parentNote": "A lantern changes itself and the lanterns directly above, below, left and right. Start with the one-touch board; undo and hints are available. Spatial and causal puzzle, not an ability assessment.",
+    "discussion": "",
+    "pages": [
+      {
+        "id": "W01",
+        "text": "Light every lantern. A touch changes this lantern and its neighbours. Diagonal neighbours do not change.",
+        "optional": false,
+        "scene": "night"
+      },
+      {
+        "id": "W02",
+        "text": "Light every lantern. A touch changes this lantern and its neighbours. Diagonal neighbours do not change.",
+        "optional": false,
+        "scene": "night"
+      },
+      {
+        "id": "W03",
+        "text": "Light every lantern. A touch changes this lantern and its neighbours. Diagonal neighbours do not change.",
+        "optional": false,
+        "scene": "night"
+      },
+      {
+        "id": "W04",
+        "text": "Light every lantern. A touch changes this lantern and its neighbours. Diagonal neighbours do not change.",
+        "optional": false,
+        "scene": "night"
+      },
+      {
+        "id": "W05",
+        "text": "Light every lantern. A touch changes this lantern and its neighbours. Diagonal neighbours do not change.",
+        "optional": false,
+        "scene": "night"
+      }
+    ],
+    "contentHash": "f92f5e93e18df7c85ab641e9aee6c34b8ade1f1be095c33e7087860c4db59412"
+  },
+  {
+    "schemaVersion": 1,
+    "contentId": "lantern-grove",
+    "contentVersion": 1,
+    "ageGroup": "8–9",
+    "locale": "hi-IN",
+    "kind": "game",
+    "mode": "lantern",
+    "title": "रोशनी का बाग",
+    "subtitle": "एक स्पर्श, एक नया रास्ता।",
+    "objectiveId": "REASON.CAUSE_AND_PLAN",
+    "useMode": "supported-reader",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Original Kidsuu fresh-content batch, 9 October 2026; educational/language/rights review pending.",
+    "parentNote": "एक लालटेन छूने पर वह और ठीक ऊपर, नीचे, बाएँ और दाएँ की लालटेनें बदलती हैं। पहले एक चाल वाला बोर्ड खेलें। वापस जाने और संकेत की सुविधा है। यह क्षमता की परीक्षा नहीं है।",
+    "discussion": "",
+    "pages": [
+      {
+        "id": "W01",
+        "text": "सारी लालटेनें जलाओ। छूने पर वह लालटेन और उसकी बगल वाली लालटेनें बदलती हैं। तिरछी लालटेनें नहीं बदलतीं।",
+        "optional": false,
+        "scene": "night"
+      },
+      {
+        "id": "W02",
+        "text": "सारी लालटेनें जलाओ। छूने पर वह लालटेन और उसकी बगल वाली लालटेनें बदलती हैं। तिरछी लालटेनें नहीं बदलतीं।",
+        "optional": false,
+        "scene": "night"
+      },
+      {
+        "id": "W03",
+        "text": "सारी लालटेनें जलाओ। छूने पर वह लालटेन और उसकी बगल वाली लालटेनें बदलती हैं। तिरछी लालटेनें नहीं बदलतीं।",
+        "optional": false,
+        "scene": "night"
+      },
+      {
+        "id": "W04",
+        "text": "सारी लालटेनें जलाओ। छूने पर वह लालटेन और उसकी बगल वाली लालटेनें बदलती हैं। तिरछी लालटेनें नहीं बदलतीं।",
+        "optional": false,
+        "scene": "night"
+      },
+      {
+        "id": "W05",
+        "text": "सारी लालटेनें जलाओ। छूने पर वह लालटेन और उसकी बगल वाली लालटेनें बदलती हैं। तिरछी लालटेनें नहीं बदलतीं।",
+        "optional": false,
+        "scene": "night"
+      }
+    ],
+    "contentHash": "1576445d94d7c09fdd01dfae29c9a791c2f39233c1057803382fa654cc8dd908"
+  },
+  {
+    "schemaVersion": 1,
+    "contentId": "little-seed-lab",
+    "contentVersion": 1,
+    "ageGroup": "2–3",
+    "locale": "en-IN",
+    "kind": "learning",
+    "mode": "seed",
+    "title": "Hello, Little Seed",
+    "subtitle": "Watch. Wonder. Grow together.",
+    "objectiveId": "NATURE.SHARED_OBSERVATION",
+    "useMode": "caregiver-shared",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Original Kidsuu fresh-content batch, 9 October 2026; educational/language/rights review pending.",
+    "parentNote": "Shared adult use. Touch the seed, water and sunlight controls, or simply watch. The pictures compress many days; seeds do not grow instantly when tapped. No child performance score.",
+    "discussion": "",
+    "pages": [
+      {
+        "id": "W01",
+        "text": "A little seed rests in the soil. Shall we look together?",
+        "optional": false,
+        "scene": "seed"
+      },
+      {
+        "id": "W02",
+        "text": "Rain gives the soil a little water. The seed stays tucked inside.",
+        "optional": false,
+        "scene": "rain"
+      },
+      {
+        "id": "W03",
+        "text": "After many days, a tiny green shoot peeks out.",
+        "optional": false,
+        "scene": "sprout"
+      },
+      {
+        "id": "W04",
+        "text": "With soil, water, sunlight and time, a plant can grow. We can watch a real plant with a grown-up.",
+        "optional": false,
+        "scene": "flower"
+      }
+    ],
+    "contentHash": "eaf3b4c0586c6a81947aa3325679d34b302e7d422a81620b557adb743c91b50c"
+  },
+  {
+    "schemaVersion": 1,
+    "contentId": "little-seed-lab",
+    "contentVersion": 1,
+    "ageGroup": "2–3",
+    "locale": "hi-IN",
+    "kind": "learning",
+    "mode": "seed",
+    "title": "नन्हे बीज से मिलो",
+    "subtitle": "देखो, सोचो, साथ में सीखो।",
+    "objectiveId": "NATURE.SHARED_OBSERVATION",
+    "useMode": "caregiver-shared",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Original Kidsuu fresh-content batch, 9 October 2026; educational/language/rights review pending.",
+    "parentNote": "किसी बड़े के साथ देखें। बीज, पानी और धूप छू सकते हैं या केवल देख सकते हैं। चित्र कई दिनों की कहानी दिखाते हैं; असली बीज छूते ही नहीं बढ़ता।",
+    "discussion": "",
+    "pages": [
+      {
+        "id": "W01",
+        "text": "मिट्टी में नन्हा बीज है। साथ में देखें?",
+        "optional": false,
+        "scene": "seed"
+      },
+      {
+        "id": "W02",
+        "text": "बारिश से मिट्टी को थोड़ा पानी मिला। बीज अभी अंदर है।",
+        "optional": false,
+        "scene": "rain"
+      },
+      {
+        "id": "W03",
+        "text": "कई दिनों बाद एक नन्हा हरा अंकुर निकला।",
+        "optional": false,
+        "scene": "sprout"
+      },
+      {
+        "id": "W04",
+        "text": "मिट्टी, पानी, धूप और समय मिलने पर पौधा बढ़ सकता है। किसी बड़े के साथ असली पौधा देख सकते हैं।",
+        "optional": false,
+        "scene": "flower"
+      }
+    ],
+    "contentHash": "ec4b8d7036bda339eccbd19ce7dae161855a2241893cbab164f0e15e81f70de1"
+  },
+  {
+    "schemaVersion": 1,
+    "contentId": "pocket-garden",
+    "contentVersion": 1,
+    "ageGroup": "4–5",
+    "locale": "en-IN",
+    "kind": "learning",
+    "mode": "garden",
+    "title": "Pocket Garden",
+    "subtitle": "Plant a little. Discover a lot.",
+    "objectiveId": "NUMBER.COUNT_TO_FIVE",
+    "useMode": "supported-reader",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Original Kidsuu fresh-content batch, 9 October 2026; educational/language/rights review pending.",
+    "parentNote": "Put one large pictured seed in each pot, then count the seeds. A fresh arrangement separates quantity from layout. Tap controls have descriptive alternatives; no real small-object handling is required.",
+    "discussion": "",
+    "pages": [
+      {
+        "id": "W01",
+        "text": "Plant one seed in every pot. Count the pots, then choose how many seeds we need.",
+        "optional": false,
+        "scene": "garden"
+      },
+      {
+        "id": "W02",
+        "text": "Plant one seed in every pot. Count the pots, then choose how many seeds we need.",
+        "optional": false,
+        "scene": "garden"
+      },
+      {
+        "id": "W03",
+        "text": "Plant one seed in every pot. Count the pots, then choose how many seeds we need.",
+        "optional": false,
+        "scene": "garden"
+      },
+      {
+        "id": "W04",
+        "text": "Plant one seed in every pot. Count the pots, then choose how many seeds we need.",
+        "optional": false,
+        "scene": "garden"
+      },
+      {
+        "id": "W05",
+        "text": "Plant one seed in every pot. Count the pots, then choose how many seeds we need.",
+        "optional": false,
+        "scene": "garden"
+      }
+    ],
+    "contentHash": "b253bf4c24e876fb43b7db9e0c8000b2bcc20c1c082205166bb984b994424879"
+  },
+  {
+    "schemaVersion": 1,
+    "contentId": "pocket-garden",
+    "contentVersion": 1,
+    "ageGroup": "4–5",
+    "locale": "hi-IN",
+    "kind": "learning",
+    "mode": "garden",
+    "title": "नन्हा बगीचा",
+    "subtitle": "बीज लगाओ, नया सीखो।",
+    "objectiveId": "NUMBER.COUNT_TO_FIVE",
+    "useMode": "supported-reader",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Original Kidsuu fresh-content batch, 9 October 2026; educational/language/rights review pending.",
+    "parentNote": "हर गमले में एक बड़ा चित्र वाला बीज रखकर गिनें। नई व्यवस्था में संख्या देखें। किसी असली छोटे बीज को संभालना ज़रूरी नहीं है।",
+    "discussion": "",
+    "pages": [
+      {
+        "id": "W01",
+        "text": "हर गमले में एक बीज लगाओ। गमले गिनकर उतने बीज चुनो।",
+        "optional": false,
+        "scene": "garden"
+      },
+      {
+        "id": "W02",
+        "text": "हर गमले में एक बीज लगाओ। गमले गिनकर उतने बीज चुनो।",
+        "optional": false,
+        "scene": "garden"
+      },
+      {
+        "id": "W03",
+        "text": "हर गमले में एक बीज लगाओ। गमले गिनकर उतने बीज चुनो।",
+        "optional": false,
+        "scene": "garden"
+      },
+      {
+        "id": "W04",
+        "text": "हर गमले में एक बीज लगाओ। गमले गिनकर उतने बीज चुनो।",
+        "optional": false,
+        "scene": "garden"
+      },
+      {
+        "id": "W05",
+        "text": "हर गमले में एक बीज लगाओ। गमले गिनकर उतने बीज चुनो।",
+        "optional": false,
+        "scene": "garden"
+      }
+    ],
+    "contentHash": "c7a6697ca3ee73d3e84a6168af1d12c4f63a0fbdff129dece52b9dd379af2f9a"
+  },
+  {
+    "schemaVersion": 1,
+    "contentId": "little-seed-journey",
+    "contentVersion": 1,
+    "ageGroup": "4–5",
+    "locale": "en-IN",
+    "kind": "story",
+    "mode": "story",
+    "title": "The Little Seed’s Journey",
+    "subtitle": "A small seed. A patient little wonder.",
+    "objectiveId": "ORAL.NARRATIVE_SEQUENCE",
+    "useMode": "supported-reader",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Original Kidsuu fresh-content batch, 9 October 2026; educational/language/rights review pending.",
+    "parentNote": "Enjoy the story uninterrupted. Optional conversation comes at the end. Growing takes many days, and different plants grow differently. Review language and visual accuracy before child use.",
+    "discussion": "What helped the little seed grow? You can talk about the rain, sunlight, soil, or time.",
+    "pages": [
+      {
+        "id": "W01",
+        "text": "A little seed rested beside a smooth pebble. A broad leaf made a quiet roof above it.",
+        "optional": false,
+        "scene": "seed"
+      },
+      {
+        "id": "W02",
+        "text": "The wind rustled the leaf. The seed rolled into a soft patch of soil and settled there.",
+        "optional": false,
+        "scene": "soil"
+      },
+      {
+        "id": "W03",
+        "text": "Rain tapped on the ground. The soil became damp. The little seed stayed hidden.",
+        "optional": false,
+        "scene": "rain"
+      },
+      {
+        "id": "W04",
+        "text": "Many days passed. One morning, a tiny green shoot pushed up through the soil.",
+        "optional": false,
+        "scene": "sprout"
+      },
+      {
+        "id": "W05",
+        "text": "The shoot opened two small leaves. Sunlight fell across them. More days brought more growth.",
+        "optional": false,
+        "scene": "leaves"
+      },
+      {
+        "id": "W06",
+        "text": "The pebble was still beside the little plant. The broad leaf rustled above. This quiet patch of earth had become a place to grow.",
+        "optional": false,
+        "scene": "flower"
+      }
+    ],
+    "contentHash": "c032e6d39197a9b0b1c57ce7c1963e5df5edfa65efb278d7a0027c4d1e95b2e8"
+  },
+  {
+    "schemaVersion": 1,
+    "contentId": "little-seed-journey",
+    "contentVersion": 1,
+    "ageGroup": "4–5",
+    "locale": "hi-IN",
+    "kind": "story",
+    "mode": "story",
+    "title": "नन्हे बीज का सफ़र",
+    "subtitle": "एक नन्हा बीज और नई शुरुआत।",
+    "objectiveId": "ORAL.NARRATIVE_SEQUENCE",
+    "useMode": "supported-reader",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Original Kidsuu fresh-content batch, 9 October 2026; educational/language/rights review pending.",
+    "parentNote": "कहानी बिना सवालों के सुनें। अंत में चाहें तो बात करें। पौधों को बढ़ने में कई दिन लगते हैं। बच्चों के साथ उपयोग से पहले भाषा और चित्रों की समीक्षा करें।",
+    "discussion": "छोटे बीज को बढ़ने में किससे मदद मिली? बारिश, धूप, मिट्टी या समय के बारे में बात कर सकते हैं।",
+    "pages": [
+      {
+        "id": "W01",
+        "text": "एक चिकने कंकड़ के पास नन्हा बीज था। उसके ऊपर चौड़ा पत्ता छत जैसा था।",
+        "optional": false,
+        "scene": "seed"
+      },
+      {
+        "id": "W02",
+        "text": "हवा से पत्ता हिला। बीज लुढ़ककर नरम मिट्टी में जा ठहरा।",
+        "optional": false,
+        "scene": "soil"
+      },
+      {
+        "id": "W03",
+        "text": "बारिश की बूँदें ज़मीन पर पड़ीं। मिट्टी नम हो गई। नन्हा बीज अभी छिपा था।",
+        "optional": false,
+        "scene": "rain"
+      },
+      {
+        "id": "W04",
+        "text": "कई दिन बीते। एक सुबह मिट्टी से नन्हा हरा अंकुर निकला।",
+        "optional": false,
+        "scene": "sprout"
+      },
+      {
+        "id": "W05",
+        "text": "अंकुर पर दो छोटी पत्तियाँ खुलीं। उन पर धूप पड़ी। और दिन बीते तो पौधा और बढ़ा।",
+        "optional": false,
+        "scene": "leaves"
+      },
+      {
+        "id": "W06",
+        "text": "छोटे पौधे के पास वही कंकड़ था। ऊपर चौड़ा पत्ता हिल रहा था। मिट्टी की वह जगह अब पौधे का घर बन गई थी।",
+        "optional": false,
+        "scene": "flower"
+      }
+    ],
+    "contentHash": "63cf9ebd0d9c47fbea958f250f9e62f31c9af1f6ea7f72a1e7f686ce6e65a9a1"
+  },
+  {
+    "schemaVersion": 1,
+    "contentId": "tip-tap-rain",
+    "contentVersion": 1,
+    "ageGroup": "2–3",
+    "locale": "en-IN",
+    "kind": "rhyme",
+    "mode": "rhyme",
+    "title": "Tip, Tap, Rain",
+    "subtitle": "A little rhythm to share.",
+    "objectiveId": "ORAL.SHARED_RHYTHM",
+    "useMode": "caregiver-shared",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Original Kidsuu fresh-content batch, 9 October 2026; educational/language/rights review pending.",
+    "parentNote": "An original spoken rhyme, not a song. With a grown-up, gently tap a table or watch the picture; movement is optional. No clapping speed or beat accuracy is assessed.",
+    "discussion": "",
+    "pages": [
+      {
+        "id": "W01",
+        "text": "Tip, tap, little rain.\nOn the leaf and windowpane.",
+        "optional": false,
+        "scene": "rain"
+      },
+      {
+        "id": "W02",
+        "text": "Softly tap and softly play.\nClouds are drifting on their way.",
+        "optional": false,
+        "scene": "cloud"
+      },
+      {
+        "id": "W03",
+        "text": "Tip, tap, little rain.\nWe can say our rhyme again.",
+        "optional": true,
+        "scene": "rain"
+      },
+      {
+        "id": "W04",
+        "text": "Now the little taps can stop.\nRest our hands, like one still drop.",
+        "optional": false,
+        "scene": "rest"
+      }
+    ],
+    "contentHash": "c687c695db57ec1a00ec0cb45be96a1303dffcc313260e3b10da908e0496dd2e"
+  },
+  {
+    "schemaVersion": 1,
+    "contentId": "tip-tap-rain",
+    "contentVersion": 1,
+    "ageGroup": "2–3",
+    "locale": "hi-IN",
+    "kind": "rhyme",
+    "mode": "rhyme",
+    "title": "टिप-टिप बारिश",
+    "subtitle": "साथ में बोलें, हल्की ताल दें।",
+    "objectiveId": "ORAL.SHARED_RHYTHM",
+    "useMode": "caregiver-shared",
+    "publication": "draft",
+    "reviews": [],
+    "source": "Original Kidsuu fresh-content batch, 9 October 2026; educational/language/rights review pending.",
+    "parentNote": "मौलिक बोली हुई कविता है, गीत नहीं। किसी बड़े के साथ मेज़ पर हल्का टैप करें या चित्र देखें। हिलना ज़रूरी नहीं है।",
+    "discussion": "",
+    "pages": [
+      {
+        "id": "W01",
+        "text": "टिप-टिप बूँदें आईं,\nपत्तों पर मुस्काईं।",
+        "optional": false,
+        "scene": "rain"
+      },
+      {
+        "id": "W02",
+        "text": "हल्की-हल्की ताल बजाएँ,\nबादल आगे बढ़ते जाएँ।",
+        "optional": false,
+        "scene": "cloud"
+      },
+      {
+        "id": "W03",
+        "text": "टिप-टिप बूँदें आईं,\nकविता फिर दोहराई।",
+        "optional": true,
+        "scene": "rain"
+      },
+      {
+        "id": "W04",
+        "text": "अब हाथों को आराम दिलाएँ,\nशांत बैठकर मुस्काएँ।",
+        "optional": false,
+        "scene": "rest"
+      }
+    ],
+    "contentHash": "e7c2e891bbb5a2523bdf1feb8135193a32550899aacd560b970302f8876cf659"
+  }
+]

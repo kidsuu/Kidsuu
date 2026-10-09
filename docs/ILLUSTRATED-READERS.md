@@ -1,5 +1,7 @@
 # Illustrated readers — batch 3
 
+> Historical implementation document. On 9 October 2026 all playable content described here was replaced by [Fresh Worlds](FRESH-CONTENT.md). Saved records remain historical; these old players are no longer in app source.
+
 **Current delivery note (6 October 2026):** the owner authorized main integration. Completed feature work through `f08a4ec` is now on `main`; the original batch/branch evidence below is historical. Pull current main for [parent edition history and follow-up QA](EDITION-HISTORY.md). This does not approve public content or deployment.
 
 6 October 2026 · `feature/family-app` · **Internal adult-review drafts, not publication approval.**
