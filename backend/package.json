@@ -19,6 +19,7 @@
     "db:migrate:local": "wrangler d1 migrations apply kidsuu-staging --local",
     "prepare:staging": "node scripts/prepare-staging.mjs",
     "db:migrate:staging": "npm run prepare:staging && wrangler d1 migrations apply kidsuu-staging --remote --cwd .wrangler --config staging.json",
+    "storage:sync:staging": "npm run prepare:staging && node scripts/sync-r2-storage.mjs",
     "deploy:staging": "npm run prepare:staging && wrangler deploy --cwd .wrangler --config staging.json",
     "dry-run": "npm run prepare:staging && wrangler deploy --dry-run --cwd .wrangler --config staging.json --outdir ../dist/dry-run"
   },

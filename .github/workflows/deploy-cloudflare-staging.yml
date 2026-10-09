@@ -44,3 +44,4 @@ jobs:
           npx wrangler r2 bucket create "${R2_BUCKET_NAME:-kidsuu-storage}" || true
           npm run db:migrate:staging
           npm run deploy:staging
+          npm run storage:sync:staging

@@ -36,7 +36,13 @@ app.use('*', async (c, next) => {
   await next();
 });
 app.get('/health', (c) =>
-  c.json({ service: 'kidsuu-api', environment: c.env.ENVIRONMENT || 'staging', status: 'ok' }),
+  c.json({
+    service: 'kidsuu-api',
+    environment: c.env.ENVIRONMENT || 'staging',
+    database: 'd1',
+    storage: 'r2',
+    status: 'ok',
+  }),
 );
 app.use('/v1/*', rateLimit, authenticate, rateLimit);
 app.route('/v1', family);
