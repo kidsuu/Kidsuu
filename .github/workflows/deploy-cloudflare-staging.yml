@@ -1,5 +1,11 @@
 name: Deploy Cloudflare staging
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/**'
+      - 'packages/contracts/**'
+      - '.github/workflows/deploy-cloudflare-staging.yml'
   workflow_dispatch:
 permissions:
   contents: read
