@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   AccessibilityInfo,
-  ImageBackground,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -10,9 +9,11 @@ import {
   View,
 } from 'react-native';
 import { worldCatalog } from '../data/catalog';
-import { WORLD_ART } from '../data/assets';
+import { PatternAdventure, PatternScenery } from '../components/PatternAdventure';
+import { RiverAdventure, RiverScenery } from '../components/RiverAdventure';
+import { LanternAdventure, LanternScenery } from '../components/LanternAdventure';
 import { Glyph, Lantern, Plank, Plant } from '../components/WorldArt';
-import { PuzzleBoard, Tool } from '../components/PuzzleBoard';
+import { GardenBoard, Tool } from '../components/PuzzleBoard';
 import { StoryStage } from '../components/StoryStage';
 import type { WorldPackage } from '../domain/worldPackage';
 import { editionKey, type ContentLocale } from '../../content/domain/contentPackage';
@@ -48,22 +49,34 @@ const accent: Record<WorldPackage['mode'], string> = {
 };
 function Cover({ mode }: { mode: WorldPackage['mode'] }) {
   return (
-    <View style={w.coverArt}>
+    <View style={['pattern', 'bridge', 'lantern'].includes(mode) ? w.gameCover : w.coverArt}>
       {mode === 'pattern' ? (
-        <View style={{ flexDirection: 'row', gap: 12 }}>
-          <Glyph token="leaf" size={46} />
-          <Glyph token="flower" size={46} />
-          <Glyph token="leaf" size={46} />
-        </View>
+        <>
+          <PatternScenery index={0} />
+          <View style={w.coverPieces}>
+            {['leaf', 'flower', 'leaf'].map((token, i) => (
+              <View key={i} style={w.coverStone}>
+                <Glyph token={token as 'leaf' | 'flower'} size={26} />
+              </View>
+            ))}
+          </View>
+        </>
       ) : mode === 'bridge' ? (
-        <View style={{ transform: [{ rotate: '-7deg' }] }}>
-          <Plank length={5} unit={24} />
-        </View>
+        <>
+          <RiverScenery index={2} />
+          <View style={w.coverPieces}>
+            <Plank length={5} unit={18} />
+          </View>
+        </>
       ) : mode === 'lantern' ? (
-        <View style={{ flexDirection: 'row', gap: 10 }}>
-          <Lantern lit size={56} />
-          <Lantern lit={false} size={56} />
-        </View>
+        <>
+          <LanternScenery index={2} />
+          <View style={w.coverPieces}>
+            {[true, false, true].map((lit, i) => (
+              <Lantern key={i} lit={lit} size={35} />
+            ))}
+          </View>
+        </>
       ) : mode === 'rhyme' ? (
         <View style={{ flexDirection: 'row', gap: 18 }}>
           <Glyph token="drop" size={44} />
@@ -152,12 +165,7 @@ export function WorldLibraryScreen(props: Props) {
           />
         </View>
       </View>
-      <ImageBackground
-        source={WORLD_ART.woodland}
-        accessible={false}
-        imageStyle={{ borderRadius: 28 }}
-        style={w.hero}
-      >
+      <View style={w.hero}>
         <View style={w.heroPaper}>
           <Text style={w.eyebrow}>{text(hi, 'KIDSUU • FRESH WORLDS', 'KIDSUU • नई दुनिया')}</Text>
           <Text accessibilityRole="header" style={w.heroTitle}>
@@ -171,7 +179,15 @@ export function WorldLibraryScreen(props: Props) {
             )}
           </Text>
         </View>
-      </ImageBackground>
+        <View pointerEvents="none" style={w.heroArt}>
+          <View style={w.heroLandscape}>
+            <PatternScenery index={4} />
+          </View>
+          <View style={w.heroNight}>
+            <LanternScenery index={0} />
+          </View>
+        </View>
+      </View>
       <View style={w.review}>
         <Text style={w.reviewTitle}>
           {text(hi, 'Internal adult review', 'बड़ों के लिए समीक्षा')}
@@ -263,7 +279,8 @@ export function WorldLibraryScreen(props: Props) {
                           )
                         : text(
                             hi,
-                            p.pages.length + ' little stops',
+                            p.pages.length +
+                              (p.kind === 'game' ? ' stages · 3 worlds' : ' little stops'),
                             p.pages.length + ' छोटे पड़ाव',
                           )}
                     </Text>
@@ -284,6 +301,7 @@ export function WorldLibraryScreen(props: Props) {
 function WorldPlayer(props: Props & { content: WorldPackage; onLanguage: () => void }) {
   const { content, state, store, foreground, onBack, onLanguage } = props;
   const hi = content.locale === 'hi-IN';
+  const game = content.kind === 'game';
   const row = state.editions[state.selectedId!]?.find((r) => r.editionKey === editionKey(content));
   const [index, setIndex] = useState(() => resumeEdition(content, row));
   const [finished, setFinished] = useState(false),
@@ -322,7 +340,7 @@ function WorldPlayer(props: Props & { content: WorldPackage; onLanguage: () => v
   const locked =
     state.busy || state.loading || !!state.error || !foreground || !state.parentUnlocked;
   const advance = async (action: 'explore' | 'skip') => {
-    if (advancing.current || locked) return;
+    if (advancing.current || locked || (game && !solved)) return;
     advancing.current = true;
     stop();
     try {
@@ -337,17 +355,19 @@ function WorldPlayer(props: Props & { content: WorldPackage; onLanguage: () => v
       advancing.current = false;
     }
   };
-  const puzzle = ['pattern', 'bridge', 'lantern', 'garden'].includes(content.mode);
+  const puzzle = content.mode === 'garden';
   const nextLabel =
     content.kind === 'story'
       ? text(hi, 'Next page', 'अगला पन्ना')
       : content.kind === 'rhyme'
         ? text(hi, 'Next verse', 'अगली पंक्तियाँ')
-        : text(hi, solved ? 'Next stop' : 'Explore next stop', 'अगला पड़ाव देखें');
+        : game
+          ? text(hi, 'Next stage', 'अगला चरण')
+          : text(hi, solved ? 'Next stop' : 'Explore next stop', 'अगला पड़ाव देखें');
   return (
     <ScrollView
       style={w.screen}
-      contentContainerStyle={w.player}
+      contentContainerStyle={[w.player, game && w.gamePlayer]}
       keyboardShouldPersistTaps="handled"
     >
       <View style={w.top}>
@@ -374,14 +394,14 @@ function WorldPlayer(props: Props & { content: WorldPackage; onLanguage: () => v
             {kindName(content.kind, hi)} · {text(hi, 'ages ', 'उम्र ')}
             {content.ageGroup}
           </Text>
-          <Text accessibilityRole="header" style={w.playerTitle}>
+          <Text accessibilityRole="header" style={[w.playerTitle, game && w.gameTitle]}>
             {content.title}
           </Text>
-          <Text style={w.subtitle}>{content.subtitle}</Text>
+          {!game && <Text style={w.subtitle}>{content.subtitle}</Text>}
         </View>
         <View style={w.stopBadge}>
           <Text style={w.stopText}>
-            {text(hi, 'Stop ', 'पड़ाव ')}
+            {game ? text(hi, 'Stage ', 'चरण ') : text(hi, 'Stop ', 'पड़ाव ')}
             {index + 1}/{content.pages.length}
           </Text>
         </View>
@@ -390,6 +410,34 @@ function WorldPlayer(props: Props & { content: WorldPackage; onLanguage: () => v
         <View style={w.review}>
           <Text style={w.reviewTitle}>{text(hi, 'Draft review notes', 'ड्राफ्ट की समीक्षा')}</Text>
           <Text style={w.reviewText}>{content.parentNote}</Text>
+          {game && (
+            <>
+              <Text style={w.small}>
+                {text(
+                  hi,
+                  'Review another stage without changing saved records.',
+                  'रिकॉर्ड बदले बिना दूसरा चरण देखें।',
+                )}
+              </Text>
+              <View style={w.filters}>
+                {content.pages.map((p, i) => (
+                  <Tool
+                    key={p.id}
+                    label={text(hi, 'Stage ' + (i + 1), 'चरण ' + (i + 1))}
+                    primary={i === index}
+                    disabled={locked}
+                    onPress={() => {
+                      stop();
+                      setSolved(false);
+                      setIndex(i);
+                      setFinished(false);
+                      setNotes(false);
+                    }}
+                  />
+                ))}
+              </View>
+            </>
+          )}
           <Text style={w.small}>
             {text(
               hi,
@@ -422,7 +470,9 @@ function WorldPlayer(props: Props & { content: WorldPackage; onLanguage: () => v
           <Text style={w.finishCopy}>
             {text(
               hi,
-              'Our little adventure ends here. You can rest, talk together, or explore it again another day.',
+              game
+                ? 'You travelled through all three worlds. Take a break, or return to a favourite stage another day.'
+                : 'Our little adventure ends here. You can rest, talk together, or explore it again another day.',
               'हमारा छोटा सफ़र यहाँ पूरा हुआ। आराम करें, साथ में बात करें, या किसी और दिन फिर देखें।',
             )}
           </Text>
@@ -450,14 +500,51 @@ function WorldPlayer(props: Props & { content: WorldPackage; onLanguage: () => v
       ) : (
         <>
           {content.kind !== 'rhyme' && (
-            <Text style={[w.instruction, content.kind === 'story' && w.storyText]}>
+            <Text
+              style={[
+                w.instruction,
+                content.kind === 'story' && w.storyText,
+                game && w.gameInstruction,
+              ]}
+            >
               {page.text}
             </Text>
           )}
-          {puzzle ? (
-            <PuzzleBoard
+          {game ? (
+            content.mode === 'pattern' ? (
+              <PatternAdventure
+                key={page.id}
+                index={index}
+                hi={hi}
+                disabled={locked}
+                reducedMotion={reducedMotion}
+                onChange={stop}
+                onSolved={onSolved}
+              />
+            ) : content.mode === 'bridge' ? (
+              <RiverAdventure
+                key={page.id}
+                index={index}
+                hi={hi}
+                disabled={locked}
+                reducedMotion={reducedMotion}
+                onChange={stop}
+                onSolved={onSolved}
+              />
+            ) : (
+              <LanternAdventure
+                key={page.id}
+                index={index}
+                hi={hi}
+                disabled={locked}
+                reducedMotion={reducedMotion}
+                onChange={stop}
+                onSolved={onSolved}
+              />
+            )
+          ) : puzzle ? (
+            <GardenBoard
               key={page.id}
-              mode={content.mode}
               index={index}
               hi={hi}
               disabled={locked}
@@ -514,7 +601,7 @@ function WorldPlayer(props: Props & { content: WorldPackage; onLanguage: () => v
                     ? text(hi, 'Finish here', 'यहीं पूरा करें')
                     : nextLabel
               }
-              disabled={locked}
+              disabled={locked || (game && !solved)}
               onPress={() => void advance('explore')}
             />
           </View>
@@ -566,14 +653,21 @@ const w = StyleSheet.create({
   },
   language: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
   hero: {
-    minHeight: 300,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    gap: 24,
+    backgroundColor: '#E6EFD8',
+    minHeight: 280,
     borderRadius: 28,
     overflow: 'hidden',
     justifyContent: 'center',
     padding: 22,
   },
   heroPaper: {
-    maxWidth: 420,
+    flexGrow: 1,
+    flexBasis: 320,
+    maxWidth: 460,
     backgroundColor: 'rgba(255,253,237,.93)',
     padding: 22,
     borderRadius: 22,
@@ -601,6 +695,60 @@ const w = StyleSheet.create({
     overflow: 'hidden',
   },
   cardScene: { height: 155, padding: 16, alignItems: 'center', justifyContent: 'center' },
+  coverPieces: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: '45%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 10,
+  },
+  coverStone: {
+    width: 36,
+    height: 42,
+    borderRadius: 12,
+    backgroundColor: '#F9F2DD',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1.5,
+    borderColor: '#AEBCA0',
+  },
+  gameCover: { position: 'absolute', left: 0, top: 0, right: 0, bottom: 0 },
+  heroArt: { flexGrow: 1, flexBasis: 280, height: 220, position: 'relative' },
+  heroLandscape: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    right: 28,
+    bottom: 25,
+    borderRadius: 28,
+    overflow: 'hidden',
+    borderWidth: 4,
+    borderColor: '#F9FCED',
+  },
+  heroNight: {
+    position: 'absolute',
+    width: 145,
+    height: 125,
+    bottom: 0,
+    right: 0,
+    borderRadius: 24,
+    overflow: 'hidden',
+    borderWidth: 4,
+    borderColor: '#F9FCED',
+  },
+  gamePlayer: { maxWidth: 1120, padding: 16, gap: 12 },
+  gameTitle: { fontSize: 26, lineHeight: 32, marginTop: 3 },
+  gameInstruction: {
+    backgroundColor: 'transparent',
+    borderWidth: 0,
+    paddingHorizontal: 4,
+    paddingVertical: 3,
+    fontSize: 16,
+    lineHeight: 24,
+  },
   coverArt: { alignItems: 'center', justifyContent: 'center', minHeight: 120 },
   age: {
     position: 'absolute',

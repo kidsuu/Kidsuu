@@ -3,43 +3,43 @@
   "status": "adult-draft-preview",
   "packages": [
     {
-      "editionKey": "pattern-trail:4-5:en-IN:1",
-      "contentHash": "73d72e8be79e963732cd720aaf06154fad9112fa7387ac16aa201523c2c1b7cb",
+      "editionKey": "pattern-trail:4-5:en-IN:2",
+      "contentHash": "147c4eeec2322595bfbe0933887a60d35ccea47403a0a9b66aa5a12015309d60",
       "unitCount": 6,
       "humanApproval": "pending",
       "recordedAudio": "not-generated"
     },
     {
-      "editionKey": "pattern-trail:4-5:hi-IN:1",
-      "contentHash": "387e6f99073d3b1a40cc792d313a2012d0b1c384479f81b44ce25175ef27909c",
+      "editionKey": "pattern-trail:4-5:hi-IN:2",
+      "contentHash": "f68de88e4dc5ef28d2449b02919fa451f6567fcd0839df8d7bd2be045ab7162c",
       "unitCount": 6,
       "humanApproval": "pending",
       "recordedAudio": "not-generated"
     },
     {
-      "editionKey": "river-builders:6-7:en-IN:1",
-      "contentHash": "a4e9fa2288f022abbc521a2ba11d7798bc2ec52c6507dd097b6c2bb16dac2755",
+      "editionKey": "river-builders:6-7:en-IN:2",
+      "contentHash": "84e0929d385047efbecd02e9608d8bd95e6d635e6075790347c45224634a146c",
       "unitCount": 6,
       "humanApproval": "pending",
       "recordedAudio": "not-generated"
     },
     {
-      "editionKey": "river-builders:6-7:hi-IN:1",
-      "contentHash": "d9741d20873b7a72284ba9a45d0de4608d3a59a526d496df504e29243550060b",
+      "editionKey": "river-builders:6-7:hi-IN:2",
+      "contentHash": "09276cc4d5d1baeb24c3d3ccf4b7fba8ac70d36e29358c2d33cd96fec95fda5f",
       "unitCount": 6,
       "humanApproval": "pending",
       "recordedAudio": "not-generated"
     },
     {
-      "editionKey": "lantern-grove:8-9:en-IN:1",
-      "contentHash": "f92f5e93e18df7c85ab641e9aee6c34b8ade1f1be095c33e7087860c4db59412",
+      "editionKey": "lantern-grove:8-9:en-IN:2",
+      "contentHash": "f964384db8fcaef45f87ed2f2dd9178fb9813784442ba5e72a915ddaffe757f9",
       "unitCount": 5,
       "humanApproval": "pending",
       "recordedAudio": "not-generated"
     },
     {
-      "editionKey": "lantern-grove:8-9:hi-IN:1",
-      "contentHash": "1576445d94d7c09fdd01dfae29c9a791c2f39233c1057803382fa654cc8dd908",
+      "editionKey": "lantern-grove:8-9:hi-IN:2",
+      "contentHash": "3b0f70e5286af9575a1604309071a7348f531e630672a14f4b075a39506650a7",
       "unitCount": 5,
       "humanApproval": "pending",
       "recordedAudio": "not-generated"

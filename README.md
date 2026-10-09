@@ -2,7 +2,7 @@
 
 Tablet-first React Native + Expo app with the original approved boy/puppy, age-based Home and device-local family demo.
 
-**Current content: Fresh Worlds, 9 October 2026.** At the owner's request, all previous playable Games, Learning activities, Stories and Rhymes have been removed from app source. A new seven-concept library replaces them, with fourteen English/Hindi draft editions. This remains an internal adult preview; editorial, language, rights and physical-device review are pending.
+**Current content: Fresh Worlds, 9 October 2026.** At the owner's request, all previous playable Games, Learning activities, Stories and Rhymes have been removed from app source. A new seven-concept library replaces them, with fourteen English/Hindi draft editions. The three games now use original animated SVG worlds with 17 stages across nine environments; the earlier static game preview is retained only as historical records. This remains an internal adult preview; editorial, language, rights and physical-device review are pending.
 
 | Fresh concept             | Category                                      | Age | Parts |
 | ------------------------- | --------------------------------------------- | --- | ----- |
@@ -27,7 +27,7 @@ npm run qa:start
 
 Use an Expo Go client compatible with SDK 57 or a development client. The local development demo opt-in opens Sign in → Home with fictitious details. Grown-ups → Open demo parent controls → Fresh worlds opens the full review library. Home cards show only the selected age's new activities and enter the adult gate before opening a draft. Parent access relocks on background, exit and timeout. This demo gate is not verified parental identity.
 
-English/Hindi are independent editions. Tap a piece and a target; drag is optional. Hints, undo/reset, replay and explicit Next/Finish are available. No timers, streaks, autoplay or mastery scores. Listening uses available device TTS voices; rhymes are spoken, not recorded songs. A part saved as explored does not prove it was solved or understood.
+English/Hindi are independent editions. Tap a piece and a target; drag is optional. Hints, undo/reset, replay and explicit Next/Finish are available. Game progression unlocks after solving; River Builders requires the seed delivery cart to arrive. An adult review control can inspect a stage without changing records. No timers, streaks, autoplay or mastery scores. Listening uses available device TTS voices; rhymes are spoken, not recorded songs. Saved records still describe exploration rather than independent mastery or measured understanding.
 
 ## Storage and compatibility
 
@@ -44,7 +44,7 @@ npm run backend:check
 
 Native Android/iOS JavaScript exports and release isolation are checked separately from a real APK/IPA or physical-device run. Draft content, generated art and demo auth are excluded from normal release bundles. Content release checks intentionally reject unreviewed drafts. The standalone APK workflow explicitly builds a demo preview on its runner; this source change does not itself compile, install or deploy an APK.
 
-Browser QA renders the actual new native screens with React Native Web in a separate disposable harness; it is not a runtime dependency or an added web product. See the [current verification report](docs/FRESH-VERIFICATION.md) for exact results and limits. Dependency advisories remain documented in [security notes](docs/SECURITY.md).
+The games use Expo-compatible react-native-svg 15.15.4 for native vectors; scene motion uses React Native Animated. Browser QA renders the actual new native screens with React Native Web in a separate disposable harness; it is not a runtime dependency or an added web product. See the [current verification report](docs/FRESH-VERIFICATION.md) for exact results and limits. Dependency advisories remain documented in [security notes](docs/SECURITY.md).
 
 ## Structure
 

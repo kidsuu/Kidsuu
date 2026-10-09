@@ -2,7 +2,7 @@
 
 Generated on 9 October 2026 using the built-in imagegen tool (no external API key or CLI generation). One new opaque 1536×1024 raster environment, saved in src/features/world/assets/woodland.png. SHA-256 and byte size are in src/features/world/data/manifest.json. Human rights/visual review remains pending; no claim of educator approval or rights clearance.
 
-Approved existing character/brand assets were not regenerated. Native View primitives render all exact puzzle tokens, quantities, unit marks, lantern state, seeds, plants, text and touch targets. The raster is a decorative background, so generated quantities cannot determine an answer. The river play surface is code-drawn for predictable geometry.
+Approved existing character/brand assets were not regenerated. Original native SVG code now draws all game environments, shapes, planks, units, lanterns and animated travelers. View primitives support learning/story props, text and accessible touch targets. The raster is used by story/shared learning/rhyme scenes, while all game backdrops are original code-drawn vectors. Generated quantities cannot determine an answer. Game worlds use deterministic geometry rather than generated screenshots or photos.
 
 ## Generation prompt (one asset)
 

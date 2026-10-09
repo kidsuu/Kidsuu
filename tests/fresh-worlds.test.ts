@@ -2,6 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { readFileSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import raw from '../src/features/world/data/packages.json';
+import staticGames from '../docs/content-archive/fresh-games-v1/packages.json';
+import type { EditionContent } from '../src/features/content/domain/contentPackage';
 import { worldCatalog } from '../src/features/world/data/catalog';
 import { parseWorldCatalog, parseWorldPackage } from '../src/features/world/domain/worldPackage';
 import {
@@ -94,6 +96,20 @@ describe('fresh bilingual library and retired content boundary', () => {
       'src/features/content/data/demo/readerPilots.json',
     ])
       expect(existsSync(p)).toBe(false);
+  });
+  it('keeps the static game drafts separate from the animated stage editions', () => {
+    const old = staticGames[0] as unknown as EditionContent;
+    const fresh = worldCatalog.find(
+      (p) => p.contentId === old.contentId && p.locale === old.locale,
+    )!;
+    expect(fresh.contentVersion).toBe(2);
+    expect(editionKey(fresh)).not.toBe(editionKey(old));
+    const row = exploreUnit(old, undefined, old.pages[0].id, 'explore');
+    const entries = buildEditionHistory(worldCatalog, { child: [row] }, 'child');
+    expect(entries.find((e) => e.editionKey === editionKey(old))?.availability).toBe('saved-only');
+    expect(entries.find((e) => e.editionKey === editionKey(fresh))?.hasRecord).toBe(false);
+    expect(reviewableEdition(worldCatalog, entries, editionKey(old))).toBeUndefined();
+    for (const p of worldCatalog) expect(p.contentVersion).toBe(p.kind === 'game' ? 2 : 1);
   });
   it('retains the development, demo and parent-preview requirements', () => {
     for (const dev of [false, true])

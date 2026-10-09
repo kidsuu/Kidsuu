@@ -80,21 +80,22 @@ const kinds: Record<WorldMode, WorldPackage['kind']> = {
   story: 'story',
   rhyme: 'rhyme',
 };
-const expected: Record<string, { mode: WorldMode; age: AgeGroup; units: number }> = {
-  'pattern-trail': { mode: 'pattern', age: '4–5', units: 6 },
-  'river-builders': { mode: 'bridge', age: '6–7', units: 6 },
-  'lantern-grove': { mode: 'lantern', age: '8–9', units: 5 },
-  'little-seed-lab': { mode: 'seed', age: '2–3', units: 4 },
-  'pocket-garden': { mode: 'garden', age: '4–5', units: 5 },
-  'little-seed-journey': { mode: 'story', age: '4–5', units: 6 },
-  'tip-tap-rain': { mode: 'rhyme', age: '2–3', units: 4 },
-};
+const expected: Record<string, { mode: WorldMode; age: AgeGroup; units: number; version: number }> =
+  {
+    'pattern-trail': { mode: 'pattern', age: '4–5', units: 6, version: 2 },
+    'river-builders': { mode: 'bridge', age: '6–7', units: 6, version: 2 },
+    'lantern-grove': { mode: 'lantern', age: '8–9', units: 5, version: 2 },
+    'little-seed-lab': { mode: 'seed', age: '2–3', units: 4, version: 1 },
+    'pocket-garden': { mode: 'garden', age: '4–5', units: 5, version: 1 },
+    'little-seed-journey': { mode: 'story', age: '4–5', units: 6, version: 1 },
+    'tip-tap-rain': { mode: 'rhyme', age: '2–3', units: 4, version: 1 },
+  };
 export function parseWorldPackage(value: unknown): WorldPackage {
   if (
     !exactObject(value, keys) ||
     value.schemaVersion !== 1 ||
     !FRESH_CONTENT_IDS.some((id) => id === value.contentId) ||
-    value.contentVersion !== 1 ||
+    ![1, 2].includes(value.contentVersion as number) ||
     !AGE_GROUPS.some((a) => a === value.ageGroup) ||
     !['en-IN', 'hi-IN'].includes(value.locale as string) ||
     !WORLD_MODES.some((m) => m === value.mode) ||
@@ -120,6 +121,7 @@ export function parseWorldPackage(value: unknown): WorldPackage {
     throw new Error('Invalid fresh content package');
   const definition = expected[value.contentId as string];
   if (
+    value.contentVersion !== definition.version ||
     value.mode !== definition.mode ||
     value.ageGroup !== definition.age ||
     value.pages.length !== definition.units

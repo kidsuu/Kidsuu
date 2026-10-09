@@ -4,21 +4,23 @@
 
 ## Delivered
 
-Removed all previous playable Games, Learning, Stories and Rhymes from app source. Rebuilt a native seven-concept library: Pattern Trail, River Builders, Lantern Grove, Hello Little Seed, Pocket Garden, The Little Seed’s Journey and Tip, Tap, Rain. Each has English and Hindi editions (14 total), with new IDs and separate progress. New environment artwork was generated using built-in imagegen; exact puzzle graphics remain native code. All editions remain adult-review drafts.
+Removed all previous playable Games, Learning, Stories and Rhymes from app source. Rebuilt a native seven-concept library: Pattern Trail, River Builders, Lantern Grove, Hello Little Seed, Pocket Garden, The Little Seed’s Journey and Tip, Tap, Rain. Each has English and Hindi editions (14 total), with new IDs and separate progress. The three games now have 17 stages across nine original native vector environments, with animated placement/travel, water/clouds/fireflies, and per-lantern glow/constellation. The earlier static game v1 records remain saved-only; all current games are v2. The original built-in imagegen environment is now used only by the learning/story/rhyme scenes. All editions remain adult-review drafts.
 
 ## Checks completed on this source
 
 | Check                                                        | Result                                                                               |
 | ------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
-| Clean pinned app dependency installation                     | Passed; no runtime dependency changes                                                |
+| Clean pinned app dependency installation                     | Passed; Expo-compatible react-native-svg 15.15.4 is the one new native dependency    |
 | App types, lint, complete formatting                         | Passed                                                                               |
-| App tests                                                    | 153 passed across 14 files                                                           |
+| App tests                                                    | 154 passed across 14 files                                                           |
 | Backend types, lint, formatting, build and integration tests | 26 passed across 2 files                                                             |
 | Static assets                                                | 75 referenced PNGs, 5.40 MiB; no missing/unused PNGs                                 |
 | Fresh content                                                | 14 exact hashes and manifests; 7 new Home cards; generated image hash/bytes verified |
 | Android/iOS normal release JS exports                        | Passed; drafts/art/demo auth excluded; fail-closed authentication retained           |
 | Android explicit development demo JS export                  | Passed; fresh screens and environment included                                       |
-| Actual-screen browser QA                                     | 7 basic + 9 extended checks passed, zero page errors                                 |
+| Actual-screen browser QA                                     | 7 basic + 9 extended checks + 6 motion/progression checks passed, zero page errors   |
+
+Game Next is disabled until the stage is solved; the river also requires a completed crossing. Undo resets progression. Reduced-motion scene captures are pixel-stable and delivery arrives immediately. V1 game records cannot resume or unlock V2 stages.
 
 The 512 possible lantern board states are exhaustively checked by the domain tests. Bridge tests check distinct inventory and reversible moves; pattern tests derive answers from the whole cycle. Legacy history, migrations and new bookmarks are tested without relabelling old progress. Backend integration verifies fresh bookmarks survive storage and rejects unknown/duplicate IDs.
 
@@ -41,7 +43,14 @@ The 512 possible lantern board states are exhaustively checked by the domain tes
 - Hindi spoken rhyme, optional repeat and ending
 - durable edition records and explicit skip
 
-This harness renders the actual native screen components with React Native Web. Browser-only dependencies and scripts stay outside the native repo. It uses fictitious device-local data and a browser speech shim. Screenshots include desktop, 390px Hindi and 320px puzzle layouts. It is not an Android/iOS device, APK/IPA, performance, screen-reader or audible-voice test.
+This harness renders the actual native screen components with React Native Web. Browser-only dependencies and scripts stay outside the native repo. It uses fictitious device-local data and a browser speech shim. Screenshots include all nine worlds, desktop, 390px Hindi and 320px puzzle layouts. Three GIF clips were assembled from actual browser gameplay captures (22 distinct frames each), showing kite travel, cart crossing and lantern completion. It is not an Android/iOS device, APK/IPA, performance, screen-reader or audible-voice test.
+
+- Next locked before solution
+- River delivery required before Next
+- Undo relocks every game
+- Normal-motion clips recorded
+- Reduced-motion scene is pixel-stable
+- Reduced-motion delivery completes without wait
 
 ## Still pending
 

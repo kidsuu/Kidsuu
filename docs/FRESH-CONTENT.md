@@ -18,11 +18,19 @@ A small copy of old package JSON remains under docs/content-archive/removed-2026
 - The Little Seed’s Journey (4–5): six manually paced original pages, from a seed under a leaf through rain, patience and a shoot. Discussion appears only at the end and is optional.
 - Tip, Tap, Rain (shared 2–3): four original spoken verses, optional third repeat and an explicit calm ending. A tap changes the pictured raindrop/ripple; no autoplay or claim of recorded singing.
 
+## Animated game rebuild
+
+The three games are edition version 2. Each has three original vector environments: Pattern Trail uses woodland, lily lagoon and sunrise hills; River Builders uses meadow brook, mountain gorge and tide cove; Lantern Grove uses moon garden, starlit lake and hill observatory. There are 17 authored stages in total, with different pattern structures, bridge inventories/gaps and lantern starts. Code-drawn scenery changes by world and includes variations within it. No game uses the woodland bitmap as its backdrop.
+
+Clouds, water and fireflies move gently. Placement has a local animation; the completed pattern has a kite journey, an exact bridge has an animated seed-cart delivery, and a solved lantern board glows and reveals a constellation. Reduce Motion uses stable scenes and immediate completion. Disabled/background/unmount stops motion. No automatic stage advancement.
+
+The earlier static game v1 JSON is archived only for saved-record compatibility. V1 records cannot resume or unlock V2 stages. Stories, rhymes and learning remain their independent v1 editions. react-native-svg 15.15.4 is an Expo-compatible native dependency; browser QA tooling remains separate.
+
 Every concept has en-IN and hi-IN packages. Age targets are explicit: this is a seven-concept first batch, not four categories fully populated for every age band. Home filters by the selected age; the adult library allows review of the whole batch.
 
 ## Native behavior
 
-The player supports manual Previous/Next/Finish, hints, reset, replay, optional-repeat skipping, parent notes and edition history. Correctness feedback stays local to the puzzle. Advancing intentionally records exploration even if the puzzle is unsolved; storage never labels that as mastery. No timer, score, streak or automatic next activity is introduced.
+The player supports manual Previous/Next/Finish, hints, reset, replay, optional-repeat skipping, parent notes and edition history. Correctness feedback stays local to the puzzle. The three game Next/Finish controls require a solved board; River Builders also requires completed delivery. Undo/removal/reset relocks progression. Learning allows exploration at the adult’s pace. Saved records describe explored parts and never independent mastery. Parent notes allow stage inspection without saving or unlocking records. No timer, score, streak or automatic next activity is introduced.
 
 A stable edition key includes content ID, age, locale and version. Stored records include the script hash and unit IDs; English and Hindi never share completion. Profile switching also isolates records. A changed hash fails closed until its version is managed correctly. Saves are guarded against reentry and failures do not advance. Historical snapshot migration and SQLite behavior remain tested.
 
@@ -30,7 +38,7 @@ All important actions have labelled buttons and optional tap routes. Text accomp
 
 ## Delivery and review
 
-No runtime dependencies were added. Packages and the generated environment image have SHA-256 provenance; exact-key parsers and integrity checks reject unsupported editions/approvals. Both locales are drafts with empty review lists; the release command rejects them deliberately. Standard release-bundle checks verify no fresh objective/title/parser sentinel, draft image bytes or demo login fixture appears in Android/iOS exports.
+The Expo-compatible vector renderer is the single new runtime dependency. Packages and the generated environment image have SHA-256 provenance; exact-key parsers and integrity checks reject unsupported editions/approvals. Both locales are drafts with empty review lists; the release command rejects them deliberately. Standard release-bundle checks verify no fresh objective/title/parser sentinel, draft image bytes or demo login fixture appears in Android/iOS exports.
 
 The preview APK workflow includes the fresh player in its explicit temporary demo opt-in. It has not been run or represented as a compiled APK by this batch. Staging sync selects fresh package paths and current source PNGs, but no Cloudflare upload/deployment/purge has occurred.
 
