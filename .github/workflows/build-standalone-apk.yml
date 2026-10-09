@@ -1,0 +1,89 @@
+name: Build Standalone Preview APK
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/build-standalone-apk.yml'
+      - 'src/**'
+      - 'App.tsx'
+      - 'app.json'
+      - 'package.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: standalone-apk-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build-apk:
+    name: Build Standalone Demo APK (No Metro Needed)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify repo checks before packaging
+        run: npm run check
+
+      - name: Configure standalone demo preview bundle (ephemeral runner only)
+        run: |
+          node -e '
+          const fs = require("fs");
+          const appJson = JSON.parse(fs.readFileSync("app.json", "utf8"));
+          appJson.expo.plugins = appJson.expo.plugins.filter(
+            (p) => p !== "expo-dev-client" && !(Array.isArray(p) && p[0] === "expo-dev-client")
+          );
+          fs.writeFileSync("app.json", JSON.stringify(appJson, null, 2) + "\n");
+
+          const pkgJson = JSON.parse(fs.readFileSync("package.json", "utf8"));
+          delete pkgJson.dependencies["expo-dev-client"];
+          fs.writeFileSync("package.json", JSON.stringify(pkgJson, null, 2) + "\n");
+
+          for (const file of [
+            "src/app/composition/createAuthGateway.ts",
+            "src/app/composition/createFamilySession.ts",
+            "src/app/navigation/FamilyExperience.tsx",
+            "src/features/content/screens/ContentLabScreen.tsx",
+            "src/features/content/screens/EditionHistoryScreen.tsx",
+          ]) {
+            let content = fs.readFileSync(file, "utf8");
+            content = content.replace(/__DEV__/g, "true");
+            content = content.replace(/process\.env\.EXPO_PUBLIC_AUTH_MODE/g, "\"demo\"");
+            fs.writeFileSync(file, content);
+          }
+          '
+          rm -rf node_modules/expo-dev-client node_modules/expo-dev-launcher node_modules/expo-dev-menu node_modules/expo-dev-menu-interface
+
+      - name: Generate Android native project
+        env:
+          CI: '1'
+        run: npx expo prebuild --platform android --no-install
+
+      - name: Build standalone APK with embedded JS and assets
+        working-directory: android
+        run: ./gradlew assembleRelease --no-daemon -Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=1g"
+
+      - name: Prepare APK artifact
+        run: cp android/app/build/outputs/apk/release/app-release.apk kidsuu-standalone-preview.apk
+
+      - name: Upload Standalone APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: kidsuu-standalone-preview-apk
+          path: kidsuu-standalone-preview.apk
+          if-no-files-found: error
+          retention-days: 30
