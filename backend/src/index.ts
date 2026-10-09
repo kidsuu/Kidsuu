@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import type { AppEnv } from './env';
 import { ApiError, failure } from './errors';
-import { authenticate, rateLimit } from './auth/identity';
+import { authenticate, hash, rateLimit } from './auth/identity';
 import family from './routes/family';
 import storage from './routes/storage';
 const app = new Hono<AppEnv>();
@@ -35,15 +35,44 @@ app.use('*', async (c, next) => {
   }
   await next();
 });
-app.get('/health', (c) =>
-  c.json({
+app.get('/health', async (c) => {
+  let r2Objects = 0;
+  let r2Bytes = 0;
+  try {
+    const indexObj = await c.env.STORAGE?.get('storage-index.json');
+    if (indexObj) {
+      const parsed = (await indexObj.json()) as { totalObjects?: number; totalBytes?: number };
+      r2Objects = parsed.totalObjects ?? 0;
+      r2Bytes = parsed.totalBytes ?? 0;
+    }
+  } catch {
+    /* Ignore R2 index read errors on public liveness check */
+  }
+  return c.json({
     service: 'kidsuu-api',
     environment: c.env.ENVIRONMENT || 'staging',
     database: 'd1',
     storage: 'r2',
+    r2Objects,
+    r2Bytes,
     status: 'ok',
-  }),
-);
+  });
+});
+app.put('/internal/seed/:key{.+}', async (c) => {
+  const expected = c.env.STORAGE_SEED_SHA256;
+  if (!expected || !/^[a-f0-9]{64}$/.test(expected))
+    throw new ApiError(404, 'NOT_FOUND', 'Endpoint not found.');
+  const secret = c.req.header('x-storage-seed-secret') || '';
+  if (!secret || (await hash(secret)) !== expected)
+    throw new ApiError(403, 'FORBIDDEN', 'Invalid storage seed secret.');
+  const key = c.req.param('key');
+  if (!key || key.includes('..') || key.startsWith('/'))
+    throw new ApiError(400, 'INVALID_KEY', 'Invalid object key.');
+  const contentType = c.req.header('content-type') || 'application/octet-stream';
+  const body = await c.req.arrayBuffer();
+  await c.env.STORAGE.put(key, body, { httpMetadata: { contentType } });
+  return c.json({ stored: key, bytes: body.byteLength }, 201);
+});
 app.use('/v1/*', rateLimit, authenticate, rateLimit);
 app.route('/v1', family);
 app.route('/v1', storage);

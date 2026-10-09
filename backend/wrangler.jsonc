@@ -13,6 +13,7 @@
     "AUTH_AUDIENCE": "",
     "AUTH_JWKS_URL": "",
     "ALLOWED_ORIGINS": "",
+    "STORAGE_SEED_SHA256": "",
   },
   "d1_databases": [
     {

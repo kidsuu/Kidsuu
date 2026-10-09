@@ -45,6 +45,9 @@ for (const origin of origins) {
   if (u.protocol !== 'https:' || u.origin !== origin)
     throw new Error('ALLOWED_ORIGINS must be exact HTTPS origins, comma separated.');
 }
+const seedSha256 = process.env.STORAGE_SEED_SHA256?.trim() || '';
+if (seedSha256 && !/^[a-f0-9]{64}$/.test(seedSha256))
+  throw new Error('STORAGE_SEED_SHA256 must be a 64-character hex SHA-256 digest.');
 config.account_id = account;
 config.main = resolve(root, 'src/index.ts');
 // Wrangler joins tsconfig to the generated config directory, even for absolute paths.
@@ -58,6 +61,7 @@ Object.assign(config.vars, {
   AUTH_AUDIENCE: auth[1],
   AUTH_JWKS_URL: auth[2],
   ALLOWED_ORIGINS: origins.join(','),
+  STORAGE_SEED_SHA256: seedSha256,
 });
 mkdirSync(resolve(root, '.wrangler'), { recursive: true });
 writeFileSync(resolve(root, '.wrangler/staging.json'), JSON.stringify(config, null, 2) + '\n');

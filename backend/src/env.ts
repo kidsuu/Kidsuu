@@ -7,6 +7,7 @@ export interface Env {
   AUTH_AUDIENCE?: string;
   AUTH_JWKS_URL?: string;
   ALLOWED_ORIGINS?: string;
+  STORAGE_SEED_SHA256?: string;
 }
 export interface Identity {
   parentId: string;
